@@ -1,0 +1,7 @@
+# Pages sources scrapees : 47 Mo de HTML tiers, non redistribuees.
+# Regenerer avec parse.py si besoin ; raw/parsed.json suffit a rejouer score.py.
+raw/*.html
+
+__pycache__/
+*.pyc
+*.bak

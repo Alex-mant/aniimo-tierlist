@@ -1,0 +1,862 @@
+{
+"Hexxin": {
+"id": "621660",
+"kind": "base"
+},
+"Irisal": {
+"id": "621642",
+"kind": "base"
+},
+"Flutternym": {
+"id": "621681",
+"kind": "base"
+},
+"Tromber": {
+"id": "621626",
+"kind": "base"
+},
+"Melloblum": {
+"id": "621695",
+"kind": "base"
+},
+"Infergon": {
+"id": "621614",
+"kind": "base"
+},
+"Rookey": {
+"id": "621730",
+"kind": "base"
+},
+"Bulbly": {
+"id": "621620",
+"kind": "base"
+},
+"Glynsera": {
+"id": "621595",
+"kind": "base"
+},
+"Blitzwood": {
+"id": "621777",
+"kind": "base"
+},
+"Lunara": {
+"id": "622503",
+"kind": "base"
+},
+"Fenmane": {
+"id": "621723",
+"kind": "base"
+},
+"Fulmintis": {
+"id": "622500",
+"kind": "base"
+},
+"Pawney": {
+"id": "621727",
+"kind": "base"
+},
+"Squarrel": {
+"id": "622501",
+"kind": "base"
+},
+"Sherro": {
+"id": "621607",
+"kind": "base"
+},
+"Grizbo": {
+"id": "621734",
+"kind": "base"
+},
+"Pomegg": {
+"id": "621696",
+"kind": "base"
+},
+"Bailite": {
+"id": "621736",
+"kind": "base"
+},
+"Pranky": {
+"id": "621584",
+"kind": "base"
+},
+"Geodeback": {
+"id": "621618",
+"kind": "base"
+},
+"Fennelun": {
+"id": "621763",
+"kind": "base"
+},
+"Thornblade": {
+"id": "621693",
+"kind": "base"
+},
+"Turbo": {
+"id": "621653",
+"kind": "base"
+},
+"Sheldon": {
+"id": "621606",
+"kind": "base"
+},
+"Lavazar": {
+"id": "621616",
+"kind": "base"
+},
+"Blazen": {
+"id": "621714",
+"kind": "base"
+},
+"Stellarys": {
+"id": "621563",
+"kind": "base"
+},
+"Helmwhelp": {
+"id": "621610",
+"kind": "base"
+},
+"Skippy": {
+"id": "621581",
+"kind": "base"
+},
+"Budsquire": {
+"id": "621691",
+"kind": "base"
+},
+"Gracewing": {
+"id": "621685",
+"kind": "base"
+},
+"Bolty": {
+"id": "621712",
+"kind": "base"
+},
+"Helgon": {
+"id": "621612",
+"kind": "base"
+},
+"Somniwing": {
+"id": "621747",
+"kind": "base"
+},
+"Budclaw": {
+"id": "621668",
+"kind": "base"
+},
+"Bonesky": {
+"id": "621591",
+"kind": "base"
+},
+"Leafy": {
+"id": "621590",
+"kind": "base"
+},
+"Popota": {
+"id": "621599",
+"kind": "base"
+},
+"Jawling": {
+"id": "621608",
+"kind": "base"
+},
+"Iris": {
+"id": "621634",
+"kind": "base"
+},
+"Flameruff": {
+"id": "621574",
+"kind": "base"
+},
+"Fenrier": {
+"id": "621593",
+"kind": "base"
+},
+"Inferlupa": {
+"id": "621580",
+"kind": "base"
+},
+"Panpanta": {
+"id": "621603",
+"kind": "base"
+},
+"Glacy": {
+"id": "621587",
+"kind": "base"
+},
+"Dreaple": {
+"id": "621657",
+"kind": "base"
+},
+"Piopiota": {
+"id": "621601",
+"kind": "base"
+},
+"Fahloo": {
+"id": "621737",
+"kind": "base"
+},
+"Pebbling": {
+"id": "621615",
+"kind": "base"
+},
+"Pomawk": {
+"id": "621700",
+"kind": "base"
+},
+"Shrubclaw": {
+"id": "621667",
+"kind": "base"
+},
+"Dewy": {
+"id": "621704",
+"kind": "base"
+},
+"Nimbi": {
+"id": "621649",
+"kind": "base"
+},
+"Chirpi": {
+"id": "621623",
+"kind": "base"
+},
+"Minespine": {
+"id": "621619",
+"kind": "base"
+},
+"Soleon": {
+"id": "622504",
+"kind": "base"
+},
+"Wisptis": {
+"id": "621706",
+"kind": "base"
+},
+"Sparki": {
+"id": "621673",
+"kind": "base"
+},
+"Waleetle": {
+"id": "621718",
+"kind": "base"
+},
+"Emberpup": {
+"id": "621559",
+"kind": "base"
+},
+"Besauce": {
+"id": "621762",
+"kind": "base"
+},
+"Susuta": {
+"id": "621597",
+"kind": "base"
+},
+"Tuckin": {
+"id": "621663",
+"kind": "base"
+},
+"Squashel": {
+"id": "622502",
+"kind": "base"
+},
+"Helion": {
+"id": "621764",
+"kind": "base"
+},
+"Erlath": {
+"id": "621738",
+"kind": "base"
+},
+"Helmut": {
+"id": "621724",
+"kind": "base"
+},
+"Fragrancier": {
+"id": "621705",
+"kind": "base"
+},
+"Luminelle": {
+"id": "621622",
+"kind": "base"
+},
+"Flamerion": {
+"id": "621677",
+"kind": "base"
+},
+"Veilfloat": {
+"id": "621621",
+"kind": "base"
+},
+"Cornet": {
+"id": "621629",
+"kind": "base"
+},
+"Hummin": {
+"id": "621658",
+"kind": "base"
+},
+"Eko": {
+"id": "621689",
+"kind": "base"
+},
+"Magmarex": {
+"id": "621617",
+"kind": "base"
+},
+"Shelly": {
+"id": "621605",
+"kind": "base"
+},
+"Dazmand": {
+"id": "622499",
+"kind": "base"
+},
+"Eklue": {
+"id": "621690",
+"kind": "base"
+},
+"Bouldus": {
+"id": "621720",
+"kind": "base"
+},
+"Tubster": {
+"id": "621632",
+"kind": "base"
+},
+"Cubbo": {
+"id": "621733",
+"kind": "base"
+},
+"Scorchhowl": {
+"id": "621577",
+"kind": "base"
+},
+"Geoclaw": {
+"id": "621672",
+"kind": "base"
+},
+"Cozite": {
+"id": "621735",
+"kind": "base"
+},
+"Irisalis": {
+"id": "621743",
+"kind": "base"
+},
+"Baleetle": {
+"id": "621716",
+"kind": "base"
+},
+"Ignitis": {
+"id": "621709",
+"kind": "base"
+},
+"Celestis": {
+"id": "621562",
+"kind": "base"
+},
+"Fentuft": {
+"id": "621722",
+"kind": "base"
+},
+"Highland Emberpup": {
+"id": "621560",
+"kind": "form"
+},
+"Mountain Woods Emberpup": {
+"id": "621561",
+"kind": "form"
+},
+"Highland Flameruff": {
+"id": "621575",
+"kind": "form"
+},
+"Mountain Woods Flameruff": {
+"id": "621576",
+"kind": "form"
+},
+"Highland Scorchhowl": {
+"id": "621578",
+"kind": "form"
+},
+"Thunderstorm Scorchhowl": {
+"id": "621564",
+"kind": "form"
+},
+"Prismana Scorchhowl": {
+"id": "621565",
+"kind": "prismana"
+},
+"Mountain Woods Scorchhowl": {
+"id": "621579",
+"kind": "form"
+},
+"Rainstorm Stellarys": {
+"id": "621740",
+"kind": "form"
+},
+"Prismana Stellarys": {
+"id": "621741",
+"kind": "prismana"
+},
+"Beach Chirpi": {
+"id": "621624",
+"kind": "form"
+},
+"Highland Chirpi": {
+"id": "621625",
+"kind": "form"
+},
+"Beach Tromber": {
+"id": "621627",
+"kind": "form"
+},
+"Highland Tromber": {
+"id": "621628",
+"kind": "form"
+},
+"Beach Cornet": {
+"id": "621630",
+"kind": "form"
+},
+"Prismana Cornet": {
+"id": "621742",
+"kind": "prismana"
+},
+"Highland Cornet": {
+"id": "621631",
+"kind": "form"
+},
+"Beach Tubster": {
+"id": "621633",
+"kind": "form"
+},
+"Highland Tubster": {
+"id": "621635",
+"kind": "form"
+},
+"Highland Iris": {
+"id": "621636",
+"kind": "form"
+},
+"Forest Iris": {
+"id": "621637",
+"kind": "form"
+},
+"Grassland Iris": {
+"id": "621638",
+"kind": "form"
+},
+"Prismana Iris": {
+"id": "621639",
+"kind": "prismana"
+},
+"Plateau Iris": {
+"id": "621640",
+"kind": "form"
+},
+"Mountain Woods Iris": {
+"id": "621641",
+"kind": "form"
+},
+"Highland Irisal": {
+"id": "621643",
+"kind": "form"
+},
+"Forest Irisal": {
+"id": "621644",
+"kind": "form"
+},
+"Grassland Irisal": {
+"id": "621645",
+"kind": "form"
+},
+"Prismana Irisal": {
+"id": "621647",
+"kind": "prismana"
+},
+"Plateau Irisal": {
+"id": "621646",
+"kind": "form"
+},
+"Mountain Woods Irisal": {
+"id": "621648",
+"kind": "form"
+},
+"Sea of Flowers Skippy": {
+"id": "621582",
+"kind": "form"
+},
+"Snowfield Skippy": {
+"id": "621583",
+"kind": "form"
+},
+"Sea of Flowers Pranky": {
+"id": "621585",
+"kind": "form"
+},
+"Snowfield Pranky": {
+"id": "621586",
+"kind": "form"
+},
+"Sea of Flowers Glacy": {
+"id": "621588",
+"kind": "form"
+},
+"Snowfield Glacy": {
+"id": "621589",
+"kind": "form"
+},
+"Prismana Glacy": {
+"id": "621744",
+"kind": "prismana"
+},
+"Rainstorm Nimbi": {
+"id": "621650",
+"kind": "form"
+},
+"Cloudmist Nimbi": {
+"id": "621651",
+"kind": "form"
+},
+"Plateau Nimbi": {
+"id": "621652",
+"kind": "form"
+},
+"Rainstorm Turbo": {
+"id": "621654",
+"kind": "form"
+},
+"Cloudmist Turbo": {
+"id": "621655",
+"kind": "form"
+},
+"Prismana Turbo": {
+"id": "621745",
+"kind": "prismana"
+},
+"Plateau Turbo": {
+"id": "621656",
+"kind": "form"
+},
+"Mountain Hummin": {
+"id": "621659",
+"kind": "form"
+},
+"Mountain Hexxin": {
+"id": "621661",
+"kind": "form"
+},
+"Prismana Hexxin": {
+"id": "621746",
+"kind": "prismana"
+},
+"Mountain Tuckin": {
+"id": "621662",
+"kind": "form"
+},
+"Mudflat Budclaw": {
+"id": "621664",
+"kind": "form"
+},
+"Beach Budclaw": {
+"id": "621665",
+"kind": "form"
+},
+"Bay Budclaw": {
+"id": "621666",
+"kind": "form"
+},
+"Mudflat Shrubclaw": {
+"id": "621669",
+"kind": "form"
+},
+"Beach Shrubclaw": {
+"id": "621670",
+"kind": "form"
+},
+"Bay Shrubclaw": {
+"id": "621671",
+"kind": "form"
+},
+"Highland Sparki": {
+"id": "621674",
+"kind": "form"
+},
+"Forest Sparki": {
+"id": "621675",
+"kind": "form"
+},
+"Sea of Flowers Sparki": {
+"id": "621676",
+"kind": "form"
+},
+"Highland Flamerion": {
+"id": "621678",
+"kind": "form"
+},
+"Forest Flamerion": {
+"id": "621679",
+"kind": "form"
+},
+"Sea of Flowers Flamerion": {
+"id": "621680",
+"kind": "form"
+},
+"Sea of Flowers Flutternym": {
+"id": "621682",
+"kind": "form"
+},
+"Nighttime Flutternym": {
+"id": "621683",
+"kind": "form"
+},
+"Mountain Woods Flutternym": {
+"id": "621684",
+"kind": "form"
+},
+"Sea of Flowers Gracewing": {
+"id": "621686",
+"kind": "form"
+},
+"Nighttime Gracewing": {
+"id": "621687",
+"kind": "form"
+},
+"Mountain Woods Gracewing": {
+"id": "621688",
+"kind": "form"
+},
+"Towerwood Budsquire": {
+"id": "621692",
+"kind": "form"
+},
+"Thunderstorm Thornblade": {
+"id": "621748",
+"kind": "form"
+},
+"Prismana Thornblade": {
+"id": "621749",
+"kind": "prismana"
+},
+"Towerwood Thornblade": {
+"id": "621694",
+"kind": "form"
+},
+"Snowfield Pomegg": {
+"id": "621697",
+"kind": "form"
+},
+"Highland Pomegg": {
+"id": "621698",
+"kind": "form"
+},
+"Sea of Flowers Pomegg": {
+"id": "621699",
+"kind": "form"
+},
+"Snowfield Pomawk": {
+"id": "621701",
+"kind": "form"
+},
+"Highland Pomawk": {
+"id": "621702",
+"kind": "form"
+},
+"Sea of Flowers Pomawk": {
+"id": "621703",
+"kind": "form"
+},
+"Forest Wisptis": {
+"id": "621707",
+"kind": "form"
+},
+"Highland Wisptis": {
+"id": "621708",
+"kind": "form"
+},
+"Forest Ignitis": {
+"id": "621710",
+"kind": "form"
+},
+"Prismana Ignitis": {
+"id": "621750",
+"kind": "prismana"
+},
+"Highland Ignitis": {
+"id": "621711",
+"kind": "form"
+},
+"Nighttime Bonesky": {
+"id": "621592",
+"kind": "form"
+},
+"Nighttime Fenrier": {
+"id": "621594",
+"kind": "form"
+},
+"Nighttime Glynsera": {
+"id": "621596",
+"kind": "form"
+},
+"Mountain Woods Bolty": {
+"id": "621713",
+"kind": "form"
+},
+"Prismana Blazen": {
+"id": "621752",
+"kind": "prismana"
+},
+"Mountain Woods Blazen": {
+"id": "621715",
+"kind": "form"
+},
+"Nighttime Susuta": {
+"id": "621598",
+"kind": "form"
+},
+"Nighttime Popota": {
+"id": "621600",
+"kind": "form"
+},
+"Nighttime Piopiota": {
+"id": "621602",
+"kind": "form"
+},
+"Nighttime Panpanta": {
+"id": "621604",
+"kind": "form"
+},
+"Prismana Panpanta": {
+"id": "621753",
+"kind": "prismana"
+},
+"Thunderstorm Sherro": {
+"id": "621754",
+"kind": "form"
+},
+"Prismana Sherro": {
+"id": "621755",
+"kind": "prismana"
+},
+"Snowfield Baleetle": {
+"id": "621717",
+"kind": "form"
+},
+"Snowfield Waleetle": {
+"id": "621719",
+"kind": "form"
+},
+"Snowfield Bouldus": {
+"id": "621721",
+"kind": "form"
+},
+"Prismana Fenmane": {
+"id": "621756",
+"kind": "prismana"
+},
+"Snowfield Helmut": {
+"id": "621725",
+"kind": "form"
+},
+"Mountain Woods Helmut": {
+"id": "621726",
+"kind": "form"
+},
+"Snowfield Pawney": {
+"id": "621728",
+"kind": "form"
+},
+"Mountain Woods Pawney": {
+"id": "621729",
+"kind": "form"
+},
+"Prismana Pawney": {
+"id": "621757",
+"kind": "prismana"
+},
+"Snowfield Rookey": {
+"id": "621731",
+"kind": "form"
+},
+"Mountain Woods Rookey": {
+"id": "621732",
+"kind": "form"
+},
+"Mountain Jawling": {
+"id": "621609",
+"kind": "form"
+},
+"Mountain Helmwhelp": {
+"id": "621611",
+"kind": "form"
+},
+"Mountain Helgon": {
+"id": "621613",
+"kind": "form"
+},
+"Prismana Grizbo": {
+"id": "621758",
+"kind": "prismana"
+},
+"Prismana Magmarex": {
+"id": "621759",
+"kind": "prismana"
+},
+"Rainstorm Luminelle": {
+"id": "621760",
+"kind": "form"
+},
+"Prismana Luminelle": {
+"id": "621761",
+"kind": "prismana"
+},
+"Prismana Inferlupa": {
+"id": "622511",
+"kind": "prismana"
+},
+"Prismana Melloblum": {
+"id": "622510",
+"kind": "prismana"
+},
+"Prismana Glynsera": {
+"id": "621751",
+"kind": "prismana"
+},
+"Prismana Waleetle": {
+"id": "622509",
+"kind": "prismana"
+},
+"Prismana Fulmintis": {
+"id": "622512",
+"kind": "prismana"
+},
+"How to Beat Alpha Blazen": {
+"id": "623880",
+"kind": "form"
+},
+"Alpha Blazen": {
+"id": "623880",
+"kind": "form"
+},
+"Alpha Glynsera": {
+"id": "621779",
+"kind": "form"
+},
+"Prismana Infergon": {
+"id": "622508",
+"kind": "prismana"
+},
+"How to Beat Alpha Scorchhowl": {
+"id": "623717",
+"kind": "form"
+},
+"Alpha Scorchhowl": {
+"id": "623717",
+"kind": "form"
+},
+"Alpha Ignitis": {
+"id": "621779",
+"kind": "form"
+}
+}

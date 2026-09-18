@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aniimo — Tier List</title>
+<style>
+:root{
+  --bg:#0d0f14; --bg2:#141821; --bg3:#1b2029; --line:#262c38;
+  --tx:#e6e9f0; --tx2:#9aa3b5; --tx3:#646d80;
+  --S:#ff4d6d; --A:#ff9f43; --B:#ffd93d; --C:#4dd4ac; --D:#5a9fe8;
+  --ok:#4dd4ac; --warn:#ffb84d; --bad:#ff6b8a; --acc:#7c8cff;
+  --Fire:#ff6b4a; --Water:#4aa8ff; --Grass:#5ed46a; --Wind:#6fe0c8; --Earth:#c49a5a;
+  --Ice:#7fd8ff; --Lightning:#ffd23d; --Dark:#a77cff; --Light:#ffe9a8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.5 "Segoe UI",system-ui,sans-serif;
+     -webkit-font-smoothing:antialiased}
+a{color:var(--acc)}
+h1,h2,h3{font-weight:650;letter-spacing:-.01em}
+button,select,input{font:inherit;color:inherit}
+
+/* ---------------------------------------------------------------- shell -- */
+header{position:sticky;top:0;z-index:50;background:rgba(13,15,20,.94);
+       backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{max-width:1560px;margin:0 auto;padding:10px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.logo{font-size:17px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.logo small{color:var(--tx3);font-weight:400;font-size:11px;margin-left:7px;letter-spacing:0}
+nav{display:flex;gap:2px;background:var(--bg2);border-radius:9px;padding:3px}
+nav button{background:none;border:0;padding:6px 13px;border-radius:7px;color:var(--tx2);
+           cursor:pointer;font-size:13px;font-weight:550;transition:.12s}
+nav button:hover{color:var(--tx)}
+nav button.on{background:var(--bg3);color:var(--tx);box-shadow:0 1px 3px #0006}
+main{max-width:1560px;margin:0 auto;padding:20px 18px 80px}
+
+/* --------------------------------------------------------------- filtres -- */
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+select,input[type=search]{background:var(--bg2);border:1px solid var(--line);border-radius:8px;
+  padding:7px 10px;font-size:13px;outline:0}
+select:focus,input:focus{border-color:var(--acc)}
+input[type=search]{min-width:190px}
+.seg{display:flex;background:var(--bg2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{background:none;border:0;padding:7px 12px;color:var(--tx2);cursor:pointer;
+            font-size:12.5px;font-weight:550;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--acc);color:#0d0f14}
+.chk{display:flex;align-items:center;gap:6px;color:var(--tx2);font-size:12.5px;cursor:pointer;
+     background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.chk input{accent-color:var(--acc)}
+.count{color:var(--tx3);font-size:12.5px;margin-left:auto}
+
+/* ----------------------------------------------------------------- tiers -- */
+.kindblk{margin-bottom:34px}
+.kindhd{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;padding-bottom:8px;
+        border-bottom:1px solid var(--line)}
+.kindhd h2{font-size:16px}
+.kindhd span{color:var(--tx3);font-size:12px}
+.row{display:grid;grid-template-columns:54px 1fr;gap:10px;margin-bottom:8px}
+.tag{border-radius:9px;display:flex;align-items:center;justify-content:center;
+     font-size:25px;font-weight:800;color:#0d0f14;font-family:Georgia,serif}
+.tag.S{background:var(--S)}.tag.A{background:var(--A)}.tag.B{background:var(--B)}
+.tag.C{background:var(--C)}.tag.D{background:var(--D)}
+.cards{display:flex;flex-wrap:wrap;gap:7px;background:var(--bg2);border-radius:9px;padding:8px;min-height:64px}
+.card{position:relative;width:78px;cursor:pointer;border-radius:8px;padding:4px 3px 5px;
+      background:var(--bg3);border:1px solid transparent;transition:.12s}
+.card:hover{border-color:var(--acc);transform:translateY(-2px)}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;background:#0a0c10;display:block}
+.card .nm{font-size:10px;line-height:1.2;text-align:center;margin-top:3px;color:var(--tx);
+          height:24px;overflow:hidden;word-break:break-word}
+.card .sc{position:absolute;top:6px;right:5px;background:#0009;border-radius:4px;padding:0 3px;
+          font-size:9.5px;font-weight:700;color:var(--tx)}
+.card .fl{position:absolute;top:6px;left:5px;display:flex;gap:2px}
+.dot{width:7px;height:7px;border-radius:50%;box-shadow:0 0 0 1px #0008}
+.badges{position:absolute;bottom:31px;left:3px;right:3px;display:flex;gap:2px;justify-content:center}
+.bd{font-size:8.5px;font-weight:700;border-radius:3px;padding:0 3px;line-height:13px}
+.bd.same{background:#0009;color:var(--tx3)}
+.bd.div{background:#0009;color:var(--warn)}
+.bd.uns{background:#0009;color:var(--bad)}
+.empty{color:var(--tx3);font-size:12px;padding:20px;text-align:center;width:100%}
+
+/* ---------------------------------------------------------------- table -- */
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:right;padding:8px 9px;color:var(--tx2);font-weight:600;cursor:pointer;
+   border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:57px;background:var(--bg);z-index:5}
+th:first-child,th:nth-child(2){text-align:left}
+th:hover{color:var(--tx)}
+td{padding:6px 9px;text-align:right;border-bottom:1px solid #1a1e27}
+td:first-child,td:nth-child(2){text-align:left}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--bg2)}
+.mini{width:26px;height:26px;border-radius:5px;object-fit:cover;vertical-align:middle;margin-right:7px;background:#0a0c10}
+.tpill{display:inline-block;width:19px;text-align:center;border-radius:4px;font-weight:800;
+       color:#0d0f14;font-size:11px}
+.tpill.S{background:var(--S)}.tpill.A{background:var(--A)}.tpill.B{background:var(--B)}
+.tpill.C{background:var(--C)}.tpill.D{background:var(--D)}
+
+/* ---------------------------------------------------------------- panels -- */
+.panel{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+.panel h2{font-size:15px;margin-bottom:4px}
+.panel .sub{color:var(--tx3);font-size:12.5px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px}
+.sl{display:grid;grid-template-columns:104px 1fr 52px;gap:10px;align-items:center;margin-bottom:7px}
+.sl label{color:var(--tx2);font-size:12px}
+.sl input[type=range]{width:100%;accent-color:var(--acc);height:16px}
+.sl .v{text-align:right;font-variant-numeric:tabular-nums;font-size:12px;color:var(--tx)}
+.btn{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:8px 14px;
+     cursor:pointer;font-size:13px;font-weight:550;transition:.12s}
+.btn:hover{border-color:var(--acc);color:var(--tx)}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#0d0f14}
+.btn.pri:hover{filter:brightness(1.1)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.note{color:var(--tx3);font-size:12px;line-height:1.6;margin-top:10px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:4px 0;font-size:12.5px;border-bottom:1px solid #1a1e27}
+.kv span:first-child{color:var(--tx2)}
+.kv b{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ----------------------------------------------------------------- barre -- */
+.b{height:5px;background:#0a0c10;border-radius:3px;overflow:hidden}
+.b i{display:block;height:100%;border-radius:3px;background:var(--acc)}
+.axr{display:grid;grid-template-columns:100px 1fr 32px;gap:8px;align-items:center;margin-bottom:5px;font-size:12px}
+.axr .l{color:var(--tx2)}
+.axr .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--tx)}
+
+/* ----------------------------------------------------------------- équipe -- */
+.slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.slot{background:var(--bg3);border:1px dashed var(--line);border-radius:10px;padding:10px;
+      text-align:center;min-height:168px;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;gap:6px;cursor:pointer;transition:.12s}
+.slot:hover{border-color:var(--acc)}
+.slot.full{border-style:solid;cursor:default}
+.slot img{width:76px;height:76px;border-radius:9px;object-fit:cover;background:#0a0c10}
+.slot .n{font-size:12px;font-weight:600;line-height:1.25}
+.slot .r{font-size:11px;color:var(--tx3)}
+.slot .x{font-size:11px;color:var(--bad);cursor:pointer;border:0;background:none;padding:2px 6px}
+.slot .plus{font-size:30px;color:var(--tx3);line-height:1}
+.big{font-size:42px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.grade{font-family:Georgia,serif;font-size:52px;font-weight:800;line-height:1}
+.grade.S{color:var(--S)}.grade.A{color:var(--A)}.grade.B{color:var(--B)}
+.grade.C{color:var(--C)}.grade.D{color:var(--D)}
+.li{font-size:12.5px;line-height:1.6;padding:6px 0 6px 20px;position:relative;border-bottom:1px solid #1a1e27}
+.li:before{position:absolute;left:0;top:6px;font-weight:700}
+.li.up:before{content:"+";color:var(--ok)}
+.li.dn:before{content:"\2212";color:var(--bad)}
+.li b{color:var(--tx)}
+
+/* ----------------------------------------------------------------- modale -- */
+.ov{position:fixed;inset:0;background:#000a;backdrop-filter:blur(3px);z-index:100;
+    display:none;align-items:flex-start;justify-content:center;padding:34px 16px;overflow:auto}
+.ov.on{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--line);border-radius:14px;max-width:900px;
+       width:100%;padding:22px}
+.mhd{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.mhd img{width:128px;height:128px;border-radius:11px;object-fit:cover;background:#0a0c10;flex:none}
+.mhd h2{font-size:21px}
+.pill{display:inline-block;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:650;
+      background:var(--bg3);color:var(--tx2);margin:3px 4px 0 0}
+.close{float:right;background:none;border:0;color:var(--tx3);font-size:22px;cursor:pointer;line-height:1}
+.close:hover{color:var(--tx)}
+.sk{border-top:1px solid #1a1e27;padding:8px 0;font-size:12.5px}
+.sk b{color:var(--tx)}
+.sk p{color:var(--tx2);margin-top:2px}
+.warnbox{background:#3a2a1a;border:1px solid #6b4a20;border-radius:8px;padding:9px 12px;
+         font-size:12.5px;color:#ffd9a0;margin-bottom:12px;line-height:1.55}
+
+.meth{max-width:840px;font-size:13.5px;line-height:1.75;color:var(--tx2)}
+.meth h2{color:var(--tx);font-size:17px;margin:26px 0 8px}
+.meth h3{color:var(--tx);font-size:14px;margin:18px 0 6px}
+.meth p{margin-bottom:10px}
+.meth code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:12.5px;color:var(--tx)}
+.meth ul{margin:0 0 10px 20px}
+.meth li{margin-bottom:5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="logo">Aniimo <small>tier list recalculée</small></div>
+    <nav id="nav"></nav>
+    <div class="count" id="count"></div>
+  </div>
+</header>
+
+<main>
+  <div class="filters" id="filters"></div>
+  <div id="view"></div>
+</main>
+
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
+
+<script src="data.js"></script>
+<script>
+"use strict";
+/* ========================================================== constantes == */
+const STATS = ["hp","atk","pdef","mdef","brk","reg"];
+const SLAB  = {hp:"PV",atk:"ATQ",pdef:"Déf.P",mdef:"Déf.M",brk:"BREAK",reg:"REGEN"};
+const AXES  = META.axes;
+const ALAB  = {dmg:"dégâts",team:"apport d'équipe",brk:"BREAK",sust:"survie / soin",
+               res:"ressource EP",ctrl:"contrôle"};
+const ELS   = ["Fire","Water","Grass","Wind","Earth","Ice","Lightning","Dark","Light"];
+const ELAB  = {Fire:"Feu",Water:"Eau",Grass:"Herbe",Wind:"Vent",Earth:"Terre",Ice:"Glace",
+               Lightning:"Foudre",Dark:"Ténèbres",Light:"Lumière"};
+const ROLES = ["DPS","Break","Support","Regen","Heal"];
+const KINDS = {base:"Normaux",form:"Formes régionales",prismana:"Prismana"};
+const TIERS = ["S","A","B","C","D"];
+const VIEWS = {tier:"Tiers",stats:"Stats",team:"Équipe",tune:"Réglages",meth:"Méthode"};
+
+/* ============================================================== état ==== */
+const S = {
+  view:"tier", kinds:["base","form","prismana"], role:"", el:"", stage:"", q:"",
+  hideSame:false, sort:"score", desc:true,
+  team:[null,null,null,null], picking:-1,
+  stab:null                                  // {nom: % de tirages gardant le palier}
+};
+const clone = o => JSON.parse(JSON.stringify(o));
+const WS = {                                 // poids vivants, modifiables
+  mix:    clone(META.mix),
+  stat:   clone(META.weights),
+  kit:    clone(META.kitW),
+  give:   clone(META.giveW),
+  synMix: clone(META.synMix),
+  condPen: META.condPen
+};
+const WS0 = clone(WS);
+
+/* ====================================================== recalcul score == */
+/* statParts[s] contient deja la normalisation et le bonus de couronne :
+   il suffit de re-ponderer, donc tout est recalculable cote client. */
+function sStat(r,w){
+  const C = META.crown; let tot=0, det=0;
+  for(const s of STATS){
+    tot += w[s]*r.statParts[s]/100;
+    det += w[s]*(r.fav.indexOf(s)>=0 ? C : 1);
+  }
+  return det ? Math.min(100, tot/det*100) : 0;
+}
+function sKit(r,w,pen){
+  let raw=0; for(const a of AXES) raw += w[a]*r.axes[a]/10;
+  return Math.min(100, raw*100*(1-pen*r.cond));
+}
+function sSyn(r,gw,mix){
+  let give=0; for(const a in gw) give += gw[a]*r.axes[a]/10;
+  give = Math.min(100, give*100);
+  let fit = META.condFit[r.cond];
+  if(r.el.length>1) fit += 24;
+  if(r.stage==="Nova" || !r.stage) fit += 20;
+  const pf = (r.pathfinding||"").toLowerCase();
+  if(/fly|swim|climb|glide/.test(pf)) fit += 12;
+  if(r.axes.ctrl>=5 || r.axes.dmg>=7) fit += 10;
+  fit = Math.min(100, fit);
+  const m = mix[r.role||"DPS"];
+  return m*give + (1-m)*fit;
+}
+function recompute(ws){
+  const w = ws||WS, sum = (w.mix.stat + w.mix.kit + w.mix.syn) || 1;
+  for(const r of ANIIMO){
+    const role = r.role||"DPS";
+    r._st = sStat(r, w.stat[role]);
+    r._ki = sKit(r, w.kit[role], w.condPen);
+    r._sy = sSyn(r, w.give, w.synMix);
+    r._sc = (w.mix.stat*r._st + w.mix.kit*r._ki + w.mix.syn*r._sy)/sum * r.sStage;
+  }
+}
+/* Paliers : percentiles recalcules sur le vivier fourni. */
+function tiers(pool){
+  pool.sort((a,b)=>b._sc-a._sc);
+  const n = pool.length; let prev = 0;
+  META.cut.forEach(function(c,i){
+    const t = c[0], th = c[1];
+    let end = (i===META.cut.length-1) ? n : Math.round(th*n);
+    if(n>=TIERS.length) end = Math.max(end, prev+1);        // jamais de palier vide
+    end = Math.min(n, Math.max(end, prev));
+    for(let k=prev;k<end;k++){ pool[k]._tier=t; pool[k]._rk=k+1; pool[k]._of=n; }
+    prev = end;
+  });
+  for(let k=prev;k<n;k++){ pool[k]._tier="D"; pool[k]._rk=k+1; pool[k]._of=n; }
+  return pool;
+}
+
+/* ============================================================ filtrage == */
+function pass(r){
+  if(S.kinds.indexOf(r.kind)<0) return false;
+  if(S.role && r.role!==S.role) return false;
+  if(S.el && r.el.indexOf(S.el)<0) return false;
+  if(S.stage && r.stage!==S.stage) return false;
+  if(S.hideSame && r.same) return false;
+  if(S.q && r.name.toLowerCase().indexOf(S.q.toLowerCase())<0) return false;
+  return true;
+}
+function kindsShown(){ return S.kinds; }
+/* Une seule tier list. Le but est de composer une equipe : un Normal, une forme
+   regionale et une Prismana se recrutent dans le meme vivier, donc ils se
+   classent sur la meme echelle. Les rosters ne sont que des filtres. */
+function pool(){ return tiers(ANIIMO.filter(pass)); }
+const byName = {}; ANIIMO.forEach(r=>{ byName[r.name]=r; });
+const img = n => "images/"+encodeURIComponent(n)+".png";
+const fam = n => (n||"").replace(/^Prismana /,"");
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ============================================================ rendu UI == */
+function navHTML(){
+  return Object.keys(VIEWS).map(k=>
+    `<button class="${S.view===k?"on":""}" data-v="${k}">${VIEWS[k]}</button>`).join("");
+}
+function filtersHTML(){
+  if(S.view==="meth") return "";
+  const all = S.kinds.length===Object.keys(KINDS).length;
+  const seg = Object.keys(KINDS).map(k=>
+      `<button class="${S.kinds.indexOf(k)>=0?"on":""}" data-k="${k}"
+        title="Afficher ou retirer ce groupe de la tier list">${KINDS[k]}</button>`).join("")
+    + `<button class="${all?"on":""}" data-k="all" title="Tout remettre">Tous</button>`;
+  const opt = (v,l,cur)=>`<option value="${v}"${cur===v?" selected":""}>${l}</option>`;
+  const base = `
+   <select id="fr">${opt("","Tous rôles",S.role)}${ROLES.map(r=>opt(r,r,S.role)).join("")}</select>
+   <select id="fe">${opt("","Tous éléments",S.el)}${ELS.map(e=>opt(e,ELAB[e],S.el)).join("")}</select>
+   <select id="fs">${opt("","Tous stades",S.stage)}${["Nova","Gamma","Lumin"].map(s=>opt(s,s,S.stage)).join("")}</select>
+   <label class="chk"><input type="checkbox" id="fh"${S.hideSame?" checked":""}>
+     Masquer les formes identiques</label>
+   <input type="search" id="fq" placeholder="Rechercher…" value="${esc(S.q)}">`;
+  if(S.view==="tune") return base;
+  return `<div class="seg" id="segk">${seg}</div>` + base;
+}
+function cardHTML(r){
+  const dots = r.el.map(e=>`<i class="dot" style="background:var(--${e})" title="${ELAB[e]}"></i>`).join("");
+  const bd = [];
+  if(r.same) bd.push(`<i class="bd same" title="Identique à ${esc(r.parent)}">=</i>`);
+  if(r.ref && r.ref!==r._tier) bd.push(`<i class="bd div" title="Game8 le classe ${r.ref}">${r.ref}</i>`);
+  if(S.stab && S.stab[r.name]<60) bd.push(`<i class="bd uns" title="Palier instable : ${S.stab[r.name]} % des tirages">~</i>`);
+  return `<div class="card" data-n="${esc(r.name)}">
+    <div class="fl">${dots}</div><div class="sc">${r._sc.toFixed(0)}</div>
+    <img src="${img(r.name)}" alt="" loading="lazy">
+    ${bd.length?`<div class="badges">${bd.join("")}</div>`:""}
+    <div class="nm">${esc(r.name)}</div></div>`;
+}
+function viewTier(){
+  const P = pool();
+  if(!P.length) return '<div class="empty">Aucun Aniimo ne correspond aux filtres.</div>';
+  const br = Object.keys(KINDS).map(k=>[KINDS[k], P.filter(r=>r.kind===k).length])
+             .filter(x=>x[1]).map(x=>x[1]+" "+x[0].toLowerCase()).join(" · ");
+  let h = `<div class="kindblk"><div class="kindhd"><h2>Classement général</h2>
+    <span>${P.length} entrée${P.length>1?"s":""} sur une seule échelle — ${br}</span></div>`;
+  for(const t of TIERS){
+    const g = P.filter(r=>r._tier===t);
+    h += `<div class="row"><div class="tag ${t}">${t}</div><div class="cards">${
+      g.length ? g.map(cardHTML).join("") : '<div class="empty">—</div>'}</div></div>`;
+  }
+  return h + "</div>";
+}
+function viewStats(){
+  const all = pool().slice();
+  const key = S.sort;
+  const f = r => key==="name" ? r.name : key==="score" ? r._sc : key==="st" ? r._st
+            : key==="ki" ? r._ki : key==="sy" ? r._sy : key==="total" ? r.total : r.stats[key];
+  all.sort((a,b)=>{
+    const x=f(a), y=f(b);
+    return (typeof x==="string" ? x.localeCompare(y) : x-y) * (S.desc?-1:1);
+  });
+  const th = (k,l)=>`<th data-s="${k}">${l}${S.sort===k?(S.desc?" ↓":" ↑"):""}</th>`;
+  return `<table><thead><tr>
+    <th>Palier</th>${th("name","Aniimo")}<th>Rôle</th>
+    ${STATS.map(s=>th(s,SLAB[s])).join("")}${th("total","Total")}
+    ${th("st","Stats")}${th("ki","Kit")}${th("sy","Syn.")}${th("score","Score")}<th>Game8</th>
+  </tr></thead><tbody>${all.map(r=>`<tr data-n="${esc(r.name)}">
+    <td><i class="tpill ${r._tier}">${r._tier}</i></td>
+    <td><img class="mini" src="${img(r.name)}" alt="" loading="lazy">${esc(r.name)}${
+        r.same?' <i class="bd same">=</i>':""}</td>
+    <td>${r.role||"—"}</td>
+    ${STATS.map(s=>`<td${r.fav.indexOf(s)>=0?' style="color:var(--ok)"':""}>${r.stats[s]}</td>`).join("")}
+    <td>${r.total}</td>
+    <td>${r._st.toFixed(0)}</td><td>${r._ki.toFixed(0)}</td><td>${r._sy.toFixed(0)}</td>
+    <td><b>${r._sc.toFixed(1)}</b></td>
+    <td>${r.ref ? `<i class="tpill ${r.ref}">${r.ref}</i>` : '<span style="color:var(--tx3)">—</span>'}</td>
+  </tr>`).join("")}</tbody></table>`;
+}
+
+/* ====================================================== note d'équipe === */
+const AXT = {dmg:8,team:6,brk:7,sust:6,res:6,ctrl:5};        // seuils de couverture
+const AXW = {dmg:.28,team:.20,brk:.20,sust:.14,res:.10,ctrl:.08};
+const TW  = {power:.30, axes:.30, el:.12, role:.13, combo:.15};
+
+function teamScore(mem){
+  const m = mem.filter(Boolean);
+  if(!m.length) return null;
+  const up=[], dn=[];
+
+  /* 1. puissance individuelle moyenne */
+  const power = m.reduce((a,r)=>a+r._sc,0)/m.length;
+
+  /* 2. couverture des six axes : le meilleur porteur, plus 40 % du second,
+        parce qu'une redondance aide un peu mais ne double pas l'effet. */
+  let axes=0; const axd={};
+  for(const a of AXES){
+    const v = m.map(r=>r.axes[a]).sort((x,y)=>y-x);
+    const eff = v[0] + .4*(v[1]||0);
+    const sc = Math.min(1, eff/AXT[a]);
+    axd[a] = {eff:eff, sc:sc};
+    axes += AXW[a]*sc;
+  }
+  axes *= 100;
+  for(const a of AXES){
+    if(axd[a].sc < .45)
+      dn.push(`Axe <b>${ALAB[a]}</b> presque absent : ${axd[a].eff.toFixed(1)} sur ${AXT[a]} attendus.`);
+    else if(axd[a].sc >= 1 && AXW[a] >= .2)
+      up.push(`Axe <b>${ALAB[a]}</b> pleinement couvert.`);
+  }
+
+  /* 3. éléments */
+  const els = Array.from(new Set([].concat.apply([], m.map(r=>r.el))));
+  const el = Math.min(1, els.length/5)*100;
+  if(els.length>=4) up.push(`<b>${els.length} éléments</b> couverts : peu de contenus vous prendront à défaut.`);
+  if(els.length<=2 && m.length>=3)
+    dn.push(`Seulement <b>${els.length} élément${els.length>1?"s":""}</b> : l'équipe s'effondre face à une résistance adverse.`);
+
+  /* 4. rôles */
+  const rl = Array.from(new Set(m.map(r=>r.role).filter(Boolean)));
+  const role = Math.min(1, rl.length/3)*100;
+  if(rl.length>=3) up.push(`<b>${rl.length} rôles</b> distincts : la composition se tient toute seule.`);
+  if(rl.length===1 && m.length>=3) dn.push(`Les ${m.length} membres partagent le rôle <b>${rl[0]}</b>.`);
+
+  /* 5. combos nommés lus dans les kits, et affinités élémentaires */
+  let combo = 35;
+  const names = m.map(r=>fam(r.kitWho));
+  for(const d of META.duos){
+    const used=[]; let ok=true;
+    for(const g of d.need){
+      let i=-1;
+      for(let j=0;j<names.length;j++)
+        if(g.indexOf(names[j])>=0 && (!d.distinct || used.indexOf(j)<0)){ i=j; break; }
+      if(i<0){ ok=false; break; }
+      used.push(i);
+    }
+    if(ok){
+      combo += d.pts;
+      up.push(`Duo <b>${used.map(i=>esc(m[i].name)).join(" + ")}</b> — ${esc(d.why)}`);
+    }
+  }
+  for(let i=0;i<m.length;i++){
+    const L = META.lock[fam(m[i].kitWho)];
+    if(!L) continue;
+    const n = m.filter((r,j)=>j!==i && r.el.indexOf(L)>=0).length;
+    if(n){
+      combo += Math.min(2,n)*7;
+      up.push(`<b>${esc(m[i].name)}</b> amplifie l'élément ${ELAB[L]} : ${n} allié${n>1?"s en profitent":" en profite"}.`);
+    } else if(m[i].axes.team>=5){
+      dn.push(`L'apport de <b>${esc(m[i].name)}</b> est verrouillé sur ${ELAB[L]}, et personne d'autre ne porte cet élément.`);
+    }
+  }
+  combo = Math.min(100, combo);
+
+  /* 6. règles : ce sont des manques structurels, donc un malus direct */
+  let malus = 0;
+  const R = {}; META.rules.forEach(r=>{ R[r.id]=r; });
+  const has = f => m.some(f);
+  if(names.indexOf("Pawney")>=0 && !has(r=>r.role==="Break"||r.axes.ctrl>=6)){
+    malus += R.breaker.pts; dn.push(esc(R.breaker.why));
+  }
+  if(!has(r=>r.axes.res>=5)){ malus += R.ep.pts; dn.push(esc(R.ep.why)); }
+  if(!has(r=>r.axes.brk>=5 || r.role==="Break")){ malus += R["break"].pts; dn.push(esc(R["break"].why)); }
+  if(!has(r=>r.axes.sust>=5 || r.role==="Heal")){ malus += R.sust.pts; dn.push(esc(R.sust.why)); }
+
+  const note = Math.max(0, Math.min(100,
+    TW.power*power + TW.axes*axes + TW.el*el + TW.role*role + TW.combo*combo - malus));
+  const grade = note>=80?"S":note>=70?"A":note>=58?"B":note>=45?"C":"D";
+  return {note,grade,power,axes,el,role,combo,malus,up,dn,els,rl,axd,n:m.length};
+}
+/* Composition gloutonne : on part du meilleur candidat, puis on ajoute a chaque
+   tour celui qui maximise la note d'ensemble. */
+function autoTeam(){
+  const cand = ANIIMO.filter(pass);
+  if(!cand.length) return;
+  const team = [];
+  for(let slot=0; slot<4 && team.length<cand.length; slot++){
+    let best=null, bs=-1;
+    for(const c of cand){
+      if(team.some(x=>x.name===c.name)) continue;
+      const t = teamScore(team.concat([c]));
+      if(t && t.note>bs){ bs=t.note; best=c; }
+    }
+    if(!best) break;
+    team.push(best);
+  }
+  S.team = [0,1,2,3].map(i=>team[i]||null);
+}
+function viewTeam(){
+  const T = teamScore(S.team);
+  const slots = S.team.map((r,i)=> r
+    ? `<div class="slot full"><img src="${img(r.name)}" alt="">
+        <div class="n">${esc(r.name)}</div>
+        <div class="r">${r.role||"—"} · ${r.el.map(e=>ELAB[e]).join("/")} · ${r._sc.toFixed(0)}</div>
+        <button class="x" data-rm="${i}">retirer</button></div>`
+    : `<div class="slot" data-add="${i}"><div class="plus">+</div>
+        <div class="r">emplacement ${i+1}</div></div>`).join("");
+
+  let pick = "";
+  if(S.picking>=0){
+    const list = ANIIMO.filter(r=>pass(r) && !S.team.some(x=>x && x.name===r.name))
+                 .sort((a,b)=>b._sc-a._sc).slice(0,120);
+    pick = `<div class="panel"><h2>Choisir pour l'emplacement ${S.picking+1}</h2>
+      <div class="sub">Les filtres du bandeau s'appliquent. ${list.length} candidats, les mieux notés d'abord.</div>
+      <div class="cards">${list.length?list.map(cardHTML).join(""):'<div class="empty">Aucun candidat.</div>'}</div>
+      <div class="btns"><button class="btn" id="cancelpick">Annuler</button></div></div>`;
+  }
+
+  const bd = T ? [["Puissance brute",T.power,TW.power],["Couverture des axes",T.axes,TW.axes],
+                  ["Éléments",T.el,TW.el],["Rôles",T.role,TW.role],
+                  ["Combos et affinités",T.combo,TW.combo]]
+    .map(x=>`<div class="axr"><div class="l">${x[0]}</div>
+      <div class="b"><i style="width:${x[1].toFixed(0)}%"></i></div>
+      <div class="n">${x[1].toFixed(0)}</div></div>
+      <div style="font-size:11px;color:var(--tx3);margin:-3px 0 7px 108px">poids ${(x[2]*100).toFixed(0)} %</div>`
+    ).join("") : "";
+
+  return `
+  <div class="panel"><h2>Constructeur d'équipe</h2>
+    <div class="sub">Jusqu'à 4 Aniimo. La note croise la puissance individuelle, la couverture des
+      six axes de kit, les éléments, les rôles, et les synergies nommées lues directement dans les kits.</div>
+    <div class="slots">${slots}</div>
+    <div class="btns">
+      <button class="btn pri" id="autoteam">Composer automatiquement</button>
+      <button class="btn" id="clearteam">Vider</button>
+      <span class="note" style="margin:0">La composition automatique respecte les filtres du bandeau.</span>
+    </div>
+  </div>
+  ${pick}
+  ${T ? `<div class="grid2">
+    <div class="panel">
+      <h2>Note de synergie</h2><div class="sub">${T.n} membre${T.n>1?"s":""} sur 4</div>
+      <div style="display:flex;align-items:center;gap:20px;margin-bottom:16px">
+        <div class="grade ${T.grade}">${T.grade}</div>
+        <div><div class="big">${T.note.toFixed(0)}<span style="font-size:17px;color:var(--tx3)"> / 100</span></div>
+        ${T.malus?`<div style="color:var(--bad);font-size:12px;margin-top:4px">−${T.malus} de malus pour manques critiques</div>`:""}</div>
+      </div>
+      ${bd}
+      <div class="note">Éléments : ${T.els.map(e=>ELAB[e]).join(", ")||"—"}<br>
+        Rôles : ${T.rl.join(", ")||"—"}</div>
+    </div>
+    <div class="panel">
+      <h2>Ce que l'équipe fait bien</h2>
+      <div class="sub">${T.up.length} point${T.up.length>1?"s":""} fort${T.up.length>1?"s":""}</div>
+      ${T.up.length?T.up.map(x=>`<div class="li up">${x}</div>`).join(""):'<div class="note">Rien de saillant.</div>'}
+      <h2 style="margin-top:22px">Ce qui manque</h2>
+      <div class="sub">${T.dn.length} manque${T.dn.length>1?"s":""}</div>
+      ${T.dn.length?T.dn.map(x=>`<div class="li dn">${x}</div>`).join(""):'<div class="note">Aucun trou détecté.</div>'}
+    </div></div>`
+  : '<div class="panel"><div class="note">Ajoutez au moins un Aniimo pour obtenir une note.</div></div>'}`;
+}
+
+/* ======================================================== réglages (B) == */
+function grpId(g){ return g.replace(/[^A-Za-z0-9]/g,""); }
+function sliders(title,obj,keys,labels,max,step){
+  return `<div class="panel"><h2>${title}</h2>
+    <div class="sub">Somme : <b id="sum-${grpId(title)}">${
+      keys.reduce((a,k)=>a+obj[k],0).toFixed(2)}</b></div>` +
+    keys.map(k=>`<div class="sl"><label>${labels[k]||k}</label>
+      <input type="range" min="0" max="${max}" step="${step}" value="${obj[k]}" data-w="${title}|${k}">
+      <div class="v">${(obj[k]*100).toFixed(0)}%</div></div>`).join("") + "</div>";
+}
+function viewTune(){
+  const role = S.role || "DPS";
+  return `
+  <div class="panel"><h2>Poids réglables</h2>
+    <div class="sub">Tout se recalcule immédiatement : scores, paliers, note d'équipe et accord avec
+      Game8. Le test de stabilité dit ensuite quels classements résistent à ces réglages et lesquels
+      ne tiennent qu'à eux.</div>
+    <div class="btns">
+      <button class="btn" id="resetw">Revenir aux poids de référence</button>
+      <button class="btn pri" id="runstab">Lancer le test de stabilité</button>
+      <span class="note" style="margin:0">Le sélecteur de rôle du bandeau choisit le rôle réglé ci-dessous.</span>
+    </div>
+    <div class="note" id="stabout">${S.stab ? stabSummary() : "Aucun test lancé pour l'instant."}</div>
+  </div>
+  <div class="grid2">
+    ${sliders("Mélange",WS.mix,["stat","kit","syn"],{stat:"Stats",kit:"Kit",syn:"Synergie"},1,.01)}
+    ${sliders("Stats "+role,WS.stat[role],STATS,SLAB,.8,.01)}
+    ${sliders("Kit "+role,WS.kit[role],AXES,ALAB,.8,.01)}
+    ${sliders("Apport collectif",WS.give,Object.keys(WS.give),ALAB,.8,.01)}
+  </div>
+  <div class="panel" id="calibpanel"><h2>Accord avec Game8 aux poids actuels</h2>
+    <div class="sub">Recalculé sur les ${ANIIMO.filter(r=>r.ref).length} entrées que Game8 classe,
+      paliers repris sur ce seul sous-ensemble.</div>
+    <div id="calibbody">${calibHTML()}</div>
+  </div>`;
+}
+/* Test de stabilité : chaque poids perturbé de ±25 %, 200 tirages, on compte
+   combien de fois chaque Aniimo retombe dans le même palier. */
+function stability(runs){
+  const keep = {}; ANIIMO.forEach(r=>{ keep[r.name]={}; });
+  const jit = v => v*(0.75 + Math.random()*0.5);
+  for(let it=0; it<runs; it++){
+    const w = clone(WS0);
+    for(const k in w.mix) w.mix[k]=jit(w.mix[k]);
+    for(const R in w.stat) for(const k in w.stat[R]) w.stat[R][k]=jit(w.stat[R][k]);
+    for(const R in w.kit)  for(const k in w.kit[R])  w.kit[R][k]=jit(w.kit[R][k]);
+    for(const k in w.give) w.give[k]=jit(w.give[k]);
+    recompute(w);
+    for(const r of tiers(ANIIMO.slice()))
+      keep[r.name][r._tier] = (keep[r.name][r._tier]||0)+1;
+  }
+  recompute(WS);
+  const out = {};
+  for(const n in keep){
+    const v = Object.keys(keep[n]).map(k=>keep[n][k]);
+    out[n] = Math.round(100*Math.max.apply(null,v)/runs);
+  }
+  return out;
+}
+function stabSummary(){
+  const e = Object.keys(S.stab).map(n=>[n,S.stab[n]]).sort((a,b)=>a[1]-b[1]);
+  const uns = e.filter(x=>x[1]<60);
+  return `<b>${e.length-uns.length}</b> Aniimo sur ${e.length} gardent leur palier dans au moins 60 %
+    des 200 tirages. <b style="color:var(--bad)">${uns.length}</b> sont instables et portent un
+    <i class="bd uns">~</i> dans la tier list : leur place tient au réglage, pas à leur fiche.<br><br>
+    Les plus instables : ${uns.slice(0,14).map(x=>esc(x[0])+" ("+x[1]+" %)").join(" · ")||"aucun"}.`;
+}
+
+/* ================================================ calibration Game8 (C) == */
+function calib(){
+  const pool = tiers(ANIIMO.filter(r=>r.ref));
+  const idx = t => TIERS.indexOf(t);
+  let ex=0, one=0; const pts=[];
+  for(const r of pool){
+    const d = Math.abs(idx(r._tier)-idx(r.ref));
+    if(d===0) ex++;
+    if(d<=1) one++;
+    pts.push([idx(r._tier), idx(r.ref)]);
+  }
+  const n = pool.length || 1;
+  const mx = pts.reduce((a,p)=>a+p[0],0)/n, my = pts.reduce((a,p)=>a+p[1],0)/n;
+  let sxy=0,sxx=0,syy=0;
+  for(const p of pts){ sxy+=(p[0]-mx)*(p[1]-my); sxx+=(p[0]-mx)*(p[0]-mx); syy+=(p[1]-my)*(p[1]-my); }
+  const cor = sxy/Math.sqrt(sxx*syy||1);
+  const div = pool.filter(r=>Math.abs(idx(r._tier)-idx(r.ref))>=2)
+    .sort((a,b)=>Math.abs(idx(b._tier)-idx(b.ref))-Math.abs(idx(a._tier)-idx(a.ref)));
+  return {n:pool.length, ex:Math.round(100*ex/n), one:Math.round(100*one/n), cor, div};
+}
+function calibHTML(){
+  const c = calib();
+  return `<div class="grid2"><div>
+      <div class="kv"><span>Entrées comparables</span><b>${c.n}</b></div>
+      <div class="kv"><span>Palier identique</span><b>${c.ex} %</b></div>
+      <div class="kv"><span>À un palier près</span><b>${c.one} %</b></div>
+      <div class="kv"><span>Corrélation des rangs</span><b>${c.cor.toFixed(2)}</b></div>
+      <div class="kv"><span>Écarts de 2 paliers ou plus</span><b>${c.div.length}</b></div>
+    </div><div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:6px">Divergences les plus fortes — moi contre Game8</div>
+      ${c.div.slice(0,14).map(r=>`<div class="kv"><span>${esc(r.name)}</span>
+        <b><i class="tpill ${r._tier}">${r._tier}</i>
+           <i class="tpill ${r.ref}">${r.ref}</i></b></div>`).join("")
+        || '<div class="note">Aucune.</div>'}
+    </div></div>`;
+}
+
+/* ============================================================= méthode == */
+function viewMeth(){
+  const c = calib();
+  return `<div class="meth">
+  <h2>D'où vient ce classement</h2>
+  <p>Aucune tier list existante n'a servi de base. Les ${ANIIMO.length} entrées viennent des fiches
+  du jeu, relues page par page. Chaque Aniimo est supposé <b>poussé au maximum de ce que le jeu
+  permet</b> : niveau, Résonance, potentiel, Points et Fruit de Capacité, Rangs d'Attribut. Ce
+  plafond étant identique pour tous, le classement se joue sur ce qui diffère réellement — les
+  stats de base, la marge de croissance des stats couronnables, et le kit.</p>
+  <p><code>score = (${(WS.mix.stat*100).toFixed(0)} % × stats + ${(WS.mix.kit*100).toFixed(0)} % × kit
+  + ${(WS.mix.syn*100).toFixed(0)} % × synergie) × multiplicateur de stade</code></p>
+
+  <h2>Les stats</h2>
+  <p>Six stats normalisées sur l'ensemble du roster, puis pondérées par rôle : un DPS vit de son
+  Attaque, un Regen de sa Régénération. Les deux stats « favorables » du rôle montent à un potentiel
+  de 24 au lieu de 20 : elles reçoivent un facteur ${META.crown.toFixed(1)}, soit 20 % de marge de
+  croissance en plus. Elles apparaissent en vert dans la vue Stats.</p>
+
+  <h2>Le kit : ${META.nKits} lectures à la main</h2>
+  <p>C'est ici que ce classement se sépare d'une extraction automatique. Les ${META.nKits} kits
+  distincts du roster ont été <b>lus un par un</b> — traits, compétences innées, compétences de
+  combat, ultime — puis notés de 0 à 10 sur six axes, selon une grille fixe écrite <i>avant</i> la
+  lecture et conservée dans <code>RUBRIC.md</code> :</p>
+  <ul>${AXES.map(a=>`<li><b>${ALAB[a]}</b></li>`).join("")}</ul>
+  <p>S'y ajoute une <b>conditionnalité</b> de 0 à 3 : un kit qui exige des cumuls, un placement ou un
+  allié précis vaut moins qu'un kit qui s'applique tout seul. Chaque palier retire
+  ${(META.condPen*100).toFixed(0)} % du score de kit, ${(META.condPen*300).toFixed(0)} % au pire.
+  Les notes sont <b>absolues</b> et non relatives au roster : elles ne bougent pas si le roster
+  change. Les formes régionales qui réutilisent le kit de leur base en héritent.</p>
+
+  <h2>La synergie</h2>
+  <p>Ce que l'Aniimo apporte à une équipe plutôt qu'à lui-même : la part collective de ses six axes,
+  et sa facilité d'insertion (conditionnalité, bi-élément, forme finale, mobilité d'exploration). Le
+  mélange dépend du rôle — un Support est jugé à ${(META.synMix.Support*100).toFixed(0)} % sur ce
+  qu'il donne, un DPS à ${(META.synMix.DPS*100).toFixed(0)} % seulement.</p>
+
+  <h2>Les trois rosters, une seule tier list</h2>
+  <p>Chaque version du jeu est une entrée à part entière, mais elles sont classées
+  <b>ensemble</b>, sur une échelle unique. La raison est le but recherché : on compose une
+  équipe de quatre, et un Normal, une forme régionale et une Prismana se recrutent dans le même
+  vivier. Les séparer reviendrait à comparer chacun à ses semblables au lieu de le comparer à
+  ses concurrents réels — une Prismana pouvait alors se retrouver classée sous sa propre base à
+  score égal. Les trois puces du bandeau sont donc des <b>filtres cumulables</b> : elles
+  retirent ou remettent un groupe dans le classement, elles ne le découpent pas.</p>
+  <ul>
+    <li><b>Normaux</b> — ${META.n.base} Aniimo de base.</li>
+    <li><b>Formes régionales</b> — ${META.n.form} variantes.
+      <b>${ANIIMO.filter(r=>r.kind==="form"&&r.same).length}</b> d'entre elles sont
+      strictement identiques à leur base sur tout ce qui est mesuré : mêmes stats, même kit, mêmes
+      éléments, même rôle. Elles portent un <i class="bd same">=</i> et le filtre « Masquer les
+      formes identiques » les retire. Les autres changent d'élément, de stats ou de rôle.</li>
+    <li><b>Prismana</b> — ${META.n.prismana} formes Prismana, avec leurs stats et leurs kits propres.
+      ${ANIIMO.filter(r=>r.kind==="prismana"&&r.same).length} d'entre elles portent aussi le
+      <i class="bd same">=</i> : leur fiche est rigoureusement celle de leur base, la forme Prismana
+      n'apporte rien de mesurable.</li>
+  </ul>
+
+  <h2>L'échelle des paliers</h2>
+  <p>Les paliers sont des <b>percentiles</b>
+  (${META.cut.slice(0,4).map(x=>(x[1]*100).toFixed(0)+" %").join(" / ")}) découpés sur le vivier
+  affiché : une position relative, pas une puissance absolue. Sans filtre, c'est donc une découpe
+  sur les ${META.n.base+META.n.form+META.n.prismana} entrées, et les Prismana y remontent
+  d'elles-mêmes — ce sont des versions améliorées d'Aniimo déjà corrects, leur médiane est plus
+  haute :
+  ${(function(){const P=tiers(ANIIMO.slice());
+    return TIERS.map(t=>t+" "+P.filter(r=>r.kind==="prismana"&&r._tier===t).length).join(" · ");})()}.</p>
+  <p>Restreindre le vivier avec un filtre le redécoupe : un palier répond toujours à la question
+  « où se situe cet Aniimo <i>parmi ceux qui sont affichés</i> ». Le score, lui, ne bouge pas.</p>
+
+  <h2>Recoupement avec le consensus</h2>
+  <p>Le classement n'est pas calé sur les tier lists publiées, mais il leur est comparé pour repérer
+  où il s'en écarte. Sur les <b>${c.n}</b> Aniimo que Game8 classe : <b>${c.ex} %</b> de paliers
+  identiques, <b>${c.one} %</b> à un palier près, corrélation des rangs <b>${c.cor.toFixed(2)}</b>.</p>
+  <p>Les écarts ne sont pas des erreurs à corriger, ce sont des endroits à examiner. Le motif
+  dominant est net : les tier lists communautaires notent plus haut les DPS à burst conditionnel, et
+  plus bas les Break et Support à grosses stats. C'est cohérent — elles jugent la facilité de jeu
+  réelle, ce modèle juge le plafond à investissement maximal. Les deux réponses sont défendables ;
+  elles ne répondent pas à la même question.</p>
+  ${calibHTML()}
+
+  <h2>Stabilité</h2>
+  <p>La vue <b>Réglages</b> rend tous les poids modifiables et lance un test de stabilité : 200
+  tirages où chaque poids est perturbé de ±25 %. Un Aniimo qui garde son palier dans plus de 60 %
+  des tirages est solidement placé ; les autres reçoivent un <i class="bd uns">~</i>. C'est la façon
+  honnête de dire qu'un classement dépend de choix, et de montrer lesquels.</p>
+
+  <h2>Le constructeur d'équipe</h2>
+  <p>La note d'une équipe croise cinq termes : la puissance individuelle moyenne
+  (${(TW.power*100).toFixed(0)} %), la couverture des six axes de kit (${(TW.axes*100).toFixed(0)} %),
+  les éléments (${(TW.el*100).toFixed(0)} %), les rôles (${(TW.role*100).toFixed(0)} %) et les combos
+  (${(TW.combo*100).toFixed(0)} %). Sur un axe, c'est le meilleur porteur qui compte, plus 40 % du
+  second : la redondance aide, elle ne double pas l'effet.</p>
+  <p>Les combos viennent de la lecture des kits, pas d'une heuristique :
+  <b>${Object.keys(META.lock).length} kits</b> dont l'apport collectif est verrouillé sur un élément
+  (buff réservé, ou réduction de résistance) gagnent des points si des alliés portent cet élément —
+  et en font perdre si personne ne le porte. S'y ajoutent <b>${META.duos.length} dépendances
+  nommées</b> lues explicitement dans les kits, comme Iris qui amplifie sur du Gazon que seul Leafy
+  sait créer, ou Bouldus dont la conversion de Rochers exige Waleetle. Enfin, quatre manques
+  structurels retirent directement des points : aucune source d'EP, aucun BREAK, aucune survie, ou
+  un Pawney sans briseur pour ouvrir les cibles.</p>
+
+  <h2>Limites connues</h2>
+  <ul>
+    <li><b>P.Déf est une valeur dérivée.</b> Le tableau source duplique l'Attaque dans la cellule
+      P.Déf — vérifié sur les 207 pages, sans une seule exception. Le Total de base étant correct,
+      P.Déf est reconstruit par soustraction.</li>
+    <li><b>Lunara</b> affiche ATQ 64 / P.Déf 116 pour un DPS. Les deux ordres donnent le même Total
+      de 514, donc la source ne permet pas de trancher ; la cellule Attaque faisant foi partout
+      ailleurs, la valeur est conservée telle quelle. C'est la plus forte divergence avec Game8,
+      qui le classe S.</li>
+    <li><b>Soleon</b> (N° 9999) affiche <code>??</code> partout dans la source : non sorti, exclu.</li>
+    <li>Le modèle ne mesure ni la vitesse d'animation, ni la portée, ni le confort de jeu.</li>
+  </ul>
+  </div>`;
+}
+
+/* ============================================================== modale == */
+function openModal(name){
+  const r = byName[name]; if(!r) return;
+  const dots = r.el.map(e=>`<span class="pill" style="color:var(--${e})">${ELAB[e]}</span>`).join("");
+  const bar = (l,v,mx,col)=>`<div class="axr"><div class="l">${l}</div>
+    <div class="b"><i style="width:${Math.min(100,100*v/mx).toFixed(1)}%${col?";background:"+col:""}"></i></div>
+    <div class="n">${v}</div></div>`;
+  const sk = a => (a&&a.length) ? a.map(s=>`<div class="sk"><b>${esc(s.n)}</b><p>${esc(s.d)}</p></div>`).join("") : "";
+
+  $("#modal").innerHTML = `<button class="close" id="cl">×</button>
+  <div class="mhd"><img src="${img(r.name)}" alt="">
+    <div style="min-width:240px;flex:1"><h2>${esc(r.name)}</h2>
+      <div style="margin:5px 0">
+        <span class="pill"><i class="tpill ${r._tier}">${r._tier}</i> &nbsp;${r._rk}ᵉ sur ${r._of} — ${KINDS[r.kind]}</span>
+        <span class="pill">${r.role||"—"}</span><span class="pill">${r.stage||"—"}</span>${dots}
+        ${r.ref?`<span class="pill">Game8 : ${r.ref}</span>`:""}
+        ${S.stab&&S.stab[r.name]!==undefined?`<span class="pill">palier stable à ${S.stab[r.name]} %</span>`:""}
+      </div>
+      <div style="font-size:26px;font-weight:800;margin-top:6px">${r._sc.toFixed(1)}
+        <span style="font-size:12px;color:var(--tx3);font-weight:400">
+          = ${(WS.mix.stat*100).toFixed(0)}%·${r._st.toFixed(0)}
+          + ${(WS.mix.kit*100).toFixed(0)}%·${r._ki.toFixed(0)}
+          + ${(WS.mix.syn*100).toFixed(0)}%·${r._sy.toFixed(0)}${
+          r.sStage<1?` &nbsp;×${r.sStage} (stade ${r.stage})`:""}</span></div>
+    </div></div>
+
+  ${r.same?`<div class="warnbox">Cette forme est <b>strictement identique</b> à ${esc(r.parent)} sur
+    tout ce qui est mesuré : mêmes stats, même kit, mêmes éléments, même rôle. Elle est classée
+    séparément parce que c'est une entrée du jeu, mais rien de mesurable ne la distingue.</div>`:""}
+  ${r.name==="Lunara"?`<div class="warnbox">Fiche source ambiguë : ATQ 64 / P.Déf 116 pour un DPS.
+    Les deux ordres donnent le même Total de 514, la source ne tranche pas. Valeur conservée telle
+    quelle — voir la vue Méthode.</div>`:""}
+
+  <div class="grid2">
+    <div><h3 style="font-size:13px;margin-bottom:8px">Stats de base
+      <span style="color:var(--tx3);font-weight:400">— total ${r.total}, ● = couronnable à 24</span></h3>
+      ${STATS.map(s=>bar(SLAB[s]+(r.fav.indexOf(s)>=0?" ●":""), r.stats[s], META.hi[s],
+          r.fav.indexOf(s)>=0?"var(--ok)":null)).join("")}
+      <h3 style="font-size:13px;margin:16px 0 8px">Décomposition du score</h3>
+      <div class="kv"><span>Stats</span><b>${r._st.toFixed(1)}</b></div>
+      <div class="kv"><span>Kit</span><b>${r._ki.toFixed(1)}</b></div>
+      <div class="kv"><span>Synergie</span><b>${r._sy.toFixed(1)}</b></div>
+      ${r.mobility?`<div class="kv"><span>Mobilité</span><b>${esc(r.mobility)}</b></div>`:""}
+      ${r.pathfinding?`<div class="kv"><span>Déplacement</span><b>${esc(r.pathfinding)}</b></div>`:""}
+      ${r.parent?`<div class="kv"><span>Forme de</span><b>${esc(r.parent)}</b></div>`:""}
+    </div>
+    <div><h3 style="font-size:13px;margin-bottom:8px">Lecture du kit${
+        r.kitWho!==r.name?` <span style="color:var(--tx3);font-weight:400">— hérité de ${esc(r.kitWho)}</span>`:""}</h3>
+      ${AXES.map(a=>bar(ALAB[a], r.axes[a], 10)).join("")}
+      <div class="kv"><span>Conditionnalité</span><b>${r.cond} / 3${
+        r.cond?` (−${(META.condPen*r.cond*100).toFixed(0)} %)`:""}</b></div>
+      <div class="note">${esc(r.kitNote||"")}</div>
+      ${META.lock[fam(r.kitWho)]?`<div class="note">Apport collectif verrouillé sur l'élément
+        <b style="color:var(--${META.lock[fam(r.kitWho)]})">${ELAB[META.lock[fam(r.kitWho)]]}</b> :
+        à jouer avec des alliés de cet élément.</div>`:""}
+      <h3 style="font-size:13px;margin:16px 0 8px">Ce qui nourrit la synergie</h3>
+      <div class="note">${(r.synWhy||[]).map(esc).join("<br>")}</div>
+    </div>
+  </div>
+
+  ${r.traits&&r.traits.length?`<h3 style="font-size:13px;margin:18px 0 2px">Traits</h3>${sk(r.traits)}`:""}
+  ${r.innate&&r.innate.length?`<h3 style="font-size:13px;margin:18px 0 2px">Compétences innées</h3>${sk(r.innate)}`:""}
+  ${r.skills&&r.skills.length?`<h3 style="font-size:13px;margin:18px 0 2px">Compétences de combat</h3>${sk(r.skills)}`:""}
+  ${r.log?`<div class="note" style="margin-top:14px;font-style:italic">${esc(r.log)}</div>`:""}`;
+  $("#ov").classList.add("on");
+}
+
+/* ============================================================== rendu === */
+function render(){
+  $("#nav").innerHTML = navHTML();
+  $("#filters").innerHTML = filtersHTML();
+  $("#view").innerHTML =
+      S.view==="tier" ? viewTier() : S.view==="stats" ? viewStats()
+    : S.view==="team" ? viewTeam() : S.view==="tune" ? viewTune() : viewMeth();
+  const shown = ANIIMO.filter(pass).length;
+  $("#count").textContent = S.view==="meth"
+    ? `${ANIIMO.length} entrées · ${META.nKits} kits lus`
+    : `${shown} sur ${ANIIMO.length} entrées`;
+}
+
+/* ============================================================ événements = */
+document.addEventListener("click", function(e){
+  const t = e.target;
+  const nv = t.closest("#nav button");  if(nv){ S.view=nv.dataset.v; S.picking=-1; return render(); }
+  const sk = t.closest("#segk button");
+  if(sk){
+    const k = sk.dataset.k, all = Object.keys(KINDS);
+    if(k==="all") S.kinds = all.slice();
+    else if(S.kinds.indexOf(k)<0) S.kinds = all.filter(x=>S.kinds.indexOf(x)>=0 || x===k);
+    else if(S.kinds.length>1) S.kinds = S.kinds.filter(x=>x!==k);   // jamais de vivier vide
+    return render();
+  }
+
+  if(t.closest("#cl") || t.id==="ov"){ $("#ov").classList.remove("on"); return; }
+
+  if(t.id==="clearteam"){ S.team=[null,null,null,null]; S.picking=-1; return render(); }
+  if(t.id==="autoteam"){ autoTeam(); S.picking=-1; return render(); }
+  if(t.id==="cancelpick"){ S.picking=-1; return render(); }
+  const rm = t.closest("[data-rm]"); if(rm){ S.team[+rm.dataset.rm]=null; return render(); }
+  const ad = t.closest("[data-add]"); if(ad){ S.picking=+ad.dataset.add; return render(); }
+
+  if(t.id==="resetw"){ Object.assign(WS, clone(WS0)); recompute(WS); return render(); }
+  if(t.id==="runstab"){
+    t.textContent = "Calcul…"; t.disabled = true;
+    setTimeout(function(){ S.stab = stability(200); render(); }, 20);
+    return;
+  }
+
+  const th = t.closest("th[data-s]");
+  if(th){ const k=th.dataset.s; S.desc = (S.sort===k) ? !S.desc : true; S.sort=k; return render(); }
+
+  const card = t.closest(".card, tbody tr");
+  if(card && card.dataset.n){
+    if(S.picking>=0 && S.view==="team"){
+      S.team[S.picking] = byName[card.dataset.n]; S.picking=-1; return render();
+    }
+    return openModal(card.dataset.n);
+  }
+});
+document.addEventListener("change", function(e){
+  const t = e.target;
+  if(t.id==="fr"){ S.role=t.value; return render(); }
+  if(t.id==="fe"){ S.el=t.value; return render(); }
+  if(t.id==="fs"){ S.stage=t.value; return render(); }
+  if(t.id==="fh"){ S.hideSame=t.checked; return render(); }
+});
+document.addEventListener("input", function(e){
+  const t = e.target;
+  if(t.id==="fq"){
+    S.q = t.value; render();
+    const q = $("#fq"); if(q){ q.focus(); q.setSelectionRange(q.value.length,q.value.length); }
+    return;
+  }
+  if(t.dataset && t.dataset.w){
+    const parts = t.dataset.w.split("|"), grp = parts[0], key = parts[1], v = +t.value;
+    let obj;
+    if(grp==="Mélange")                   obj = WS.mix;
+    else if(grp.indexOf("Stats ")===0)    obj = WS.stat[grp.slice(6)];
+    else if(grp.indexOf("Kit ")===0)      obj = WS.kit[grp.slice(4)];
+    else                                  obj = WS.give;
+    obj[key] = v;
+    recompute(WS);
+    t.parentNode.querySelector(".v").textContent = (v*100).toFixed(0)+"%";
+    const s = $("#sum-"+grpId(grp));
+    if(s) s.textContent = Object.keys(obj).reduce((a,k)=>a+obj[k],0).toFixed(2);
+    const cb = $("#calibbody"); if(cb) cb.innerHTML = calibHTML();
+    return;
+  }
+});
+document.addEventListener("keydown", function(e){
+  if(e.key==="Escape") $("#ov").classList.remove("on");
+});
+
+recompute(WS);
+render();
+</script>
+</body>
+</html>
