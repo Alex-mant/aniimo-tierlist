@@ -32,7 +32,7 @@ raw/*.html  ──parse.py──>  raw/parsed.json  ──score.py──>  data.
 | `synergy.json` | Verrous élémentaires et duos nommés, pour le constructeur d'équipe. |
 | `score.py` | JSON → `data.js` : scoring, synergies, paliers. |
 | `index.html` | L'app (HTML/CSS/JS vanilla, un seul fichier). |
-| `images/` | 215 artworks, un par entrée classée. |
+| `images/` | 207 icônes Game8 (190×190), une par entrée classée — une seule source pour un rendu homogène. |
 | `_index_v1.html.bak`, `_index_v2_112.html.bak`, `_score_v1.py.bak` | Versions précédentes. |
 
 Régénérer : `python parse.py && python score.py`
