@@ -74,8 +74,11 @@ input[type=search]{min-width:190px}
 .badges{position:absolute;bottom:31px;left:3px;right:3px;display:flex;gap:2px;justify-content:center}
 .bd{font-size:8.5px;font-weight:700;border-radius:3px;padding:0 3px;line-height:13px}
 .bd.same{background:#0009;color:var(--tx3)}
-.bd.div{background:#0009;color:var(--warn)}
-.bd.uns{background:#0009;color:var(--bad)}
+.bd.ok{background:#0009;color:var(--ok)}
+.bd.warn{background:#0009;color:var(--warn)}
+.bd.bad{background:#0009;color:var(--bad)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--tx3);font-size:12px;margin:-4px 0 14px}
+.legend .bd{font-size:11px;padding:0 4px;margin-right:4px}
 .empty{color:var(--tx3);font-size:12px;padding:20px;text-align:center;width:100%}
 
 /* ---------------------------------------------------------------- table -- */
@@ -132,6 +135,10 @@ tbody tr:hover{background:var(--bg2)}
 .slot .n{font-size:12px;font-weight:600;line-height:1.25}
 .slot .r{font-size:11px;color:var(--tx3)}
 .slot .x{font-size:11px;color:var(--bad);cursor:pointer;border:0;background:none;padding:2px 6px}
+.slot .pin{color:var(--tx3)}
+.slot .eq{font-size:10.5px;color:var(--tx2);line-height:1.3;margin-top:2px}
+.slot .pin.on{color:var(--ok)}
+.slot.lk{border-color:var(--ok)}
 .slot .plus{font-size:30px;color:var(--tx3);line-height:1}
 .big{font-size:42px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 .grade{font-family:Georgia,serif;font-size:52px;font-weight:800;line-height:1}
@@ -201,6 +208,9 @@ const ELS   = ["Fire","Water","Grass","Wind","Earth","Ice","Lightning","Dark","L
 const ELAB  = {Fire:"Feu",Water:"Eau",Grass:"Herbe",Wind:"Vent",Earth:"Terre",Ice:"Glace",
                Lightning:"Foudre",Dark:"Ténèbres",Light:"Lumière"};
 const ROLES = ["DPS","Break","Support","Regen","Heal"];
+const RDESC = {DPS:"inflige les dégâts", Break:"vide la jauge de garde pour ouvrir l'ennemi",
+               Support:"renforce l'équipe ou affaiblit l'ennemi", Regen:"recharge l'EP de l'équipe (pas de soin)",
+               Heal:"soigne et protège (soins indexés sur les PV max)"};
 const KINDS = {base:"Normaux",form:"Formes régionales",prismana:"Prismana"};
 const TIERS = ["S","A","B","C","D"];
 const VIEWS = {tier:"Tiers",stats:"Stats",team:"Équipe",tune:"Réglages",meth:"Méthode"};
@@ -210,7 +220,9 @@ const S = {
   view:"tier", kinds:["base","form","prismana"], role:"", el:"", stage:"", q:"",
   hideSame:false, sort:"score", desc:true,
   team:[null,null,null,null], picking:-1,
-  stab:null                                  // {nom: % de tirages gardant le palier}
+  safe:true,                                 // equipe auto : pas d'Aniimo "incertain"
+  lock:[false,false,false,false],            // membres gardes : jamais remplaces
+  around:true                                // construire autour des membres imposes
 };
 const clone = o => JSON.parse(JSON.stringify(o));
 const WS = {                                 // poids vivants, modifiables
@@ -219,7 +231,8 @@ const WS = {                                 // poids vivants, modifiables
   kit:    clone(META.kitW),
   give:   clone(META.giveW),
   synMix: clone(META.synMix),
-  condPen: META.condPen
+  condPen: META.condPen,
+  model:  1                                  // multiplicateur du poids du calcul
 };
 const WS0 = clone(WS);
 
@@ -241,15 +254,56 @@ function sKit(r,w,pen){
 function sSyn(r,gw,mix){
   let give=0; for(const a in gw) give += gw[a]*r.axes[a]/10;
   give = Math.min(100, give*100);
-  let fit = META.condFit[r.cond];
-  if(r.el.length>1) fit += 24;
-  if(r.stage==="Nova" || !r.stage) fit += 20;
-  const pf = (r.pathfinding||"").toLowerCase();
-  if(/fly|swim|climb|glide/.test(pf)) fit += 12;
-  if(r.axes.ctrl>=5 || r.axes.dmg>=7) fit += 10;
+  let fit = META.fit.base;
+  if(r.el.length>1) fit += META.fit.dual;
+  if(r.axes.ctrl>=5 || r.axes.dmg>=7) fit += META.fit.any;
   fit = Math.min(100, fit);
   const m = mix[r.role||"DPS"];
-  return m*give + (1-m)*fit;
+  return Math.min(100, m*give + (1-m)*fit);
+}
+/* Rangs moyens (ex aequo partages), puis percentile 0..1, 1 = meilleur. */
+function ranks(v){
+  const o = v.map((x,i)=>i).sort((a,b)=>v[a]-v[b]), r = new Array(v.length);
+  for(let i=0;i<o.length;){
+    let j=i; while(j+1<o.length && v[o[j+1]]===v[o[i]]) j++;
+    for(let k=i;k<=j;k++) r[o[k]] = (i+j)/2;
+    i=j+1;
+  }
+  return r;
+}
+function spear(x,y){
+  const rx=ranks(x), ry=ranks(y), n=x.length;
+  const mx=rx.reduce((a,b)=>a+b,0)/n, my=ry.reduce((a,b)=>a+b,0)/n;
+  let c=0,dx=0,dy=0;
+  for(let i=0;i<n;i++){ c+=(rx[i]-mx)*(ry[i]-my); dx+=(rx[i]-mx)**2; dy+=(ry[i]-my)**2; }
+  return dx&&dy ? c/Math.sqrt(dx*dy) : 0;
+}
+/* Normalisation par role : chaque composante recentree dans son role (moyenne 50,
+   ecart-type 15), moyenne et ecart-type retrecis vers le global. */
+function roleNorm(){
+  const sd = (v,m) => Math.sqrt(v.reduce((a,x)=>a+(x-m)**2,0)/v.length);
+  for(const [c,o] of [["_st","_nst"],["_ki","_nki"],["_sy","_nsy"]]){
+    const all = ANIIMO.map(r=>r[c]), gm = all.reduce((a,b)=>a+b,0)/all.length, gs = sd(all,gm);
+    for(const R of ROLES){
+      const mem = ANIIMO.filter(r=>(r.role||"DPS")===R);
+      const vs = mem.filter(r=>!r.same).map(r=>r[c]);
+      if(!vs.length) continue;
+      const n = vs.length, m = vs.reduce((a,b)=>a+b,0)/n, s = sd(vs,m) || gs, k = META.shrink;
+      const m2 = (n*m + k*gm)/(n+k), s2 = (n*s + k*gs)/(n+k);
+      for(const r of mem) r[o] = 50 + 15*(r[c]-m2)/s2;
+    }
+  }
+}
+/* Percentile final : le calcul pese comme une source de plus parmi les tier lists
+   qui classent l'entree. `srcw` permet d'ecarter une source (validation). */
+function blendOne(r, wm, srcw){
+  let num = wm*r._mp, den = wm;
+  for(const s in r.ext){
+    const w = srcw ? srcw[s] : META.src[s].w;
+    if(w===undefined) continue;
+    num += w*r.ext[s][0]; den += w;
+  }
+  return den ? num/den : r._mp;
 }
 function recompute(ws){
   const w = ws||WS, sum = (w.mix.stat + w.mix.kit + w.mix.syn) || 1;
@@ -258,12 +312,19 @@ function recompute(ws){
     r._st = sStat(r, w.stat[role]);
     r._ki = sKit(r, w.kit[role], w.condPen);
     r._sy = sSyn(r, w.give, w.synMix);
-    r._sc = (w.mix.stat*r._st + w.mix.kit*r._ki + w.mix.syn*r._sy)/sum * r.sStage;
   }
+  roleNorm();
+  for(const r of ANIIMO)
+    r._sc = (w.mix.stat*r._nst + w.mix.kit*r._nki + w.mix.syn*r._nsy)/sum * r.sStage;
+  const rk = ranks(ANIIMO.map(r=>r._sc));
+  ANIIMO.forEach((r,i)=>{ r._mp = (rk[i]+.5)/ANIIMO.length; });
+  for(const r of ANIIMO){ r._fin = blendOne(r, META.modelW*w.model); r._ix = r._fin*100; }
+  tiers(ANIIMO.slice());
 }
-/* Paliers : percentiles recalcules sur le vivier fourni. */
+/* Paliers : percentiles sur les 207 entrees, une fois pour toutes. Les filtres
+   n'y touchent pas : un Aniimo garde le meme palier quoi qu'on affiche. */
 function tiers(pool){
-  pool.sort((a,b)=>b._sc-a._sc);
+  pool.sort((a,b)=>b._fin-a._fin);
   const n = pool.length; let prev = 0;
   META.cut.forEach(function(c,i){
     const t = c[0], th = c[1];
@@ -291,7 +352,17 @@ function kindsShown(){ return S.kinds; }
 /* Une seule tier list. Le but est de composer une equipe : un Normal, une forme
    regionale et une Prismana se recrutent dans le meme vivier, donc ils se
    classent sur la meme echelle. Les rosters ne sont que des filtres. */
-function pool(){ return tiers(ANIIMO.filter(pass)); }
+function pool(){ return ANIIMO.filter(pass).sort((a,b)=>b._fin-a._fin); }
+const SRCN = {game8:"Game8", aniimoguide:"Aniimo Guide", mobi:"Mobi.gg", allthings:"AllThings.How",
+              kongbakpao:"KongBakPao", powerup:"PowerUp Gaming"};
+const CONF = {
+  sur:       {i:"✔", l:"sûr",       c:"ok",   d:"Garde ce palier dans au moins 75 % des tirages, et au moins deux tier lists l'ont classé."},
+  probable:  {i:"≈", l:"probable",  c:"warn", d:"À cheval entre deux paliers : l'ordre de grandeur est fiable, la lettre exacte moins."},
+  incertain: {i:"?", l:"incertain", c:"bad",  d:"Aucune tier list ne l'a classé (seul le calcul parle), ou ses tirages s'étalent sur trois paliers."}
+};
+const confTip = r => `Confiance : ${CONF[r.conf].l} — garde son palier dans ${r.keep} % des ${META.runs} tirages`
+  + (r.span.length>1 ? `, se situe entre ${r.span[0]} et ${r.span[r.span.length-1]}` : "")
+  + `. ${Object.keys(r.ext).length} tier list${Object.keys(r.ext).length>1?"s":""} sur 6 le classe${Object.keys(r.ext).length>1?"nt":""}.`;
 const byName = {}; ANIIMO.forEach(r=>{ byName[r.name]=r; });
 const img = n => "images/"+encodeURIComponent(n)+".png";
 const fam = n => (n||"").replace(/^Prismana /,"");
@@ -312,7 +383,7 @@ function filtersHTML(){
     + `<button class="${all?"on":""}" data-k="all" title="Tout remettre">Tous</button>`;
   const opt = (v,l,cur)=>`<option value="${v}"${cur===v?" selected":""}>${l}</option>`;
   const base = `
-   <select id="fr">${opt("","Tous rôles",S.role)}${ROLES.map(r=>opt(r,r,S.role)).join("")}</select>
+   <select id="fr">${opt("","Tous rôles",S.role)}${ROLES.map(r=>opt(r,r+" — "+RDESC[r],S.role)).join("")}</select>
    <select id="fe">${opt("","Tous éléments",S.el)}${ELS.map(e=>opt(e,ELAB[e],S.el)).join("")}</select>
    <select id="fs">${opt("","Tous stades",S.stage)}${["Nova","Gamma","Lumin"].map(s=>opt(s,s,S.stage)).join("")}</select>
    <label class="chk"><input type="checkbox" id="fh"${S.hideSame?" checked":""}>
@@ -325,10 +396,9 @@ function cardHTML(r){
   const dots = r.el.map(e=>`<i class="dot" style="background:var(--${e})" title="${ELAB[e]}"></i>`).join("");
   const bd = [];
   if(r.same) bd.push(`<i class="bd same" title="Identique à ${esc(r.parent)}">=</i>`);
-  if(r.ref && r.ref!==r._tier) bd.push(`<i class="bd div" title="Game8 le classe ${r.ref}">${r.ref}</i>`);
-  if(S.stab && S.stab[r.name]<60) bd.push(`<i class="bd uns" title="Palier instable : ${S.stab[r.name]} % des tirages">~</i>`);
+  bd.push(`<i class="bd ${CONF[r.conf].c}" title="${esc(confTip(r))}">${CONF[r.conf].i}</i>`);
   return `<div class="card" data-n="${esc(r.name)}">
-    <div class="fl">${dots}</div><div class="sc">${r._sc.toFixed(0)}</div>
+    <div class="fl">${dots}</div><div class="sc" title="Indice final sur 100">${r._ix.toFixed(0)}</div>
     <img src="${img(r.name)}" alt="" loading="lazy">
     ${bd.length?`<div class="badges">${bd.join("")}</div>`:""}
     <div class="nm">${esc(r.name)}</div></div>`;
@@ -339,7 +409,10 @@ function viewTier(){
   const br = Object.keys(KINDS).map(k=>[KINDS[k], P.filter(r=>r.kind===k).length])
              .filter(x=>x[1]).map(x=>x[1]+" "+x[0].toLowerCase()).join(" · ");
   let h = `<div class="kindblk"><div class="kindhd"><h2>Classement général</h2>
-    <span>${P.length} entrée${P.length>1?"s":""} sur une seule échelle — ${br}</span></div>`;
+    <span>${P.length} entrée${P.length>1?"s":""} sur une seule échelle — ${br}</span></div>
+    <div class="legend">${Object.keys(CONF).map(k=>`<span title="${esc(CONF[k].d)}"><i class="bd ${CONF[k].c}">${CONF[k].i}</i>${CONF[k].l} (${P.filter(r=>r.conf===k).length})</span>`).join("")}
+      <span><i class="bd same">=</i>identique à sa forme de base</span>
+      <span>nombre = indice final sur 100</span></div>`;
   for(const t of TIERS){
     const g = P.filter(r=>r._tier===t);
     h += `<div class="row"><div class="tag ${t}">${t}</div><div class="cards">${
@@ -350,8 +423,10 @@ function viewTier(){
 function viewStats(){
   const all = pool().slice();
   const key = S.sort;
-  const f = r => key==="name" ? r.name : key==="score" ? r._sc : key==="st" ? r._st
-            : key==="ki" ? r._ki : key==="sy" ? r._sy : key==="total" ? r.total : r.stats[key];
+  const CO = {sur:3, probable:2, incertain:1};
+  const f = r => key==="name" ? r.name : key==="score" ? r._fin : key==="calc" ? r._sc : key==="st" ? r._nst
+            : key==="ki" ? r._nki : key==="sy" ? r._nsy : key==="total" ? r.total
+            : key==="conf" ? CO[r.conf]*1000+r.keep : key==="src" ? Object.keys(r.ext).length : r.stats[key];
   all.sort((a,b)=>{
     const x=f(a), y=f(b);
     return (typeof x==="string" ? x.localeCompare(y) : x-y) * (S.desc?-1:1);
@@ -360,17 +435,19 @@ function viewStats(){
   return `<table><thead><tr>
     <th>Palier</th>${th("name","Aniimo")}<th>Rôle</th>
     ${STATS.map(s=>th(s,SLAB[s])).join("")}${th("total","Total")}
-    ${th("st","Stats")}${th("ki","Kit")}${th("sy","Syn.")}${th("score","Score")}<th>Game8</th>
+    ${th("st","Stats")}${th("ki","Kit")}${th("sy","Syn.")}${th("calc","Calcul")}${th("src","Listes")}
+    ${th("score","Indice")}${th("conf","Confiance")}
   </tr></thead><tbody>${all.map(r=>`<tr data-n="${esc(r.name)}">
     <td><i class="tpill ${r._tier}">${r._tier}</i></td>
     <td><img class="mini" src="${img(r.name)}" alt="" loading="lazy">${esc(r.name)}${
         r.same?' <i class="bd same">=</i>':""}</td>
-    <td>${r.role||"—"}</td>
+    <td title="${r.role?esc(RDESC[r.role]):""}">${r.role||"—"}</td>
     ${STATS.map(s=>`<td${r.fav.indexOf(s)>=0?' style="color:var(--ok)"':""}>${r.stats[s]}</td>`).join("")}
     <td>${r.total}</td>
-    <td>${r._st.toFixed(0)}</td><td>${r._ki.toFixed(0)}</td><td>${r._sy.toFixed(0)}</td>
-    <td><b>${r._sc.toFixed(1)}</b></td>
-    <td>${r.ref ? `<i class="tpill ${r.ref}">${r.ref}</i>` : '<span style="color:var(--tx3)">—</span>'}</td>
+    <td>${r._nst.toFixed(0)}</td><td>${r._nki.toFixed(0)}</td><td>${r._nsy.toFixed(0)}</td>
+    <td>${r._sc.toFixed(1)}</td><td>${Object.keys(r.ext).length}</td>
+    <td><b>${r._ix.toFixed(1)}</b></td>
+    <td title="${esc(confTip(r))}" style="color:var(--${CONF[r.conf].c})">${CONF[r.conf].i} ${CONF[r.conf].l}</td>
   </tr>`).join("")}</tbody></table>`;
 }
 
@@ -379,13 +456,55 @@ const AXT = {dmg:8,team:6,brk:7,sust:6,res:6,ctrl:5};        // seuils de couver
 const AXW = {dmg:.28,team:.20,brk:.20,sust:.14,res:.10,ctrl:.08};
 const TW  = {power:.30, axes:.30, el:.12, role:.13, combo:.15};
 
+/* Un duo nomme est-il reuni ? Renvoie les indices des membres qui le forment. */
+function duoUse(d, names){
+  const used=[];
+  for(const g of d.need){
+    let i=-1;
+    for(let j=0;j<names.length;j++)
+      if(g.indexOf(names[j])>=0 && (!d.distinct || used.indexOf(j)<0)){ i=j; break; }
+    if(i<0) return null;
+    used.push(i);
+  }
+  return used;
+}
+/* Un sort qui ne sert qu'un element allie (Nebula Burst : degats Tenebres ;
+   Lightning Surge : allies Foudre) n'a sa pleine valeur que si un allie porte cet
+   element. equipEl.vars donne la meilleure paire pour chaque jeu d'elements presents ;
+   on essaie celles que l'equipe autorise et on garde la meilleure note.
+   T.eq donne, par emplacement, les deux sorts a equiper dans CETTE equipe. */
 function teamScore(mem){
+  const opts = mem.map((r,i)=>{
+    if(!r || !r.equipEl) return [null];
+    const has = e => mem.some((o,j)=>o && j!==i && o.el.indexOf(e)>=0);
+    return r.equipEl.vars.filter(v=>v.need.every(has)).map(v=>Object.assign({}, v,
+      {uses: v.equip.filter(n=>r.equipEl.locks[n] && has(r.equipEl.locks[n]))}));
+  });
+  let best = null;
+  const pick = (i, cur)=>{
+    if(i===mem.length){
+      const mm = mem.map((r,k)=>cur[k] ? Object.assign(Object.create(r),
+        {axes:cur[k].axes, equip:cur[k].equip, _elw:cur[k].uses}) : r);
+      const T = teamScore0(mm);
+      if(T && (!best || T.note>best.note+1e-9)){ best = T; best.eq = mm.map(r=>r && r.equip); }
+      return;
+    }
+    for(const v of opts[i]) pick(i+1, cur.concat([v]));
+  };
+  pick(0, []);
+  return best;
+}
+function teamScore0(mem){
   const m = mem.filter(Boolean);
   if(!m.length) return null;
   const up=[], dn=[];
 
-  /* 1. puissance individuelle moyenne */
-  const power = m.reduce((a,r)=>a+r._sc,0)/m.length;
+  /* 1. puissance individuelle moyenne : l'indice final, sur 100 */
+  const power = m.reduce((a,r)=>a+r._ix,0)/m.length;
+  for(const r of m) if(r.conf==="incertain")
+    dn.push(`La place de <b>${esc(r.name)}</b> est incertaine : ${Object.keys(r.ext).length ? "ses tirages s'étalent sur trois paliers" : "aucune tier list ne l'a classé, seul le calcul parle"}.`);
+  if(m.length>=3 && m.every(r=>r.conf==="sur"))
+    up.push(`Les ${m.length} membres ont un palier <b>sûr</b> : pas de pari dans cette équipe.`);
 
   /* 2. couverture des six axes : le meilleur porteur, plus 40 % du second,
         parce qu'une redondance aide un peu mais ne double pas l'effet. */
@@ -422,15 +541,8 @@ function teamScore(mem){
   let combo = 35;
   const names = m.map(r=>fam(r.kitWho));
   for(const d of META.duos){
-    const used=[]; let ok=true;
-    for(const g of d.need){
-      let i=-1;
-      for(let j=0;j<names.length;j++)
-        if(g.indexOf(names[j])>=0 && (!d.distinct || used.indexOf(j)<0)){ i=j; break; }
-      if(i<0){ ok=false; break; }
-      used.push(i);
-    }
-    if(ok){
+    const used = duoUse(d, names);
+    if(used){
       combo += d.pts;
       up.push(`Duo <b>${used.map(i=>esc(m[i].name)).join(" + ")}</b> — ${esc(d.why)}`);
     }
@@ -441,10 +553,61 @@ function teamScore(mem){
     const n = m.filter((r,j)=>j!==i && r.el.indexOf(L)>=0).length;
     if(n){
       combo += Math.min(2,n)*7;
-      up.push(`<b>${esc(m[i].name)}</b> amplifie l'élément ${ELAB[L]} : ${n} allié${n>1?"s en profitent":" en profite"}.`);
+      up.push(`<!--k:lock${esc(m[i].name)}--><b>${esc(m[i].name)}</b> amplifie l'élément ${ELAB[L]} : ${n} allié${n>1?"s en profitent":" en profite"}.`);
     } else if(m[i].axes.team>=5){
       dn.push(`L'apport de <b>${esc(m[i].name)}</b> est verrouillé sur ${ELAB[L]}, et personne d'autre ne porte cet élément.`);
     }
+  }
+  /* Pawney (toutes formes : Snowfield Pawney a son propre kitWho) : Pursuit donne +30 %
+     sur cible controlee OU en BREAK, son ultime +30 % sur cible en BREAK seulement.
+     Un briseur ouvre les deux ; un controleur, Pursuit seul ; un sommeil qui saute au
+     premier coup (Somniwing) n'ouvre qu'une frappe. */
+  const paw = m.filter(r=>/Pawney$/.test(r.kitWho));
+  const kitTxt = r => r.skills.concat(r.innate, r.traits).map(t=>t.d).join(" ");
+  const fragile = r => /removed when the target takes damage/i.test(kitTxt(r))
+    && !/stun|freez|petrif|bind|root|pull|knock|suppress|immobil|paraly/i.test(kitTxt(r));
+  const breaker = r => paw.indexOf(r)<0 && (r.role==="Break" || r.axes.brk>=7);
+  const ctrler  = r => paw.indexOf(r)<0 && !breaker(r) && r.axes.ctrl>=6;
+  const opener  = r => breaker(r) || ctrler(r);
+  const nm = rs => rs.map(r=>"<b>"+esc(r.name)+"</b>").join(" et ");
+  if(paw.length && m.some(opener)){
+    const B = m.filter(breaker), C = m.filter(ctrler);
+    const Cs = C.filter(r=>!fragile(r)), Cf = C.filter(fragile);
+    combo += B.length ? 10 : Cs.length ? 5 : 2;
+    up.push(`<!--k:paw-->` + (B.length
+      ? `${nm(B)} ${B.length>1?"brisent":"brise"} la garde : les deux +30 % de <b>${esc(paw[0].name)}</b>
+         s'appliquent (Pursuit et ultime).`
+      : `<b>${esc(paw[0].name)}</b> profite de Pursuit (+30 % sur cible contrôlée).`)
+      + (Cs.length ? ` ${nm(Cs)} ${B.length?"ajoute":"apporte"} du contrôle qui déclenche aussi Pursuit.` : "")
+      + (Cf.length ? ` Le sommeil de ${nm(Cf)} saute au premier coup : il n'ouvre qu'une frappe.` : ""));
+    if(!B.length) dn.push(`<!--k:pawbrk-->Personne ne brise pour <b>${esc(paw[0].name)}</b> : le +30 % de son ultime
+      (cible en BREAK seulement) ne sert pas.`);
+  }
+  /* Buff collectif sans verrou d'element (Turbo, Glacy) : il sert chaque porteur
+     de degats, quel que soit son element. */
+  for(const b of m){
+    if(b.axes.team<8 || META.lock[fam(b.kitWho)]) continue;
+    const car = m.filter(r=>r!==b && (r.role==="DPS" || r.axes.dmg>=7));
+    if(!car.length) continue;
+    combo += 5*Math.min(2, car.length);
+    up.push(`<!--k:buff${esc(b.name)}-->Le buff collectif de <b>${esc(b.name)}</b>, sans verrou d'élément, profite à
+      ${car.map(r=>"<b>"+esc(r.name)+"</b>").join(", ")}.`);
+  }
+  for(const b of m.filter(r=>r._elw && r._elw.length)){
+    for(const E of [...new Set(b._elw.map(n=>b.equipEl.locks[n]))]){
+      if(META.lock[fam(b.kitWho)]===E) continue;   // deja compte par "amplifie l'element"
+      const al = m.filter(r=>r!==b && r.el.indexOf(E)>=0);
+      combo += 4*Math.min(2, al.length);
+      up.push(`<!--k:elw${esc(b.name+E)}-->Avec <b>${b._elw.filter(n=>b.equipEl.locks[n]===E).map(esc).join(" + ")}</b>,
+        <b>${esc(b.name)}</b> soutient ses alliés ${ELAB[E]} : ${al.map(r=>"<b>"+esc(r.name)+"</b>").join(", ")}.`);
+    }
+  }
+  for(const b of m.filter(r=>r.ultEl && META.lock[fam(r.kitWho)]!==r.ultEl)){
+    const al = m.filter(r=>r!==b && r.el.indexOf(b.ultEl)>=0);
+    if(!al.length) continue;
+    combo += 3*Math.min(2, al.length);
+    up.push(`<!--k:ult${esc(b.name)}-->L'ultime de <b>${esc(b.name)}</b> augmente les dégâts ${ELAB[b.ultEl]} de
+      ${al.map(r=>"<b>"+esc(r.name)+"</b>").join(", ")}.`);
   }
   combo = Math.min(100, combo);
 
@@ -452,7 +615,7 @@ function teamScore(mem){
   let malus = 0;
   const R = {}; META.rules.forEach(r=>{ R[r.id]=r; });
   const has = f => m.some(f);
-  if(names.indexOf("Pawney")>=0 && !has(r=>r.role==="Break"||r.axes.ctrl>=6)){
+  if(paw.length && !m.some(opener)){
     malus += R.breaker.pts; dn.push(esc(R.breaker.why));
   }
   if(!has(r=>r.axes.res>=5)){ malus += R.ep.pts; dn.push(esc(R.ep.why)); }
@@ -464,40 +627,191 @@ function teamScore(mem){
   const grade = note>=80?"S":note>=70?"A":note>=58?"B":note>=45?"C":"D";
   return {note,grade,power,axes,el,role,combo,malus,up,dn,els,rl,axd,n:m.length};
 }
-/* Composition gloutonne : on part du meilleur candidat, puis on ajoute a chaque
-   tour celui qui maximise la note d'ensemble. */
-function autoTeam(){
-  const cand = ANIIMO.filter(pass);
-  if(!cand.length) return;
-  const team = [];
-  for(let slot=0; slot<4 && team.length<cand.length; slot++){
-    let best=null, bs=-1;
-    for(const c of cand){
-      if(team.some(x=>x.name===c.name)) continue;
-      const t = teamScore(team.concat([c]));
-      if(t && t.note>bs){ bs=t.note; best=c; }
-    }
-    if(!best) break;
-    team.push(best);
+/* Une famille = une espece : Hexxin, Mountain Hexxin et Prismana Hexxin ne se
+   cumulent pas dans une composition automatique. */
+const famKey = r => fam(r.parent||r.name);
+function candidates(team, slot){
+  const fams = new Set(team.filter((r,i)=>r && i!==slot).map(famKey));
+  return ANIIMO.filter(r=>pass(r) && (!S.safe || r.conf!=="incertain") && !team.some(x=>x && x.name===r.name)
+    && (!fams.has(famKey(r)) || selfDuo(r)));
+}
+/* Exception : un kit qui n'agit qu'avec un deuxieme membre de sa famille (Chirpi). */
+function selfDuo(r){
+  const n = fam(r.kitWho);
+  return META.duos.some(d=>d.distinct && d.need.every(g=>g.indexOf(n)>=0));
+}
+const noteOf = team => { const t = teamScore(team); return t ? t.note : 0; };
+/* Ce qui fait fonctionner les Aniimo imposes : les dependances nommees de leur
+   kit (Bouldus a besoin de Waleetle) et l'element sur lequel leur apport est
+   verrouille (Sparki ne sert qu'aux allies Feu). Dans la note d'equipe ces
+   points sont dilues ; quand on construit AUTOUR d'un choix, ils passent devant
+   la puissance brute des autres candidats. */
+const FITK = 1;
+function serveKept(team, kept){
+  if(!kept.length) return 0;
+  const m = team.filter(Boolean), names = m.map(r=>fam(r.kitWho));
+  let b = 0;
+  for(const d of META.duos){
+    const used = duoUse(d, names);
+    if(used && used.some(i=>kept.indexOf(m[i])>=0)) b += d.pts;
   }
-  S.team = [0,1,2,3].map(i=>team[i]||null);
+  for(const k of kept){
+    const L = META.lock[fam(k.kitWho)]; if(!L) continue;
+    b += Math.min(2, m.filter(r=>r!==k && r.el.indexOf(L)>=0).length)*7;
+  }
+  return b;
+}
+const objOf = (team, kept) => noteOf(team) + (S.around ? FITK*serveKept(team, kept) : 0);
+/* Composition : les emplacements `fixed` ne bougent pas. Les autres sont remplis
+   un par un (le candidat qui monte le plus la note), puis re-essayes tant qu'un
+   echange ameliore encore l'ensemble : le glouton seul se laisse pieger par son
+   premier choix. */
+function build(fixed){
+  const team = S.team.map((r,i)=> fixed.indexOf(i)>=0 ? r : null);
+  const kept = team.filter(Boolean);
+  const free = [0,1,2,3].filter(i=>!team[i]);
+  for(const i of free){
+    let best=null, bs=-Infinity;
+    for(const c of candidates(team,i)){ team[i]=c; const n=objOf(team,kept); if(n>bs){ bs=n; best=c; } }
+    team[i]=best;
+  }
+  let cur = objOf(team,kept);
+  for(let it=0; it<6; it++){
+    let moved=false;
+    for(const i of free){
+      const keep=team[i]; let best=keep, bs=cur;
+      for(const c of candidates(team,i)){ team[i]=c; const n=objOf(team,kept); if(n>bs+1e-9){ bs=n; best=c; } }
+      team[i]=best;
+      if(best!==keep){ moved=true; cur=bs; }
+    }
+    if(!moved) break;
+  }
+  S.team = team;
+}
+/* Ce qu'un changement apporte : manques combles, points gagnes, points perdus,
+   nouveaux trous. Les lignes sont celles de teamScore, comparees avant/apres. */
+function why(before, after, inc, out){
+  const B = before || {up:[],dn:[]}, o=[];
+  let fixed = B.dn.filter(x=>after.dn.indexOf(x)<0);
+  let gain  = after.up.filter(x=>B.up.indexOf(x)<0);
+  let lost  = B.up.filter(x=>after.up.indexOf(x)<0);
+  let added = after.dn.filter(x=>B.dn.indexOf(x)<0);
+  // un manque qui persiste avec un autre chiffre ("2.0 sur 8" -> "3.5 sur 8") reste un manque
+  const dk = x => x.replace(/\d+(\.\d+)?/g,"#");
+  added = added.filter(a=>{ const f=fixed.find(x=>dk(x)===dk(a)); if(!f) return true; fixed=fixed.filter(x=>x!==f); return false; });
+  // "4 rôles distincts" devenu "3 rôles distincts" : une seule ligne, dans le bon sens
+  // une synergie nommee (<!--k:..-->) qui reste en place n'est pas un changement
+  const tag = x => (x.match(/^<!--k:(.*?)-->/)||[])[1];
+  const key = x => tag(x) || x.replace(/\d+(\.\d+)?/g,"#");
+  const num = x => parseFloat((x.match(/\d+(\.\d+)?/)||[0])[0]);
+  const moved = [];
+  gain = gain.filter(g=>{
+    const l = lost.find(x=>key(x)===key(g));
+    if(!l) return true;
+    lost = lost.filter(x=>x!==l);
+    if(!tag(g) && num(g)!==num(l)) moved.push([num(g)>num(l)?"up":"dn", g]);
+    return false;
+  });
+  fixed.forEach(x=>o.push(`<div class="li up">Comble : ${x}</div>`));
+  gain.forEach(x=>o.push(`<div class="li up">${x}</div>`));
+  moved.forEach(x=>o.push(`<div class="li ${x[0]}">Désormais : ${x[1]}</div>`));
+  lost.forEach(x=>o.push(`<div class="li dn">Perd : ${x}</div>`));
+  added.forEach(x=>o.push(`<div class="li dn">${x}</div>`));
+  if(out){
+    const d = inc._ix - out._ix;
+    if(Math.abs(d)>=3)
+      o.push(`<div class="li ${d>0?"up":"dn"}">Puissance individuelle : ${out._ix.toFixed(0)} → ${inc._ix.toFixed(0)}
+        (${inc._tier}, ${CONF[inc.conf].l}).</div>`);
+  } else {
+    o.push(`<div class="li up">Palier <b>${inc._tier}</b>, indice ${inc._ix.toFixed(0)}, ${CONF[inc.conf].l} —
+      ${inc.role||"—"} (${RDESC[inc.role||"DPS"]}), ${inc.el.map(e=>ELAB[e]).join("/")}.</div>`);
+  }
+  return o.join("");
+}
+function suggestHTML(T){
+  if(!T) return "";
+  const empty = S.team.indexOf(null);
+  // incomplete : on complete TOUS les presents ; pleine : seuls les gardes sont imposes
+  const kept = empty>=0 ? S.team.filter(Boolean) : S.team.filter((r,i)=>r && S.lock[i]);
+  const o0 = objOf(S.team,kept), s0 = serveKept(S.team,kept);
+  const mk = (i,c,team) => { const t=teamScore(team);
+    return {i, c, t, d:t.note-T.note, o:objOf(team,kept)-o0, sv:serveKept(team,kept)-s0}; };
+  const sug = [];
+  if(empty>=0){                                   // equipe incomplete : meilleurs ajouts
+    const team = S.team.slice();
+    for(const c of candidates(team,empty)){ team[empty]=c; sug.push(mk(empty,c,team)); }
+  } else {                                        // equipe pleine : meilleurs echanges
+    for(let i=0;i<4;i++){
+      if(S.lock[i]) continue;
+      const team = S.team.slice(), per=[];
+      for(const c of candidates(team,i)){ team[i]=c; const x=mk(i,c,team); if(x.o>=.5) per.push(x); }
+      per.sort((a,b)=>b.o-a.o); sug.push.apply(sug, per.slice(0,3));
+    }
+  }
+  sug.sort((a,b)=>b.o-a.o);
+  const seen=new Set(), top=[];
+  for(const s of sug){
+    const k=famKey(s.c); if(seen.has(k)) continue;
+    seen.add(k); top.push(s); if(top.length>=5) break;
+  }
+  const head = empty>=0
+    ? `<h2>Qui ajouter à l'emplacement ${empty+1} ?</h2><div class="sub">Les 5 candidats qui donnent la meilleure
+        note à l'équipe telle qu'elle est, et ce que chacun apporte.</div>`
+    : `<h2>Changements conseillés</h2><div class="sub">Remplacements qui améliorent l'équipe, membres gardés exclus.
+        ${S.lock.some(Boolean)?"":"Clique « garder » sur un membre pour qu'il ne soit jamais proposé au remplacement."}</div>`;
+  if(!top.length) return `<div class="panel">${head}<div class="note">Aucun changement ne fait gagner au moins
+    un demi-point : cette équipe est au mieux de ce que permettent les filtres et les membres gardés.</div></div>`;
+  return `<div class="panel">${head}${top.map(s=>{
+    const out = S.team[s.i];
+    return `<div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line)">
+      <img src="${img(s.c.name)}" alt="" style="width:54px;height:54px;border-radius:8px;object-fit:cover;background:#0a0c10;flex:none">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+          <b>${out?`${esc(out.name)} → `:""}${esc(s.c.name)}</b>
+          <i class="tpill ${s.c._tier}">${s.c._tier}</i>
+          <span style="color:var(--${s.d>=0?"ok":"bad"});font-weight:700">
+            note ${s.t.note.toFixed(0)} (${s.d>=0?"+":""}${s.d.toFixed(1)})</span>
+          ${S.around && s.sv>0 ? `<span class="bd ok" style="position:static">fait fonctionner ${
+            kept.filter(k=>serveKept(S.team.map((r,j)=>j===s.i?s.c:r),[k])>serveKept(S.team,[k])).map(k=>esc(k.name)).join(", ")}</span>` : ""}
+          <button class="btn" style="padding:3px 10px;margin-left:auto" data-sw="${s.i}|${esc(s.c.name)}">${out?"Échanger":"Ajouter"}</button>
+        </div>
+        ${why(T, s.t, s.c, out)}
+      </div></div>`;
+  }).join("")}</div>`;
 }
 function viewTeam(){
   const T = teamScore(S.team);
+  const nb = S.team.filter(Boolean).length;
+  const IT = teamItems(S.team);
   const slots = S.team.map((r,i)=> r
-    ? `<div class="slot full"><img src="${img(r.name)}" alt="">
+    ? `<div class="slot full${S.lock[i]?" lk":""}"><img src="${img(r.name)}" alt="">
         <div class="n">${esc(r.name)}</div>
-        <div class="r">${r.role||"—"} · ${r.el.map(e=>ELAB[e]).join("/")} · ${r._sc.toFixed(0)}</div>
-        <button class="x" data-rm="${i}">retirer</button></div>`
+        <div class="r"><i class="tpill ${r._tier}">${r._tier}</i>
+          <i class="bd ${CONF[r.conf].c}" title="${esc(confTip(r))}">${CONF[r.conf].i} ${CONF[r.conf].l}</i></div>
+        <div class="r">${r.role||"—"} · ${r.el.map(e=>ELAB[e]).join("/")} · ${r._ix.toFixed(0)}</div>
+        ${(r.equip||[]).length && new Set(r.skills.map(s=>s.n)).size>2
+          ? `<div class="r eq" title="Deux sorts actifs à la fois : la paire qui sert le mieux cette équipe">⚔ ${
+            ((T && T.eq && T.eq[i]) || r.equip).map(esc).join(" + ")}</div>` : ""}
+        <div class="r eq" title="${esc(IT[i].why)}">🎒 ${esc(IT[i].n)}</div>
+        <div><button class="x pin${S.lock[i]?" on":""}" data-lock="${i}"
+          title="Un membre gardé n'est jamais remplacé par la composition ni proposé à l'échange">${S.lock[i]?"✔ gardé":"garder"}</button>
+        <button class="x" data-rm="${i}">retirer</button></div></div>`
     : `<div class="slot" data-add="${i}"><div class="plus">+</div>
         <div class="r">emplacement ${i+1}</div></div>`).join("");
 
   let pick = "";
   if(S.picking>=0){
-    const list = ANIIMO.filter(r=>pass(r) && !S.team.some(x=>x && x.name===r.name))
-                 .sort((a,b)=>b._sc-a._sc).slice(0,120);
+    const others = S.team.filter((r,i)=>r && i!==S.picking), team = S.team.slice();
+    let list = ANIIMO.filter(r=>pass(r) && !S.team.some(x=>x && x.name===r.name));
+    if(others.length){                          // les plus utiles a CETTE equipe d'abord
+      const sc = new Map(list.map(c=>{ team[S.picking]=c; return [c, objOf(team,others)]; }));
+      list.sort((a,b)=>sc.get(b)-sc.get(a));
+    } else list.sort((a,b)=>b._fin-a._fin);
+    list = list.slice(0,120);
     pick = `<div class="panel"><h2>Choisir pour l'emplacement ${S.picking+1}</h2>
-      <div class="sub">Les filtres du bandeau s'appliquent. ${list.length} candidats, les mieux notés d'abord.</div>
+      <div class="sub">Les filtres du bandeau s'appliquent. ${others.length
+        ? "Classés selon la note que prendrait l'équipe avec eux : les plus utiles à cette équipe d'abord."
+        : "Les mieux notés d'abord."}</div>
       <div class="cards">${list.length?list.map(cardHTML).join(""):'<div class="empty">Aucun candidat.</div>'}</div>
       <div class="btns"><button class="btn" id="cancelpick">Annuler</button></div></div>`;
   }
@@ -511,18 +825,30 @@ function viewTeam(){
       <div style="font-size:11px;color:var(--tx3);margin:-3px 0 7px 108px">poids ${(x[2]*100).toFixed(0)} %</div>`
     ).join("") : "";
 
+  const partial = nb>0 && nb<4, kept = S.lock.some((l,i)=>l && S.team[i]);
   return `
   <div class="panel"><h2>Constructeur d'équipe</h2>
-    <div class="sub">Jusqu'à 4 Aniimo. La note croise la puissance individuelle, la couverture des
-      six axes de kit, les éléments, les rôles, et les synergies nommées lues directement dans les kits.</div>
+    <div class="sub">Place les Aniimo que tu veux absolument : un Aniimo choisi à la main est <b>gardé</b>
+      d'office, rien ne le remplacera. « Compléter » cherche ensuite ce qui le fait le mieux fonctionner —
+      partenaire que son kit réclame, élément sur lequel son apport est verrouillé, trous à combler.
+      La note croise la puissance individuelle, la couverture des six axes de kit, les éléments, les rôles
+      et les synergies nommées lues dans les kits.</div>
     <div class="slots">${slots}</div>
     <div class="btns">
-      <button class="btn pri" id="autoteam">Composer automatiquement</button>
+      ${partial ? `<button class="btn pri" id="fillteam" title="Garde tes ${nb} membre${nb>1?"s":""} et remplit les emplacements vides">Compléter l'équipe</button>` : ""}
+      <button class="btn${partial?"":" pri"}" id="autoteam" title="Recompose les 4 emplacements, sauf les membres gardés">${
+        kept ? "Recomposer autour des membres gardés" : "Composer automatiquement"}</button>
       <button class="btn" id="clearteam">Vider</button>
-      <span class="note" style="margin:0">La composition automatique respecte les filtres du bandeau.</span>
+      <label class="chk" title="Écarte des compositions et suggestions les Aniimo dont le palier est incertain">
+        <input type="checkbox" id="fsafe"${S.safe?" checked":""}> Seulement des choix fiables</label>
+      <label class="chk" title="Les besoins du kit de tes Aniimo imposés (partenaire nommé, élément verrouillé) passent avant la puissance brute des autres">
+        <input type="checkbox" id="faround"${S.around?" checked":""}> Construire autour de mes choix</label>
     </div>
+    <div class="note">Compositions et conseils respectent les filtres du bandeau et n'alignent jamais deux
+      formes du même Aniimo.</div>
   </div>
   ${pick}
+  ${S.picking<0 ? suggestHTML(T) : ""}
   ${T ? `<div class="grid2">
     <div class="panel">
       <h2>Note de synergie</h2><div class="sub">${T.n} membre${T.n>1?"s":""} sur 4</div>
@@ -560,15 +886,19 @@ function viewTune(){
   const role = S.role || "DPS";
   return `
   <div class="panel"><h2>Poids réglables</h2>
-    <div class="sub">Tout se recalcule immédiatement : scores, paliers, note d'équipe et accord avec
-      Game8. Le test de stabilité dit ensuite quels classements résistent à ces réglages et lesquels
-      ne tiennent qu'à eux.</div>
+    <div class="sub">Tout se recalcule immédiatement : calcul, indice final, paliers, note d'équipe et
+      validation ci-dessous. L'indice de confiance affiché sur les cartes, lui, a été mesuré aux poids de
+      référence (${META.runs} tirages) : il ne suit pas vos réglages.</div>
     <div class="btns">
       <button class="btn" id="resetw">Revenir aux poids de référence</button>
-      <button class="btn pri" id="runstab">Lancer le test de stabilité</button>
       <span class="note" style="margin:0">Le sélecteur de rôle du bandeau choisit le rôle réglé ci-dessous.</span>
     </div>
-    <div class="note" id="stabout">${S.stab ? stabSummary() : "Aucun test lancé pour l'instant."}</div>
+    <div class="sl" style="max-width:560px"><label>Poids du calcul face aux tier lists</label>
+      <input type="range" min="0" max="4" step=".05" value="${WS.model}" data-w="Calcul|model">
+      <div class="v">×${WS.model.toFixed(2)}</div></div>
+    <div class="note" style="margin-top:4px">×1 = le calcul pèse comme une tier list d'accord
+      ${Math.sqrt(META.modelW).toFixed(2)} avec le consensus (poids ${META.modelW.toFixed(2)}).
+      À 0, seules les tier lists comptent ; les entrées qu'aucune ne classe restent placées par le calcul.</div>
   </div>
   <div class="grid2">
     ${sliders("Mélange",WS.mix,["stat","kit","syn"],{stat:"Stats",kit:"Kit",syn:"Synergie"},1,.01)}
@@ -576,42 +906,46 @@ function viewTune(){
     ${sliders("Kit "+role,WS.kit[role],AXES,ALAB,.8,.01)}
     ${sliders("Apport collectif",WS.give,Object.keys(WS.give),ALAB,.8,.01)}
   </div>
-  <div class="panel" id="calibpanel"><h2>Accord avec Game8 aux poids actuels</h2>
-    <div class="sub">Recalculé sur les ${ANIIMO.filter(r=>r.ref).length} entrées que Game8 classe,
-      paliers repris sur ce seul sous-ensemble.</div>
-    <div id="calibbody">${calibHTML()}</div>
+  <div class="panel"><h2>Validation aux poids actuels</h2>
+    <div class="sub">Chaque tier list est mise de côté à tour de rôle, puis prédite sans elle. Plus la
+      corrélation des rangs est haute, mieux on devine un avis d'expert qu'on n'a pas vu.</div>
+    <div id="validbody">${validHTML()}</div>
   </div>`;
 }
-/* Test de stabilité : chaque poids perturbé de ±25 %, 200 tirages, on compte
-   combien de fois chaque Aniimo retombe dans le même palier. */
-function stability(runs){
-  const keep = {}; ANIIMO.forEach(r=>{ keep[r.name]={}; });
-  const jit = v => v*(0.75 + Math.random()*0.5);
-  for(let it=0; it<runs; it++){
-    const w = clone(WS0);
-    for(const k in w.mix) w.mix[k]=jit(w.mix[k]);
-    for(const R in w.stat) for(const k in w.stat[R]) w.stat[R][k]=jit(w.stat[R][k]);
-    for(const R in w.kit)  for(const k in w.kit[R])  w.kit[R][k]=jit(w.kit[R][k]);
-    for(const k in w.give) w.give[k]=jit(w.give[k]);
-    recompute(w);
-    for(const r of tiers(ANIIMO.slice()))
-      keep[r.name][r._tier] = (keep[r.name][r._tier]||0)+1;
-  }
-  recompute(WS);
-  const out = {};
-  for(const n in keep){
-    const v = Object.keys(keep[n]).map(k=>keep[n][k]);
-    out[n] = Math.round(100*Math.max.apply(null,v)/runs);
+
+/* ============================================= validation hors source == */
+/* Pour chaque source s : l'indice est recalcule SANS elle (poids des autres
+   re-estimes sans elle, META.wLoo[s]) et compare a son classement. */
+function validate(){
+  const out = {}, wm = META.modelW*WS.model;
+  for(const s in META.src){
+    const rs = ANIIMO.filter(r=>r.ext[s] && !r.ext[s][2]);
+    const truth = rs.map(r=>r.ext[s][0]);
+    out[s] = {n:rs.length,
+              model: spear(rs.map(r=>r._mp), truth),
+              final: spear(rs.map(r=>blendOne(r, wm, META.wLoo[s])), truth),
+              peers: META.valid[s].peers};
   }
   return out;
 }
-function stabSummary(){
-  const e = Object.keys(S.stab).map(n=>[n,S.stab[n]]).sort((a,b)=>a[1]-b[1]);
-  const uns = e.filter(x=>x[1]<60);
-  return `<b>${e.length-uns.length}</b> Aniimo sur ${e.length} gardent leur palier dans au moins 60 %
-    des 200 tirages. <b style="color:var(--bad)">${uns.length}</b> sont instables et portent un
-    <i class="bd uns">~</i> dans la tier list : leur place tient au réglage, pas à leur fiche.<br><br>
-    Les plus instables : ${uns.slice(0,14).map(x=>esc(x[0])+" ("+x[1]+" %)").join(" · ")||"aucun"}.`;
+function validHTML(){
+  const v = validate(), ks = Object.keys(v);
+  const avg = k => ks.reduce((a,s)=>a+v[s][k],0)/ks.length;
+  const bar = x => `<span style="display:inline-block;width:70px;height:6px;border-radius:3px;background:var(--bg3);
+    vertical-align:middle;margin-right:6px"><span style="display:block;height:6px;border-radius:3px;
+    width:${Math.max(0,x)*100}%;background:var(--acc)"></span></span>${x.toFixed(2)}`;
+  return `<table style="width:100%"><thead><tr><th style="text-align:left">Tier list cachée</th><th>Entrées</th>
+      <th title="Le calcul seul, sans aucune tier list">Calcul seul</th>
+      <th title="Le calcul mélangé aux 5 autres tier lists">Indice final</th>
+      <th title="Les 5 autres tier lists entre elles, sans le calcul : l'accord entre experts">Les autres experts</th></tr></thead>
+    <tbody>${ks.map(s=>`<tr><td style="text-align:left"><a href="https://${META.src[s].url}" target="_blank" rel="noopener">${esc(SRCN[s])}</a></td>
+      <td>${v[s].n}</td><td>${bar(v[s].model)}</td><td>${bar(v[s].final)}</td><td>${bar(v[s].peers)}</td></tr>`).join("")}
+      <tr style="font-weight:700"><td style="text-align:left">Moyenne</td><td></td>
+      <td>${avg("model").toFixed(2)}</td><td>${avg("final").toFixed(2)}</td><td>${avg("peers").toFixed(2)}</td></tr>
+    </tbody></table>
+    <div class="note">Lecture : si « Indice final » ≈ « Les autres experts », l'indice devine une tier list
+      aussi bien que les experts se devinent entre eux. Les experts ne sont d'accord qu'à 0,45–0,78 :
+      aucun classement ne peut viser 1,00.</div>`;
 }
 
 /* ================================================ calibration Game8 (C) == */
@@ -769,30 +1103,115 @@ function viewMeth(){
 }
 
 /* ============================================================== modale == */
+/* Objet tenu : un seul par Aniimo (aniimoguide.com/held-items). Par defaut l'objet
+   du role (meilleur choix cite par les guides), sinon celui des builds Game8 de
+   l'espece. alt : repli si deux membres voulaient le meme exemplaire. */
+const ITEMS = {
+  DPS:     {n:"Ferocious Fang", why:"+10 % Damage Amp et +0,7 ATK par niveau", alt:"Capacitous Battery"},
+  Break:   {n:"Gargantuan Horn", why:"+10 % BREAK et +0,7 BREAK par niveau", alt:"Avenging Gear"},
+  Support: {n:"Spirited Feather", why:"+10 % REGEN et +0,7 REGEN par niveau : ses sorts d'équipe tournent plus souvent", alt:"Auspicious Bell"},
+  Regen:   {n:"Spirited Feather", why:"+10 % REGEN et +0,7 REGEN par niveau : plus d'EP pour toute l'équipe", alt:"Auspicious Bell"},
+  Heal:    {n:"Miraculous Fleece", why:"+6 % soins, et le surplus de soin va à l'allié le plus bas", alt:"Heritage Amulet"},
+};
+const ITEM_KIT = [   // builds d'espece (Game8), la forme regionale ou Prismana herite
+  ["Pawney", {n:"Echoing Grimoire", why:"+5 % par relance du même sort (5 cumuls) : Weakening Smash se relance trois fois", alt:"Ferocious Fang"}],
+  ["Ignitis", {n:"Fission Needles", why:"50 % de chances de doubler chaque attaque de base", alt:"Ferocious Fang"}],
+  ["Glynsera", {n:"Heartseeker Pendant", why:"+10 Might sur coup critique : Biting Wind donne +15 % de critique", alt:"Ferocious Fang"}],
+  ["Fulmintis", {n:"Heartseeker Pendant", why:"+10 Might sur coup critique, pour son build axé critique", alt:"Ferocious Fang"}],
+];
+function itemFor(r){
+  const k = ITEM_KIT.find(([f])=>r.name===f || r.name.endsWith(" "+f));
+  return k ? Object.assign({src:"build Game8 de l'espèce"}, k[1])
+    : Object.assign({src:"meilleur objet du rôle"}, ITEMS[r.role] || ITEMS.DPS);
+}
+/* Dans une equipe : si deux membres visent le meme objet, le second prend son repli
+   (le jeu ne dit pas clairement si un meme objet peut etre porte deux fois). */
+function teamItems(mem){
+  const PRIO = {Regen:0, Heal:1, Support:2, Break:3, DPS:4}, used = new Set(), out = mem.map(()=>null);
+  mem.map((r,i)=>i).filter(i=>mem[i])      // l'objet va d'abord au role qui en vit (Feather : le Regen)
+    .sort((a,b)=>(PRIO[mem[a].role]??4)-(PRIO[mem[b].role]??4)).forEach(i=>{
+      const it = itemFor(mem[i]), dup = used.has(it.n);
+      used.add(dup ? it.alt : it.n);
+      out[i] = dup ? {n:it.alt, why:"repli : "+it.n+" est déjà porté par un coéquipier (doublon non confirmé par le jeu)"} : it;
+    });
+  return out;
+}
+function itemHTML(r){
+  const it = itemFor(r);
+  return `<div class="note"><b>Objet conseillé :</b> ${esc(it.n)} — ${esc(it.why)}
+    <span style="color:var(--tx3)">(${esc(it.src)} ; un seul objet par Aniimo, repli : ${esc(it.alt)})</span></div>`;
+}
+/* Deux sorts actifs a la fois : les axes affiches sont ceux de la paire conseillee
+   (r.equip), le kit entier (r.axesAll) n'est jamais jouable d'un bloc. */
+function skillsEquipFirst(r){
+  const seen = new Set(), eq = r.equip||[];
+  const u = r.skills.filter(s=>!seen.has(s.n) && seen.add(s.n));
+  return u.map(s=>Object.assign({}, s, {eq: eq.length<u.length && eq.indexOf(s.n)>=0}))
+    .sort((a,b)=>b.eq-a.eq);
+}
+function equipHTML(r){
+  const eq = r.equip||[], n = new Set((r.skills||[]).map(s=>s.n)).size;
+  if(n<=2) return "";
+  const lost = AXES.filter(a=>r.axesAll && r.axesAll[a]-r.axes[a]>=.5);
+  return `<div class="note"><b>À équiper :</b> ${eq.map(esc).join(" + ")}
+    <span style="color:var(--tx3)">(${n} sorts, 2 à la fois)</span>${lost.length?`<br>Le reste du kit ne suit pas :
+    ${lost.map(a=>`${ALAB[a]} ${r.axesAll[a]} → ${(+r.axes[a]).toFixed(1)}`).join(", ")}.`:""}${
+    elVarsHTML(r, eq)}</div>`;
+}
+/* Paires de repli quand l'equipe n'a pas l'element que vise un sort */
+function elVarsHTML(r, eq){
+  if(!r.equipEl) return "";
+  const all = [...new Set(Object.values(r.equipEl.locks))];
+  const lab = v => v.need.length ? "Avec "+v.need.map(e=>"un allié "+ELAB[e]).join(" et ")
+    : "Sans allié "+all.map(e=>ELAB[e]).join(" ni ");
+  const cur = r.equipEl.vars.find(v=>v.equip.join()===eq.join());
+  const alt = r.equipEl.vars.filter(v=>v!==cur);
+  if(!alt.length || !cur) return "";
+  return `<br>${Object.keys(r.equipEl.locks).map(esc).join(", ")} ne ${Object.keys(r.equipEl.locks).length>1?"servent":"sert"}
+    que des alliés ${all.map(e=>ELAB[e]).join(" / ")}. Paire ci-dessus : ${esc(lab(cur).toLowerCase())}.
+    ${alt.map(v=>`${lab(v)} : <b>${v.equip.map(esc).join(" + ")}</b>`).join(" ; ")}
+    (le constructeur d'équipe choisit tout seul).`;
+}
 function openModal(name){
   const r = byName[name]; if(!r) return;
   const dots = r.el.map(e=>`<span class="pill" style="color:var(--${e})">${ELAB[e]}</span>`).join("");
   const bar = (l,v,mx,col)=>`<div class="axr"><div class="l">${l}</div>
     <div class="b"><i style="width:${Math.min(100,100*v/mx).toFixed(1)}%${col?";background:"+col:""}"></i></div>
     <div class="n">${v}</div></div>`;
-  const sk = a => (a&&a.length) ? a.map(s=>`<div class="sk"><b>${esc(s.n)}</b><p>${esc(s.d)}</p></div>`).join("") : "";
+  const sk = a => (a&&a.length) ? a.map(s=>`<div class="sk"><b>${esc(s.n)}</b>${s.eq?` <span class="bd ok" style="position:static">à équiper</span>`:""}<p>${esc(s.d)}</p></div>`).join("") : "";
 
   $("#modal").innerHTML = `<button class="close" id="cl">×</button>
   <div class="mhd"><img src="${img(r.name)}" alt="">
     <div style="min-width:240px;flex:1"><h2>${esc(r.name)}</h2>
       <div style="margin:5px 0">
         <span class="pill"><i class="tpill ${r._tier}">${r._tier}</i> &nbsp;${r._rk}ᵉ sur ${r._of} — ${KINDS[r.kind]}</span>
-        <span class="pill">${r.role||"—"}</span><span class="pill">${r.stage||"—"}</span>${dots}
-        ${r.ref?`<span class="pill">Game8 : ${r.ref}</span>`:""}
-        ${S.stab&&S.stab[r.name]!==undefined?`<span class="pill">palier stable à ${S.stab[r.name]} %</span>`:""}
+        <span class="pill" style="color:var(--${CONF[r.conf].c})" title="${esc(CONF[r.conf].d)}">${CONF[r.conf].i} ${CONF[r.conf].l}</span>
+        <span class="pill" title="${r.role?esc(RDESC[r.role]):""}">${r.role||"—"}${r.role?" · "+RDESC[r.role]:""}</span>
+        <span class="pill">${r.stage||"—"}</span>${dots}
       </div>
-      <div style="font-size:26px;font-weight:800;margin-top:6px">${r._sc.toFixed(1)}
-        <span style="font-size:12px;color:var(--tx3);font-weight:400">
-          = ${(WS.mix.stat*100).toFixed(0)}%·${r._st.toFixed(0)}
-          + ${(WS.mix.kit*100).toFixed(0)}%·${r._ki.toFixed(0)}
-          + ${(WS.mix.syn*100).toFixed(0)}%·${r._sy.toFixed(0)}${
-          r.sStage<1?` &nbsp;×${r.sStage} (stade ${r.stage})`:""}</span></div>
+      <div style="font-size:26px;font-weight:800;margin-top:6px">${r._ix.toFixed(0)}
+        <span style="font-size:12px;color:var(--tx3);font-weight:400">/ 100 — indice final :
+          calcul (${(r._mp*100).toFixed(0)}ᵉ centile) croisé avec ${Object.keys(r.ext).length}
+          tier list${Object.keys(r.ext).length>1?"s":""}</span></div>
     </div></div>
+
+  <div class="panel" style="padding:12px 14px;margin-bottom:14px">
+    <h3 style="font-size:13px;margin-bottom:6px">Fiabilité de ce palier</h3>
+    <div class="note" style="margin:0 0 8px">${esc(confTip(r))}</div>
+    <div style="display:flex;gap:3px;height:16px;margin-bottom:10px" title="Répartition des paliers sur ${META.runs} tirages">
+      ${TIERS.filter(t=>r.dist[t]).map(t=>`<div style="flex:${r.dist[t]};background:var(--${t});border-radius:3px;
+        color:#0d0f14;font-size:10px;font-weight:800;text-align:center;line-height:16px">${r.dist[t]>=.08?t+" "+Math.round(r.dist[t]*100)+"%":""}</div>`).join("")}
+    </div>
+    ${Object.keys(r.ext).length ? `<div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px">
+      ${Object.keys(META.src).map(s=>{
+        const e=r.ext[s];
+        return `<span style="color:var(--tx${e?2:3})">${esc(SRCN[s])} : <b style="color:var(--tx${e?"":3})">${e?esc(e[1]):"—"}</b>${
+          e&&e[2]?` <span title="Classement de ${esc(r.parent)}, dont cette forme est la copie exacte">(via ${esc(r.parent)})</span>`:""}</span>`;
+      }).join("")}
+      <span style="color:var(--tx3)">Mon calcul seul : <b style="color:var(--tx)">${(r._mp*100).toFixed(0)}ᵉ centile</b></span></div>`
+    : `<div class="note" style="margin:0">Aucune des 6 tier lists ne classe cette entrée : son palier
+       repose uniquement sur le calcul.</div>`}
+  </div>
 
   ${r.same?`<div class="warnbox">Cette forme est <b>strictement identique</b> à ${esc(r.parent)} sur
     tout ce qui est mesuré : mêmes stats, même kit, mêmes éléments, même rôle. Elle est classée
@@ -806,10 +1225,13 @@ function openModal(name){
       <span style="color:var(--tx3);font-weight:400">— total ${r.total}, ● = couronnable à 24</span></h3>
       ${STATS.map(s=>bar(SLAB[s]+(r.fav.indexOf(s)>=0?" ●":""), r.stats[s], META.hi[s],
           r.fav.indexOf(s)>=0?"var(--ok)":null)).join("")}
-      <h3 style="font-size:13px;margin:16px 0 8px">Décomposition du score</h3>
-      <div class="kv"><span>Stats</span><b>${r._st.toFixed(1)}</b></div>
-      <div class="kv"><span>Kit</span><b>${r._ki.toFixed(1)}</b></div>
-      <div class="kv"><span>Synergie</span><b>${r._sy.toFixed(1)}</b></div>
+      <h3 style="font-size:13px;margin:16px 0 8px">Décomposition du calcul
+        <span style="color:var(--tx3);font-weight:400">— brut, puis situé dans son rôle (50 = moyenne du rôle)</span></h3>
+      <div class="kv"><span>Stats (${(WS.mix.stat*100).toFixed(0)} %)</span><b>${r._st.toFixed(0)} → ${r._nst.toFixed(0)}</b></div>
+      <div class="kv"><span>Kit (${(WS.mix.kit*100).toFixed(0)} %)</span><b>${r._ki.toFixed(0)} → ${r._nki.toFixed(0)}</b></div>
+      <div class="kv"><span>Synergie (${(WS.mix.syn*100).toFixed(0)} %)</span><b>${r._sy.toFixed(0)} → ${r._nsy.toFixed(0)}</b></div>
+      ${r.sStage<1?`<div class="kv"><span>Stade ${r.stage}</span><b>×${r.sStage}</b></div>`:""}
+      <div class="kv"><span>Score du calcul</span><b>${r._sc.toFixed(1)}</b></div>
       ${r.mobility?`<div class="kv"><span>Mobilité</span><b>${esc(r.mobility)}</b></div>`:""}
       ${r.pathfinding?`<div class="kv"><span>Déplacement</span><b>${esc(r.pathfinding)}</b></div>`:""}
       ${r.parent?`<div class="kv"><span>Forme de</span><b>${esc(r.parent)}</b></div>`:""}
@@ -817,6 +1239,8 @@ function openModal(name){
     <div><h3 style="font-size:13px;margin-bottom:8px">Lecture du kit${
         r.kitWho!==r.name?` <span style="color:var(--tx3);font-weight:400">— hérité de ${esc(r.kitWho)}</span>`:""}</h3>
       ${AXES.map(a=>bar(ALAB[a], r.axes[a], 10)).join("")}
+      ${equipHTML(r)}
+      ${itemHTML(r)}
       <div class="kv"><span>Conditionnalité</span><b>${r.cond} / 3${
         r.cond?` (−${(META.condPen*r.cond*100).toFixed(0)} %)`:""}</b></div>
       <div class="note">${esc(r.kitNote||"")}</div>
@@ -830,7 +1254,8 @@ function openModal(name){
 
   ${r.traits&&r.traits.length?`<h3 style="font-size:13px;margin:18px 0 2px">Traits</h3>${sk(r.traits)}`:""}
   ${r.innate&&r.innate.length?`<h3 style="font-size:13px;margin:18px 0 2px">Compétences innées</h3>${sk(r.innate)}`:""}
-  ${r.skills&&r.skills.length?`<h3 style="font-size:13px;margin:18px 0 2px">Compétences de combat</h3>${sk(r.skills)}`:""}
+  ${r.skills&&r.skills.length?`<h3 style="font-size:13px;margin:18px 0 2px">Compétences de combat
+    <span style="color:var(--tx3);font-weight:400">— 2 équipables à la fois</span></h3>${sk(skillsEquipFirst(r))}`:""}
   ${r.log?`<div class="note" style="margin-top:14px;font-style:italic">${esc(r.log)}</div>`:""}`;
   $("#ov").classList.add("on");
 }
@@ -863,18 +1288,17 @@ document.addEventListener("click", function(e){
 
   if(t.closest("#cl") || t.id==="ov"){ $("#ov").classList.remove("on"); return; }
 
-  if(t.id==="clearteam"){ S.team=[null,null,null,null]; S.picking=-1; return render(); }
-  if(t.id==="autoteam"){ autoTeam(); S.picking=-1; return render(); }
+  if(t.id==="clearteam"){ S.team=[null,null,null,null]; S.lock=[false,false,false,false]; S.picking=-1; return render(); }
+  if(t.id==="autoteam"){ build([0,1,2,3].filter(i=>S.lock[i] && S.team[i])); S.picking=-1; return render(); }
+  if(t.id==="fillteam"){ build([0,1,2,3].filter(i=>S.team[i])); S.picking=-1; return render(); }
+  const lk = t.closest("[data-lock]"); if(lk){ const i=+lk.dataset.lock; S.lock[i]=!S.lock[i]; return render(); }
+  const sw = t.closest("[data-sw]");
+  if(sw){ const p=sw.dataset.sw.split("|"); S.team[+p[0]]=byName[p.slice(1).join("|")]; return render(); }
   if(t.id==="cancelpick"){ S.picking=-1; return render(); }
-  const rm = t.closest("[data-rm]"); if(rm){ S.team[+rm.dataset.rm]=null; return render(); }
+  const rm = t.closest("[data-rm]"); if(rm){ S.team[+rm.dataset.rm]=null; S.lock[+rm.dataset.rm]=false; return render(); }
   const ad = t.closest("[data-add]"); if(ad){ S.picking=+ad.dataset.add; return render(); }
 
   if(t.id==="resetw"){ Object.assign(WS, clone(WS0)); recompute(WS); return render(); }
-  if(t.id==="runstab"){
-    t.textContent = "Calcul…"; t.disabled = true;
-    setTimeout(function(){ S.stab = stability(200); render(); }, 20);
-    return;
-  }
 
   const th = t.closest("th[data-s]");
   if(th){ const k=th.dataset.s; S.desc = (S.sort===k) ? !S.desc : true; S.sort=k; return render(); }
@@ -882,7 +1306,8 @@ document.addEventListener("click", function(e){
   const card = t.closest(".card, tbody tr");
   if(card && card.dataset.n){
     if(S.picking>=0 && S.view==="team"){
-      S.team[S.picking] = byName[card.dataset.n]; S.picking=-1; return render();
+      S.team[S.picking] = byName[card.dataset.n]; S.lock[S.picking] = true;   // choisi a la main = impose
+      S.picking=-1; return render();
     }
     return openModal(card.dataset.n);
   }
@@ -893,6 +1318,8 @@ document.addEventListener("change", function(e){
   if(t.id==="fe"){ S.el=t.value; return render(); }
   if(t.id==="fs"){ S.stage=t.value; return render(); }
   if(t.id==="fh"){ S.hideSame=t.checked; return render(); }
+  if(t.id==="fsafe"){ S.safe=t.checked; return render(); }
+  if(t.id==="faround"){ S.around=t.checked; return render(); }
 });
 document.addEventListener("input", function(e){
   const t = e.target;
@@ -904,6 +1331,12 @@ document.addEventListener("input", function(e){
   if(t.dataset && t.dataset.w){
     const parts = t.dataset.w.split("|"), grp = parts[0], key = parts[1], v = +t.value;
     let obj;
+    if(grp==="Calcul"){
+      WS.model = v; recompute(WS);
+      t.parentNode.querySelector(".v").textContent = "×"+v.toFixed(2);
+      const vb = $("#validbody"); if(vb) vb.innerHTML = validHTML();
+      return;
+    }
     if(grp==="Mélange")                   obj = WS.mix;
     else if(grp.indexOf("Stats ")===0)    obj = WS.stat[grp.slice(6)];
     else if(grp.indexOf("Kit ")===0)      obj = WS.kit[grp.slice(4)];
@@ -913,7 +1346,7 @@ document.addEventListener("input", function(e){
     t.parentNode.querySelector(".v").textContent = (v*100).toFixed(0)+"%";
     const s = $("#sum-"+grpId(grp));
     if(s) s.textContent = Object.keys(obj).reduce((a,k)=>a+obj[k],0).toFixed(2);
-    const cb = $("#calibbody"); if(cb) cb.innerHTML = calibHTML();
+    const vb = $("#validbody"); if(vb) vb.innerHTML = validHTML();
     return;
   }
 });

@@ -18,8 +18,8 @@ python -m http.server 8777 --bind 127.0.0.1
 raw/*.html  ──parse.py──>  raw/parsed.json  ──score.py──>  data.js  ──>  index.html
  219 pages                   207 fiches        ▲             207 entrées
                                                │
-                             kits.json (116 lectures) + synergy.json + raw/_kitmap.json
-                                               + raw/_tier_game8.json
+                          kits.json (116 lectures) + kit_skills.json + synergy.json
+                          + raw/_kitmap.json + raw/_ext_tiers.json (6 tier lists)
 ```
 
 | Fichier | Rôle |
@@ -29,6 +29,8 @@ raw/*.html  ──parse.py──>  raw/parsed.json  ──score.py──>  data.
 | `RUBRIC.md` | La grille de notation des kits, écrite **avant** la lecture. |
 | `kits/b1..b6.json` | Les 116 kits notés, par lots de 20 — la trace de la lecture. |
 | `kits.json` | Fusion des six lots, source unique consommée par `score.py`. |
+| `kit_skills.json` | Ce que porte **chaque compétence** sur les six axes (0..3). Voir plus bas. |
+| `ext_tiers.py` | Relève les 6 tier lists publiées → `raw/_ext_tiers.json`, pour recoupement. |
 | `synergy.json` | Verrous élémentaires et duos nommés, pour le constructeur d'équipe. |
 | `score.py` | JSON → `data.js` : scoring, synergies, paliers. |
 | `index.html` | L'app (HTML/CSS/JS vanilla, un seul fichier). |
@@ -86,7 +88,7 @@ entière :
 Les paliers sont des percentiles (10 / 25 / 52 / 80 %) découpés sur le vivier affiché : une
 position relative, pas une puissance absolue. Sans filtre, la découpe porte sur les 207
 entrées et donne S 21 · A 31 · B 56 · C 58 · D 41. Les Prismana y remontent d'elles-mêmes
-(**S 4 · A 7 · B 10 · C 2 · D 1**), ce qui est attendu : ce sont des versions améliorées
+(**S 10 · A 5 · B 8 · C 0 · D 1**), ce qui est attendu : ce sont des versions améliorées
 d'Aniimo déjà corrects, leur médiane est plus haute que celle du roster de base.
 
 Restreindre le vivier avec un filtre le redécoupe — un palier répond toujours à la question
@@ -97,14 +99,30 @@ Restreindre le vivier avec un filtre le redécoupe — un palier répond toujour
 | Vue | Contenu |
 |---|---|
 | **Tiers** | Tier list S→D, paliers recalculés selon les filtres actifs |
-| **Stats** | Tableau triable : stats de base, score, ses trois composantes, palier Game8 |
+| **Stats** | Tableau triable : stats de base, indice, ses trois composantes, confiance, sources |
 | **Équipe** | Constructeur d'équipe avec note de synergie |
-| **Réglages** | Poids modifiables en direct, test de stabilité, accord avec Game8 |
+| **Réglages** | Poids modifiables en direct, validation hors-source des 6 tier lists |
 | **Méthode** | Le modèle complet et les limites connues |
 
 Filtres : roster, rôle, élément (9), stade, masquer les formes identiques, recherche.
 Clic sur une carte → fiche détaillée : décomposition du score, lecture du kit sur les six
 axes, verrou élémentaire éventuel, synergie, traits et compétences.
+
+## Une compétence, une notation
+
+`kits.json` note le kit entier ; `kit_skills.json` le décompose **compétence par
+compétence**, de 0 à 3 sur chacun des six axes, plus une part *toujours active* (ultime,
+attaque de base, traits) propre à chaque Aniimo. Le jeu n'autorisant que **deux compétences
+équipées**, `score.py` retient la meilleure paire pour le rôle et ramène chaque axe à ce que
+cette paire délivre réellement.
+
+Les notes appartiennent à la **compétence**, jamais au couple (Aniimo, compétence) : deux
+Aniimo qui lancent le même sort en reçoivent forcément la même note. Un nom ne porte
+plusieurs notations que s'il porte plusieurs textes de jeu — un seul cas, `Ballistic Guard`
+(lignée Helmut contre lignée Rookey). Ce choix a corrigé **38 divergences** de saisie :
+38 compétences notées différemment selon leur porteur alors qu'elles ne portent qu'un seul
+texte dans le jeu. La part *toujours active* n'est alignée entre une base et sa forme que
+lorsque le jeu ne les distingue en rien — ni innés, ni liste de compétences.
 
 ## Constructeur d'équipe
 
@@ -134,19 +152,35 @@ rôle, les poids d'axes de kit par rôle et les poids d'apport collectif. Tout s
 côté client : `statParts` et `axes` sont exportés bruts dans `data.js`, donc le score entier
 est reconstructible sans repasser par Python.
 
-Le **test de stabilité** tire 200 jeux de poids perturbés de ±25 % et compte combien de fois
-chaque Aniimo retombe dans le même palier. Aux poids de référence, le tirage étant aléatoire :
-**200 à 202 sur 207** gardent leur palier dans au moins 60 % des tirages, moyenne 89 %. Les
-autres portent un `~` dans la tier list — leur place tient au réglage, pas à leur fiche. Ce
-sont toujours les mêmes : Highland Pomawk, Sea of Flowers Pomawk, Fenmane, Rookey, Fentuft,
-Plateau Turbo, Prismana Infergon (53 à 59 %).
+L'**indice de confiance** est mesuré par `score.py` sur **400 tirages** où tout ce qui est
+incertain bouge à la fois : chaque poids perturbé de ±25 %, chaque note de kit relue par un
+autre lecteur (±1 deux fois sur trois), et les sept avis (6 tier lists + le calcul)
+rééchantillonnés avec remise — autrement dit : *qu'aurait donné ce classement avec d'autres
+sources ?* C'est un test bien plus dur qu'une simple perturbation des poids, et les taux ne
+se comparent pas à ceux d'une version antérieure.
+
+Chaque entrée reçoit un badge : **sûr** (52) garde son palier dans au moins 75 % des tirages
+*et* est classée par au moins deux sources ; **incertain** (35) n'est classée par aucune
+source, ou ses tirages s'étalent sur trois paliers ; **probable** (120) est le reste, en
+général à cheval sur deux paliers. Taux de maintien moyen : **64,7 %**, 117 entrées sur 207
+au-dessus de 60 %.
 
 ## Recoupement avec le consensus
 
-Le classement n'est pas calé sur les tier lists publiées, mais il leur est comparé pour
-repérer où il s'en écarte. Sur les **84** Aniimo que Game8 classe : **33 %** de paliers
-identiques, **76 %** à un palier près, corrélation des rangs **0,54**. Les chiffres se
-recalculent en direct quand on bouge un curseur.
+Le classement n'est pas calé sur les tier lists publiées, mais il est recoupé avec **six**
+d'entre elles (Game8, AniimoGuide, AllThings, KongBakPao, Mobi, PowerUp). Chacune est ramenée
+en percentile de rang à l'intérieur d'elle-même — peu importe qu'elle ait quatre paliers ou
+sept. Son poids est son **accord de rang avec la moyenne des autres, au carré** : une source
+qui classe au hasard pèse ~0, et deux sources qui se recopient ne comptent pas double. Le
+calcul pèse comme une source de plus (0,53).
+
+La vue **Réglages** affiche la validation **hors-source** : chaque tier list est mise de côté
+à tour de rôle puis prédite sans elle. Lecture : quand « indice final » rejoint « les autres
+experts », le modèle devine un avis qu'il n'a pas vu aussi bien que les experts se devinent
+entre eux — et ceux-ci ne s'accordent qu'entre 0,45 et 0,78.
+
+Sur les **84** Aniimo que Game8 classe : **35 %** de paliers identiques, **89 %** à un palier
+près, corrélation des rangs **0,72**, et seulement **9** écarts de deux paliers ou plus.
 
 Les écarts ne sont pas des erreurs à corriger. Le motif dominant est net : les tier lists
 communautaires notent plus haut les DPS à burst conditionnel et plus bas les Break et
@@ -175,7 +209,7 @@ Harnais jsdom (le site n'a pas de dépendance, le test si) :
 cd <scratchpad>/ && node smoke.js
 ```
 
-51 assertions : conformité du recalcul client au `score.py` de référence, comptages par
-tier list unique, non-inversion des Prismana, puces de roster cumulables, badges `=`,
-filtres, modale, tri du tableau, constructeur d'équipe de bout en bout, curseurs de poids,
-calibration, test de stabilité.
+57 assertions : conformité du recalcul client au `score.py` de référence, tier list unique,
+alignement des entrées identiques sur leur base, puces de roster cumulables, badges `=` et
+badges de confiance, filtres, modale, tri du tableau, constructeur d'équipe de bout en bout,
+curseurs de poids, validation hors-source, cohérence de l'indice de confiance.

@@ -1,0 +1,2530 @@
+{
+ "_doc": "Notes de competences, 0..3 par axe (voir RUBRIC.md ; res = ressource EP). Une competence porte UNE notation, quel que soit l'Aniimo qui la lance : un meme texte de jeu ne peut plus recevoir deux notes. 'variants' n'existe que pour un nom portant plusieurs textes de jeu distincts. 'owners' ne garde que la part toujours active (ultime, attaque de base, traits).",
+ "owners": {
+  "Bailite": {
+   "always": {
+    "brk": 2,
+    "ctrl": 3,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Baleetle": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Besauce": {
+   "always": {
+    "brk": 0,
+    "ctrl": 3,
+    "dmg": 2,
+    "res": 1,
+    "sust": 0,
+    "team": 2
+   }
+  },
+  "Blazen": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 2,
+    "sust": 3,
+    "team": 0
+   }
+  },
+  "Bonesky": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Bouldus": {
+   "always": {
+    "brk": 1,
+    "ctrl": 2,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 2
+   }
+  },
+  "Budclaw": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Chirpi": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 3,
+    "sust": 0,
+    "team": 2
+   }
+  },
+  "Cornet": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Dazmand": {
+   "always": {
+    "brk": 2,
+    "ctrl": 2,
+    "dmg": 2,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Dreaple": {
+   "always": {
+    "brk": 0,
+    "ctrl": 3,
+    "dmg": 1,
+    "res": 0,
+    "sust": 0,
+    "team": 3
+   }
+  },
+  "Eklue": {
+   "always": {
+    "brk": 0,
+    "ctrl": 3,
+    "dmg": 1,
+    "res": 0,
+    "sust": 0,
+    "team": 3
+   }
+  },
+  "Emberpup": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Erlath": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 2,
+    "sust": 0,
+    "team": 3
+   }
+  },
+  "Fenmane": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Fennelun": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 3,
+    "team": 0
+   }
+  },
+  "Fenrier": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Flamerion": {
+   "always": {
+    "brk": 1,
+    "ctrl": 2,
+    "dmg": 2,
+    "res": 1,
+    "sust": 0,
+    "team": 2
+   }
+  },
+  "Flameruff": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Flutternym": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 0,
+    "res": 0,
+    "sust": 2,
+    "team": 1
+   }
+  },
+  "Fragrancier": {
+   "always": {
+    "brk": 0,
+    "ctrl": 3,
+    "dmg": 1,
+    "res": 0,
+    "sust": 0,
+    "team": 3
+   }
+  },
+  "Fulmintis": {
+   "always": {
+    "brk": 2,
+    "ctrl": 2,
+    "dmg": 1,
+    "res": 2,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Geoclaw": {
+   "always": {
+    "brk": 3,
+    "ctrl": 1,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Glacy": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 0,
+    "res": 2,
+    "sust": 3,
+    "team": 2
+   }
+  },
+  "Glynsera": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Gracewing": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 0,
+    "res": 0,
+    "sust": 3,
+    "team": 1
+   }
+  },
+  "Grizbo": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Helgon": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Helion": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 1,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Helmut": {
+   "always": {
+    "brk": 2,
+    "ctrl": 0,
+    "dmg": 0,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Hexxin": {
+   "always": {
+    "brk": 1,
+    "ctrl": 1,
+    "dmg": 2,
+    "res": 2,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Highland Pomegg": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Hummin": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Ignitis": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Infergon": {
+   "always": {
+    "brk": 1,
+    "ctrl": 2,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 1
+   }
+  },
+  "Inferlupa": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Irisal": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Leafy": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 3,
+    "team": 3
+   }
+  },
+  "Luminelle": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 2
+   }
+  },
+  "Magmarex": {
+   "always": {
+    "brk": 3,
+    "ctrl": 2,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 1
+   }
+  },
+  "Melloblum": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 3,
+    "sust": 0,
+    "team": 3
+   }
+  },
+  "Minespine": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Nighttime Bonesky": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Nimbi": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Panpanta": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Pawney": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Piopiota": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 0,
+    "team": 3
+   }
+  },
+  "Pomawk": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Pomegg": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Pranky": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Blazen": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 2,
+    "sust": 3,
+    "team": 0
+   }
+  },
+  "Prismana Cornet": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Fenmane": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Fulmintis": {
+   "always": {
+    "brk": 2,
+    "ctrl": 2,
+    "dmg": 1,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Glacy": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 0,
+    "res": 2,
+    "sust": 3,
+    "team": 2
+   }
+  },
+  "Prismana Glynsera": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Grizbo": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Hexxin": {
+   "always": {
+    "brk": 1,
+    "ctrl": 1,
+    "dmg": 2,
+    "res": 2,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Ignitis": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Infergon": {
+   "always": {
+    "brk": 1,
+    "ctrl": 2,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 1
+   }
+  },
+  "Prismana Inferlupa": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Irisal": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Luminelle": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 2
+   }
+  },
+  "Prismana Magmarex": {
+   "always": {
+    "brk": 3,
+    "ctrl": 2,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 1
+   }
+  },
+  "Prismana Melloblum": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 3,
+    "sust": 0,
+    "team": 3
+   }
+  },
+  "Prismana Panpanta": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Pawney": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Scorchhowl": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Sherro": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Stellarys": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Thornblade": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Prismana Turbo": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 3,
+    "team": 1
+   }
+  },
+  "Prismana Waleetle": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 1,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Rookey": {
+   "always": {
+    "brk": 2,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Scorchhowl": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Sherro": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Shrubclaw": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Skippy": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Snowfield Pawney": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Snowfield Pomawk": {
+   "always": {
+    "brk": 2,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Somniwing": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Squashel": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Stellarys": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Thornblade": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Tromber": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 3,
+    "sust": 0,
+    "team": 3
+   }
+  },
+  "Tubster": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 3,
+    "team": 3
+   }
+  },
+  "Tuckin": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Turbo": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 1,
+    "res": 0,
+    "sust": 3,
+    "team": 1
+   }
+  },
+  "Waleetle": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 2,
+    "res": 1,
+    "sust": 0,
+    "team": 0
+   }
+  },
+  "Wisptis": {
+   "always": {
+    "brk": 1,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 0
+   }
+  }
+ },
+ "skills": {
+  "Aqua Defense": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
+  "Aquatic Glide": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Arc Strike": {
+   "brk": 1,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Ballistic Guard": {
+   "variants": [
+    {
+     "brk": 0,
+     "ctrl": 0,
+     "dmg": 1,
+     "res": 0,
+     "sust": 3,
+     "team": 0,
+     "when": "Enters the Ballistic Guard state, increasing the user's damage reduction by 20% and greatly boosting interruption resistance. When attacked, releases a shock wave around the user that deals damage equal to 10 Might. This can trigger no more than once every 0.2s."
+    },
+    {
+     "brk": 0,
+     "ctrl": 0,
+     "dmg": 1,
+     "res": 0,
+     "sust": 3,
+     "team": 0,
+     "when": "Turns into a ball and jumps high into the air, damaging targets at the landing point. Enters Ballistic Guard, increasing own damage reduction by 20% and greatly enhancing anti-interruption. When attacked, releases a shockwave around self that deals damage equal to 10 Might. Interval: No less than 0.2s"
+    }
+   ]
+  },
+  "Beat of Passion": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Black Hole Domain": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Blasting Roses": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Blazing Fist Barrage": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "needs": [
+    "Pinecone Bomb"
+   ],
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Blazing Wolf Assault": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 1,
+   "team": 0
+  },
+  "Blossoming Moment": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
+  "Boomerang Blade": {
+   "brk": 1,
+   "ctrl": 1,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Bouncy Sling": {
+   "brk": 3,
+   "ctrl": 1,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 3
+  },
+  "Bubble Blast": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Bubble Rush": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Bubbles": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 3,
+   "sust": 0,
+   "team": 2
+  },
+  "Burn Breaker": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Cannon Mode": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Charged Blow": {
+   "brk": 2,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Charged Geyser": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 3,
+   "sust": 0,
+   "team": 0
+  },
+  "Chill Glide": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Claw of Madness": {
+   "brk": 1,
+   "ctrl": 1,
+   "dmg": 3,
+   "res": 1,
+   "sust": 0,
+   "team": 0
+  },
+  "Clay Ball": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 3
+  },
+  "Cloud Orb": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Cloud Shield": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
+  "Cozite Nest Sentry": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 3
+  },
+  "Critical Hit": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "needs": [
+    "Claw of Madness",
+    "Fanatic Clawing"
+   ],
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Crossfire": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Cyclone of Leaves": {
+   "brk": 1,
+   "ctrl": 1,
+   "dmg": 1,
+   "res": 0,
+   "sust": 1,
+   "team": 1
+  },
+  "Dark Claw": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Dark Dash": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Dark Energy Surge": {
+   "brk": 1,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Dark Soul": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Dark Tide": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 1,
+   "team": 0
+  },
+  "Darkwheel Slash": {
+   "brk": 3,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Detect Weakness": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 1
+  },
+  "Disruptive Current": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Draw Nourishment": {
+   "brk": 2,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Earth Spikes": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Earthquake": {
+   "brk": 1,
+   "ctrl": 3,
+   "dmg": 2,
+   "needs": [
+    "Claw of Madness",
+    "Fanatic Clawing"
+   ],
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Elastic Sword": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Electricity Shock": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Electrified Impact": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 3,
+   "sust": 0,
+   "team": 0
+  },
+  "Energy Orb": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Enhanced Light Blade": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Enhanced Lightning Blade": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 1,
+   "sust": 0,
+   "team": 0
+  },
+  "Ethereal Light Wave": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 3,
+   "sust": 0,
+   "team": 3
+  },
+  "Euphoric Sonic Blast": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 3,
+   "sust": 0,
+   "team": 0
+  },
+  "Fanatic Clawing": {
+   "brk": 1,
+   "ctrl": 1,
+   "dmg": 2,
+   "res": 1,
+   "sust": 0,
+   "team": 0
+  },
+  "Fiery Charge": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Fire Bolt": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 1
+  },
+  "Fire Dash": {
+   "brk": 1,
+   "ctrl": 1,
+   "dmg": 1,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Fire Kick": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Fire Orb": {
+   "brk": 0,
+   "ctrl": 1,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Flaming Breath": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 2
+  },
+  "Flaming Claws": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Floral Storm": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 1,
+   "sust": 0,
+   "team": 0
+  },
+  "Flowing Water Slash": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Focused Beam": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 1,
+   "sust": 0,
+   "team": 0
+  },
+  "Forest Whirl": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Frost Slam": {
+   "brk": 0,
+   "ctrl": 1,
+   "dmg": 2,
+   "res": 0,
+   "sust": 1,
+   "team": 1
+  },
+  "Frost Strike": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Frost Tail Strike": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "needs": [
+    "Ice Strikes",
+    "Boomerang Blade"
+   ],
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Gale Charge": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 1,
+   "team": 0
+  },
+  "Gale Guard": {
+   "brk": 2,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Glimmer Shot": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 3
+  },
+  "Gravel Tackle": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Guardbreak Slam": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Guardbreak Smash": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Haunting Choir": {
+   "brk": 1,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Healing Dance": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 2
+  },
+  "Healing Impact": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Healing Rose": {
+   "brk": 0,
+   "ctrl": 1,
+   "dmg": 1,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Healing Water": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 1
+  },
+  "Heavy Tail Strike": {
+   "brk": 0,
+   "ctrl": 1,
+   "dmg": 2,
+   "needs": [
+    "Pinecone Bomb"
+   ],
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Here Comes the Bubble": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 0,
+   "res": 0,
+   "sust": 0,
+   "team": 1
+  },
+  "Holy Roar": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Holy Storm": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Hunting Pack": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Hydro Roll": {
+   "brk": 3,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Hypnotic Cloud Shot": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Hypnotic Spores": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 2
+  },
+  "Ice Ball Cutting": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Ice Orb": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Ice Sphere": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Ice Spikes": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Ice Strikes": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Icy Gravel Dance": {
+   "brk": 2,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Jittering Beats": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lava Breath": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lava Punch": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Leaf Slash": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Leaf Tornado": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Light Bombardment": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
+  "Lightning Blade Impact": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Blade Storm": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Break": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Claw": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Cross": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Dart": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Discharge": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "lock": {
+    "el": "Lightning",
+    "off": {
+     "brk": 0,
+     "ctrl": 0,
+     "dmg": 1,
+     "res": 0,
+     "sust": 0,
+     "team": 0
+    }
+   },
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
+  "Lightning Impact": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Kick": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Rush": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Splitter": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Lightning Surge": {
+   "brk": 3,
+   "ctrl": 0,
+   "dmg": 0,
+   "lock": {
+    "el": "Lightning",
+    "off": {
+     "brk": 0,
+     "ctrl": 0,
+     "dmg": 0,
+     "res": 0,
+     "sust": 0,
+     "team": 0
+    }
+   },
+   "res": 2,
+   "sust": 0,
+   "team": 3
+  },
+  "Lumin Bolts": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 1
+  },
+  "Lunar Eclipse": {
+   "brk": 3,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Magma Surge": {
+   "brk": 1,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Malicious Outburst": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "March": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 1
+  },
+  "Moon Impact": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Moon-Washed": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 3,
+   "sust": 0,
+   "team": 0
+  },
+  "Nebula Burst": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "lock": {
+    "el": "Dark",
+    "off": {
+     "brk": 0,
+     "ctrl": 0,
+     "dmg": 1,
+     "res": 0,
+     "sust": 0,
+     "team": 0
+    }
+   },
+   "res": 0,
+   "sust": 0,
+   "team": 2
+  },
+  "Night Slash": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Nightmare Devourer": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 1
+  },
+  "Nimbi Attack": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Nimbi Burst": {
+   "brk": 3,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 3
+  },
+  "Noisy Strikes": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Off-Key Shock Wave": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Oozing Malice": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Overcharged Claw Strike": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Pebble Kick": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Phantom Barrage": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 3,
+   "sust": 0,
+   "team": 0
+  },
+  "Phantom Dance": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 2,
+   "team": 1
+  },
+  "Phantomfly": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 3,
+   "sust": 0,
+   "team": 3
+  },
+  "Pinecone Bomb": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Plant Charge": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Prismana Slam": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 1,
+   "team": 0
+  },
+  "Prismana Slash": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Purifying Dance": {
+   "brk": 0,
+   "ctrl": 1,
+   "dmg": 0,
+   "res": 2,
+   "sust": 2,
+   "team": 2
+  },
+  "Radiant Dart": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Resting Whirlwind": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Rhythm Combo": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Rock Tackle": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 2
+  },
+  "Rolling Ball": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Rolling Torrent": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 1,
+   "team": 0
+  },
+  "Sandstorm Spin": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 2,
+   "sust": 0,
+   "team": 0
+  },
+  "Scream Splitter": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Scythe Dance": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Secret Fragrance Mark": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 2
+  },
+  "Seismic Wave": {
+   "brk": 2,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Shadow Cut": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Shadow Magic": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Shard Impact": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Shielding Smoke": {
+   "brk": 0,
+   "ctrl": 1,
+   "dmg": 0,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Shooting Star Glide": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 3,
+   "sust": 0,
+   "team": 0
+  },
+  "Sparkling Rose": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Spiral Blade": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 2
+  },
+  "Splash Shield": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Starfall": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Stone Ball Cutter": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Stone Ball Drift": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Stone Shell": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Sun-Kissed": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 3,
+   "sust": 0,
+   "team": 0
+  },
+  "Surf": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
+  "Surge": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Swift Retreat": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Tactical Kick": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "The Luminus Gust": {
+   "brk": 1,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Thorny Blessing": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 3
+  },
+  "Thorny Defense": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Thorny Impact": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Thorny Rain": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Thunder Bolt": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Thunder Field": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 3
+  },
+  "Thunder Imprint": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Thunder Slam": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Thunder Sweep": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 3
+  },
+  "Tornado": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Tornado Wind Orb": {
+   "brk": 0,
+   "ctrl": 1,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Torrent Slam": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Trick Fire Ring": {
+   "brk": 1,
+   "ctrl": 1,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Unbroken Flameruff Spirit": {
+   "brk": 3,
+   "ctrl": 1,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 2
+  },
+  "Verdant Beam": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Vine Entanglement": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Vitality Blooms": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "lock": {
+    "el": "Grass",
+    "off": {
+     "brk": 0,
+     "ctrl": 0,
+     "dmg": 0,
+     "res": 1,
+     "sust": 1,
+     "team": 0
+    }
+   },
+   "res": 3,
+   "sust": 2,
+   "team": 2
+  },
+  "Vortex of Petals": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Waltz": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Water Cannon": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 1
+  },
+  "Water Cannonade": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 1
+  },
+  "Water Orb": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Water Rush": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "lock": {
+    "el": "Water",
+    "off": {
+     "brk": 0,
+     "ctrl": 0,
+     "dmg": 1,
+     "res": 3,
+     "sust": 0,
+     "team": 0
+    }
+   },
+   "res": 3,
+   "sust": 2,
+   "team": 0
+  },
+  "Water Tornado": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Weakening Slam": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Weakening Smash": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Wild Show": {
+   "brk": 3,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Wind Bomb Rush": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Wind Counter": {
+   "brk": 2,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 3,
+   "team": 0
+  },
+  "Wind Tackle": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 1,
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
+  "Wind of Regeneration": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 1
+  },
+  "Wind of Rejuvenation": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 0,
+   "res": 0,
+   "sust": 3,
+   "team": 1
+  },
+  "Withering Bloom": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 3,
+   "team": 1
+  }
+ }
+}
