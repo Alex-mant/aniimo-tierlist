@@ -9,6 +9,10 @@ C'est le seul endroit du depot qui touche au reseau. Deux sources :
            Elle couvre les Aniimo que Game8 n'a pas encore redigees (No. 084 et
            au-dela) et donne, en plus, le cout en EP, le temps de recharge et la
            Puissance de chaque competence.
+  images   les portraits manquants du roster -> images/<Nom>.png
+           Rien n'est telecharge deux fois : seuls les noms que images/ n'a pas
+           encore sont demandes, et les formes regionales ont bien leur propre
+           portrait, celui que porte leur tuile.
 
 Le fichier raw/_sources.json garde pour chaque page son URL, l'empreinte de son
 contenu utile et la date de relevage : c'est ce qui permet de savoir, au passage
@@ -90,6 +94,80 @@ def wanted_aniidex():
     return {"raw_aniidex/%s.html" % s: AX_PAGE % s for s in slugs}
 
 
+# --------------------------------------------------------------------------
+# Portraits. Le site attend images/<Nom>.png en 190x190 ; aniidex sert du .webp,
+# on convertit. La tuile d'une forme porte son propre portrait : c'est le seul
+# endroit qui le donne, les formes n'ayant pas de page a elles.
+AX_HEAD = re.compile(r"images/aniimo/(UI_PetHead_\d+)\.webp")
+AX_IMG = "https://aniidex.com/images/aniimo/%s.webp"
+IMG_SIZE = (190, 190)
+
+
+def slug(name):
+    return name.lower().replace(" ", "-").replace("'", "")
+
+
+def wanted_images():
+    """{images/<Nom>.png: url} pour les seuls portraits que le depot n'a pas."""
+    roster = json.load(io.open("raw/roster.json", encoding="utf-8"))
+    bases = {r["name"] for r in roster if r["kind"] == "base"}
+    out = {}
+    for r in roster:
+        n = r["name"]
+        path = "images/%s.png" % n
+        if os.path.exists(path):
+            continue
+        base = next((b for b in bases if n == b or n.endswith(" " + b)), None)
+        src = "raw_aniidex/%s.html" % slug(base or n)
+        if not os.path.exists(src):
+            print("  portrait introuvable (pas de fiche aniidex) : %s" % n)
+            continue
+        html = io.open(src, encoding="utf-8", errors="replace").read()
+        if n == base:
+            m = AX_HEAD.search(html)
+            head = m and m.group(1)
+        else:                       # forme : la tuile qui porte son libelle
+            lab = n[:-len(base) - 1]
+            head = None
+            for b in re.findall(r'<button[^>]*class="[^"]*form-tile[^"]*"[^>]*>(.*?)</button>',
+                                html, re.S):
+                if re.search(r'form-tile__label[^>]*>\s*%s\s*<' % re.escape(lab), b):
+                    m = AX_HEAD.search(b)
+                    head = m and m.group(1)
+                    break
+        if not head:
+            print("  portrait introuvable (pas d'icone sur la fiche) : %s" % n)
+            continue
+        out[path] = AX_IMG % head
+    return out
+
+
+def fetch_images(want, apply_):
+    print("images   %d portrait(s) manquant(s)" % len(want))
+    if not apply_:
+        for path, url in sorted(want.items())[:40]:
+            print("  manquant   %-44s %s" % (path, url))
+        return
+    from PIL import Image
+    req = lambda u: urllib.request.Request(u, headers={"User-Agent": UA})
+    n = 0
+    for path, url in sorted(want.items()):
+        try:
+            with urllib.request.urlopen(req(url), timeout=40) as r:
+                raw = r.read()
+        except urllib.error.HTTPError as e:
+            print("  %-30s HTTP %s" % (os.path.basename(path), e.code))
+            time.sleep(DELAY)
+            continue
+        im = Image.open(io.BytesIO(raw)).convert("RGBA")
+        if im.size != IMG_SIZE:
+            im = im.resize(IMG_SIZE, Image.LANCZOS)
+        im.save(path)
+        n += 1
+        time.sleep(DELAY)
+    print("images   %d portrait(s) ecrit(s)" % n)
+
+
 def is_aniimo_page(path, html):
     if path.startswith("raw_aniidex/"):
         return "form-tile__label" in html or "Combat Skills" in html
@@ -101,6 +179,12 @@ def is_aniimo_page(path, html):
 def run(sources, apply_, refetch):
     ix = load_index()
     plan, seen = [], set()
+
+    if "images" in sources:
+        fetch_images(wanted_images(), apply_)
+        sources = [s for s in sources if s != "images"]
+        if not sources:
+            return
 
     for src in sources:
         if src == "game8":

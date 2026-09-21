@@ -11,8 +11,8 @@ Aniimo a investissement egal est :
   3. la puissance chiffree de leur kit            -> KIT
   4. ce que leur kit apporte a une equipe         -> SYNERGIE
 
-Le KIT ne vient plus d'expressions regulieres : les 116 kits distincts ont ete
-lus un par un et notes sur 6 axes (voir RUBRIC.md et kits.json). Les 91 formes
+Le KIT ne vient plus d'expressions regulieres : les 122 kits distincts ont ete
+lus un par un et notes sur 6 axes (voir RUBRIC.md et kits.json). Les 93 formes
 regionales qui reutilisent le kit de leur base heritent de ses notes via
 raw/_kitmap.json.
 
@@ -25,7 +25,11 @@ Sortie : data.js
 """
 import json, io, collections, math, random, bisect, re, os
 
-D = json.load(io.open("raw/parsed.json", encoding="utf-8"))
+# Le roster classe est celui qu'assemble merge.py : les fiches Game8 telles
+# quelles, plus ce que la seconde source ajoute et que Game8 n'a pas encore
+# redige. Rien n'y est devine : voir merge.py et raw/_attente.json.
+D = json.load(io.open("raw/roster.json", encoding="utf-8"))
+ATTENTE = json.load(io.open("raw/_attente.json", encoding="utf-8"))
 KITS = json.load(io.open("kits.json", encoding="utf-8"))
 KMAP = json.load(io.open("raw/_kitmap.json", encoding="utf-8"))
 SYN = json.load(io.open("synergy.json", encoding="utf-8"))
@@ -571,13 +575,17 @@ def confidence(n):
                 best = (i, j)
     span = ORDER[best[0]:best[1] + 1]
     nsrc = len(OPI[n])
+    # Le seuil porte sur le taux ARRONDI, celui que la page affiche : un Aniimo
+    # annonce a 75 % ne doit pas etre dit "probable" parce que le calcul exact
+    # valait 74,8. Le badge et le pourcentage lu a cote disent alors la meme chose.
+    pct = round(keep * 100)
     if nsrc == 0 or len(span) >= 3:
         lvl = "incertain"
-    elif keep >= .75 and nsrc >= 2:
+    elif pct >= 75 and nsrc >= 2:
         lvl = "sur"
     else:
         lvl = "probable"
-    return lvl, round(keep * 100), span
+    return lvl, pct, span
 
 
 out = []
@@ -632,6 +640,9 @@ io.open("data.js", "w", encoding="utf-8").write(
                     "n": len(EXT[s]["pos"])} for s in SRCS},
         "valid": VALID, "wLoo": WLOO, "runs": RUNS,
         "lock": SYN["lock"], "duos": SYN["duos"], "rules": SYN["rules"],
+        # Annonces par le jeu, pas encore classables : le site les nomme au
+        # lieu de leur inventer un role ou des statistiques (voir merge.py).
+        "attente": ATTENTE,
     }, ensure_ascii=False) + ";\n")
 
 print("base=%d  formes=%d  prismana=%d  (total %d)"

@@ -66,6 +66,49 @@ rep["desaccords_vrais"] = sorted(
     if "stats" in d or "elements" in d or "role" in d
     or (("competences" in d) and not d["competences"]["sous_ensemble"]))
 
+# --- 3 bis. deux tests qui ne demandent rien d'autre que les donnees -----
+# Ils ne tranchent pas non plus, mais ils disent laquelle des deux sources est
+# coherente avec ce qu'elle publie elle-meme.
+
+# a) une ligne de statistiques recopiee d'une fiche sur ses voisines n'est pas
+#    une donnee. On la repere a ce qu'elle est pretee a plusieurs Aniimo
+#    distincts alors que l'autre source la dement pour au moins l'un d'eux.
+par_ligne = collections.defaultdict(list)
+for n, r in A.items():
+    par_ligne[tuple(sorted(r["stats"].items()))].append(n)
+partagees = []
+for ligne, noms in sorted(par_ligne.items(), key=lambda x: -len(x[1])):
+    if len(noms) < 2:
+        continue
+    dements = [n for n in noms if n in GB and GB[n]["stats"] != dict(ligne)]
+    partagees.append({"aniidex_donne_la_meme_ligne_a": sorted(noms),
+                      "ligne": dict(ligne),
+                      "game8_la_dement_pour": sorted(dements)})
+rep["lignes_de_stats_partagees"] = partagees
+
+# b) un role doit s'accorder avec la statistique dont ce role vit : un Break
+#    dont le BREAK passe sous l'Attaque, ou un DPS dont l'Attaque passe sous le
+#    BREAK, se contredit lui-meme. Le test ne sait rien dire des roles de
+#    soutien, et il le dit.
+def coherent(role, st):
+    if role == "Break":
+        return st["brk"] >= st["atk"]
+    if role == "DPS":
+        return st["atk"] >= st["brk"]
+    return None
+
+
+roles = {}
+for n, d in div.items():
+    if "role" not in d:
+        continue
+    st = GB[n]["stats"]          # les deux sources donnent ici les memes chiffres
+    roles[n] = {"game8": d["role"]["game8"], "aniidex": d["role"]["aniidex"],
+                "atk": st["atk"], "brk": st["brk"],
+                "coherent_game8": coherent(d["role"]["game8"], st),
+                "coherent_aniidex": coherent(d["role"]["aniidex"], st)}
+rep["roles_contre_statistiques"] = roles
+
 # --- 4. ce qu'aniidex apporte et que Game8 n'a pas ----------------------
 rep["apports_aniidex"] = {
     "competences_chiffrees": sum(1 for r in A.values() for s in r["skills"] if "mi" in s),
@@ -87,6 +130,16 @@ for n in sorted(inc):
 print("divergences :", rep["compte_divergences"])
 print("desaccords a trancher dans le jeu (%d) : %s"
       % (len(rep["desaccords_vrais"]), ", ".join(rep["desaccords_vrais"])))
+for x in partagees:
+    print("ligne de stats pretee a %d Aniimo par aniidex : %s -- Game8 la dement pour %s"
+          % (len(x["aniidex_donne_la_meme_ligne_a"]),
+             ", ".join(x["aniidex_donne_la_meme_ligne_a"]),
+             ", ".join(x["game8_la_dement_pour"]) or "aucun"))
+for n, v in sorted(roles.items()):
+    print("role %-10s game8 %-8s(%s) | aniidex %-8s(%s)  ATQ %d / BREAK %d"
+          % (n, v["game8"], {True: "coherent", False: "incoherent", None: "?"}[v["coherent_game8"]],
+             v["aniidex"], {True: "coherent", False: "incoherent", None: "?"}[v["coherent_aniidex"]],
+             v["atk"], v["brk"]))
 print("apports aniidex :", rep["apports_aniidex"]["competences_chiffrees"],
       "competences chiffrees,", rep["apports_aniidex"]["ameliorations_eveil"], "ameliorations,",
       len(rep["apports_aniidex"]["formes_annoncees"]), "formes non couvertes")

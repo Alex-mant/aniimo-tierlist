@@ -24,6 +24,12 @@ ROLES = ["DPS", "Break", "Support", "Regen", "Heal"]
 STAGES = ["Lumin", "Gamma", "Nova"]
 STATKEY = {"HP": "hp", "ATK": "atk", "P.DEF": "pdef", "REGEN": "reg",
            "M.DEF": "mdef", "BREAK": "brk"}
+# Les icones du site portent le nom interne du jeu, pas celui affiche dans le
+# jeu : Rock est l'element que la fiche appelle Earth, Electric celui qu'elle
+# appelle Lightning, Holy celui qu'elle appelle Light. Sans cette table, les
+# elements des formes regionales sortiraient sous des noms que le reste du
+# depot ne connait pas.
+ICONEL = {"Rock": "Earth", "Electric": "Lightning", "Holy": "Light"}
 
 TAG = re.compile(r"<[^>]+>")
 SECT = re.compile(r'<h3 class="section-heading"[^>]*>(.*?)</h3>')
@@ -34,6 +40,7 @@ CHIP = re.compile(r'<span class="ab-chip"><span>(.*?)</span><b>(.*?)</b></span>'
 DETAILS = re.compile(r'<div class="ab-card__details">.*?<p>(.*?)</p>', re.S)
 TILE = re.compile(r'<button[^>]*class="[^"]*form-tile[^"]*"[^>]*>(.*?)</button>', re.S)
 LABEL = re.compile(r'class="form-tile__label"[^>]*>(.*?)</span>', re.S)
+ICON = re.compile(r"IconAttribute/(\w+)\.webp")
 
 
 def text(s):
@@ -131,13 +138,16 @@ def parse(path):
     mob = cards(S.get("Mobility"))
     desc = re.search(r"Description\s+(.*?)\s+(?:Home Food|Recommended Items)", text(html))
 
+    # Les formes regionales n'ont pas de page a elles : la fiche de base porte
+    # une tuile par forme, et cette tuile est le seul endroit ou le site dit
+    # quels elements la forme remplace. On ne releve que cela.
     forms = []
     for b in TILE.findall(html):
         lab = LABEL.search(b)
         if lab:
             lab = text(lab.group(1))
             if lab and lab.lower() not in ("basic", "basic form"):
-                forms.append([lab, None])
+                forms.append([lab, [ICONEL.get(e, e) for e in ICON.findall(b)]])
 
     return {
         "name": name, "no": no.group(1) if no else None,

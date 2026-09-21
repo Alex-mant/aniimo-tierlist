@@ -599,6 +599,71 @@
   "Nimbi",
   "Somniwing"
  ],
+ "lignes_de_stats_partagees": [
+  {
+   "aniidex_donne_la_meme_ligne_a": [
+    "Fennelun",
+    "Helion",
+    "Lunara",
+    "Soleon"
+   ],
+   "ligne": {
+    "atk": 116,
+    "brk": 64,
+    "hp": 100,
+    "mdef": 72,
+    "pdef": 72,
+    "reg": 90
+   },
+   "game8_la_dement_pour": [
+    "Fennelun",
+    "Helion",
+    "Lunara"
+   ]
+  }
+ ],
+ "roles_contre_statistiques": {
+  "Blazen": {
+   "game8": "Break",
+   "aniidex": "DPS",
+   "atk": 100,
+   "brk": 104,
+   "coherent_game8": true,
+   "coherent_aniidex": false
+  },
+  "Bolty": {
+   "game8": "Break",
+   "aniidex": "DPS",
+   "atk": 85,
+   "brk": 87,
+   "coherent_game8": true,
+   "coherent_aniidex": false
+  },
+  "Fulmintis": {
+   "game8": "DPS",
+   "aniidex": "Break",
+   "atk": 130,
+   "brk": 50,
+   "coherent_game8": true,
+   "coherent_aniidex": false
+  },
+  "Infergon": {
+   "game8": "DPS",
+   "aniidex": "Break",
+   "atk": 125,
+   "brk": 50,
+   "coherent_game8": true,
+   "coherent_aniidex": false
+  },
+  "Somniwing": {
+   "game8": "Regen",
+   "aniidex": "Support",
+   "atk": 92,
+   "brk": 50,
+   "coherent_game8": null,
+   "coherent_aniidex": null
+  }
+ },
  "apports_aniidex": {
   "competences_chiffrees": 262,
   "ameliorations_eveil": 50,

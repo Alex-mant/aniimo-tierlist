@@ -196,7 +196,10 @@
   "forms": [
    [
     "Snowfield",
-    null
+    [
+     "Ice",
+     "Earth"
+    ]
    ]
   ]
  },
@@ -430,11 +433,16 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Lightning"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Lightning"
+    ]
    ]
   ]
  },
@@ -524,7 +532,9 @@
   "forms": [
    [
     "Mountain Woods",
-    null
+    [
+     "Lightning"
+    ]
    ]
   ]
  },
@@ -622,7 +632,10 @@
   "forms": [
    [
     "Nighttime",
-    null
+    [
+     "Dark",
+     "Ice"
+    ]
    ]
   ]
  },
@@ -739,7 +752,10 @@
   "forms": [
    [
     "Snowfield",
-    null
+    [
+     "Ice",
+     "Earth"
+    ]
    ]
   ]
  },
@@ -916,15 +932,21 @@
   "forms": [
    [
     "Mudflat",
-    null
+    [
+     "Earth"
+    ]
    ],
    [
     "Beach",
-    null
+    [
+     "Earth"
+    ]
    ],
    [
     "Bay",
-    null
+    [
+     "Earth"
+    ]
    ]
   ]
  },
@@ -1015,7 +1037,9 @@
   "forms": [
    [
     "Towerwood",
-    null
+    [
+     "Grass"
+    ]
    ]
   ]
  },
@@ -1364,11 +1388,17 @@
   "forms": [
    [
     "Beach",
-    null
+    [
+     "Water",
+     "Wind"
+    ]
    ],
    [
     "Highland",
-    null
+    [
+     "Grass",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -1476,7 +1506,9 @@
   "forms": [
    [
     "Rainstorm",
-    null
+    [
+     "Earth"
+    ]
    ]
   ]
  },
@@ -1596,15 +1628,24 @@
   "forms": [
    [
     "Beach",
-    null
+    [
+     "Water",
+     "Wind"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Lightning",
+     "Wind"
+    ]
    ],
    [
     "Highland",
-    null
+    [
+     "Grass",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -2355,11 +2396,16 @@
   "forms": [
    [
     "Highland",
-    null
+    [
+     "Fire",
+     "Earth"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Fire"
+    ]
    ]
   ]
  },
@@ -2656,7 +2702,10 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Light",
+     "Lightning"
+    ]
    ]
   ]
  },
@@ -2876,7 +2925,10 @@
   "forms": [
    [
     "Nighttime",
-    null
+    [
+     "Dark",
+     "Ice"
+    ]
    ]
   ]
  },
@@ -3074,15 +3126,21 @@
   "forms": [
    [
     "Highland",
-    null
+    [
+     "Fire"
+    ]
    ],
    [
     "Forest",
-    null
+    [
+     "Fire"
+    ]
    ],
    [
     "Sea of Flowers",
-    null
+    [
+     "Fire"
+    ]
    ]
   ]
  },
@@ -3173,11 +3231,16 @@
   "forms": [
    [
     "Highland",
-    null
+    [
+     "Fire",
+     "Earth"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Fire"
+    ]
    ]
   ]
  },
@@ -3265,15 +3328,24 @@
   "forms": [
    [
     "Sea of Flowers",
-    null
+    [
+     "Grass",
+     "Wind"
+    ]
    ],
    [
     "Nighttime",
-    null
+    [
+     "Dark",
+     "Wind"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Earth",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -3514,7 +3586,10 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Light",
+     "Lightning"
+    ]
    ]
   ]
  },
@@ -3951,15 +4026,24 @@
   "forms": [
    [
     "Sea of Flowers",
-    null
+    [
+     "Ice",
+     "Water"
+    ]
    ],
    [
     "Snowfield",
-    null
+    [
+     "Ice",
+     "Water"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Light",
+     "Water"
+    ]
    ]
   ]
  },
@@ -4046,7 +4130,10 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Grass"
+    ]
    ]
   ]
  },
@@ -4178,11 +4265,17 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Light",
+     "Ice"
+    ]
    ],
    [
     "Nighttime",
-    null
+    [
+     "Dark",
+     "Ice"
+    ]
    ]
   ]
  },
@@ -4302,15 +4395,24 @@
   "forms": [
    [
     "Sea of Flowers",
-    null
+    [
+     "Grass",
+     "Wind"
+    ]
    ],
    [
     "Nighttime",
-    null
+    [
+     "Dark",
+     "Wind"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Earth",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -4427,7 +4529,10 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Earth"
+    ]
    ]
   ]
  },
@@ -4551,7 +4656,9 @@
   "forms": [
    [
     "Mountain",
-    null
+    [
+     "Wind"
+    ]
    ]
   ]
  },
@@ -4759,11 +4866,16 @@
   "forms": [
    [
     "Snowfield",
-    null
+    [
+     "Dark",
+     "Ice"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Dark"
+    ]
    ]
   ]
  },
@@ -4853,7 +4965,9 @@
   "forms": [
    [
     "Mountain",
-    null
+    [
+     "Wind"
+    ]
    ]
   ]
  },
@@ -4975,11 +5089,17 @@
   "forms": [
    [
     "Mountain",
-    null
+    [
+     "Dark",
+     "Grass"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Grass"
+    ]
    ]
   ]
  },
@@ -5065,7 +5185,9 @@
   "forms": [
    [
     "Mountain",
-    null
+    [
+     "Grass"
+    ]
    ]
   ]
  },
@@ -5190,15 +5312,24 @@
   "forms": [
    [
     "Forest",
-    null
+    [
+     "Dark",
+     "Grass"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Fire"
+    ]
    ],
    [
     "Highland",
-    null
+    [
+     "Dark",
+     "Fire"
+    ]
    ]
   ]
  },
@@ -5317,7 +5448,10 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Fire",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -5440,7 +5574,10 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Fire"
+    ]
    ]
   ]
  },
@@ -5530,27 +5667,39 @@
   "forms": [
    [
     "Highland",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Forest",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Grassland",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Plateau",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Grass"
+    ]
    ]
   ]
  },
@@ -5674,27 +5823,39 @@
   "forms": [
    [
     "Highland",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Forest",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Grassland",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Plateau",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Grass"
+    ]
    ]
   ]
  },
@@ -5886,7 +6047,9 @@
   "forms": [
    [
     "Mountain",
-    null
+    [
+     "Wind"
+    ]
    ]
   ]
  },
@@ -6230,11 +6393,17 @@
   "forms": [
    [
     "Rainstorm",
-    null
+    [
+     "Water",
+     "Lightning"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Light",
+     "Lightning"
+    ]
    ]
   ]
  },
@@ -6479,7 +6648,10 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Fire"
+    ]
    ]
   ]
  },
@@ -6761,7 +6933,10 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Light",
+     "Grass"
+    ]
    ]
   ]
  },
@@ -6971,15 +7146,23 @@
   "forms": [
    [
     "Rainstorm",
-    null
+    [
+     "Lightning",
+     "Wind"
+    ]
    ],
    [
     "Cloudmist",
-    null
+    [
+     "Wind"
+    ]
    ],
    [
     "Plateau",
-    null
+    [
+     "Ice",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -7114,11 +7297,15 @@
   "forms": [
    [
     "Nighttime",
-    null
+    [
+     "Water"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Water"
+    ]
    ]
   ]
  },
@@ -7243,15 +7430,22 @@
   "forms": [
    [
     "Snowfield",
-    null
+    [
+     "Dark",
+     "Ice"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Dark"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Dark"
+    ]
    ]
   ]
  },
@@ -7469,7 +7663,10 @@
   "forms": [
    [
     "Nighttime",
-    null
+    [
+     "Dark",
+     "Water"
+    ]
    ]
   ]
  },
@@ -7588,15 +7785,22 @@
   "forms": [
    [
     "Snowfield",
-    null
+    [
+     "Ice",
+     "Grass"
+    ]
    ],
    [
     "Highland",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Sea of Flowers",
-    null
+    [
+     "Grass"
+    ]
    ]
   ]
  },
@@ -7679,15 +7883,22 @@
   "forms": [
    [
     "Snowfield",
-    null
+    [
+     "Ice",
+     "Grass"
+    ]
    ],
    [
     "Highland",
-    null
+    [
+     "Grass"
+    ]
    ],
    [
     "Sea of Flowers",
-    null
+    [
+     "Grass"
+    ]
    ]
   ]
  },
@@ -7859,7 +8070,9 @@
   "forms": [
    [
     "Nighttime",
-    null
+    [
+     "Water"
+    ]
    ]
   ]
  },
@@ -7948,11 +8161,16 @@
   "forms": [
    [
     "Sea of Flowers",
-    null
+    [
+     "Water"
+    ]
    ],
    [
     "Snowfield",
-    null
+    [
+     "Ice",
+     "Water"
+    ]
    ]
   ]
  },
@@ -8036,7 +8254,9 @@
   "forms": [
    [
     "Rainstorm",
-    null
+    [
+     "Earth"
+    ]
    ]
   ]
  },
@@ -8164,11 +8384,16 @@
   "forms": [
    [
     "Snowfield",
-    null
+    [
+     "Dark",
+     "Ice"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Dark"
+    ]
    ]
   ]
  },
@@ -8293,19 +8518,29 @@
   "forms": [
    [
     "Highland",
-    null
+    [
+     "Fire",
+     "Earth"
+    ]
    ],
    [
     "Thunderstorm",
-    null
+    [
+     "Lightning",
+     "Fire"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Fire"
+    ]
    ],
    [
     "Mountain Woods",
-    null
+    [
+     "Fire"
+    ]
    ]
   ]
  },
@@ -8607,11 +8842,17 @@
   "forms": [
    [
     "Thunderstorm",
-    null
+    [
+     "Water",
+     "Lightning"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Light",
+     "Water"
+    ]
    ]
   ]
  },
@@ -8747,15 +8988,21 @@
   "forms": [
    [
     "Mudflat",
-    null
+    [
+     "Earth"
+    ]
    ],
    [
     "Beach",
-    null
+    [
+     "Earth"
+    ]
    ],
    [
     "Bay",
-    null
+    [
+     "Earth"
+    ]
    ]
   ]
  },
@@ -8844,11 +9091,16 @@
   "forms": [
    [
     "Sea of Flowers",
-    null
+    [
+     "Water"
+    ]
    ],
    [
     "Snowfield",
-    null
+    [
+     "Ice",
+     "Water"
+    ]
    ]
   ]
  },
@@ -9197,7 +9449,9 @@
   "forms": [
    [
     "Prismana",
-    null
+    [
+     "Fire"
+    ]
    ]
   ]
  },
@@ -9283,15 +9537,21 @@
   "forms": [
    [
     "Highland",
-    null
+    [
+     "Fire"
+    ]
    ],
    [
     "Forest",
-    null
+    [
+     "Fire"
+    ]
    ],
    [
     "Sea of Flowers",
-    null
+    [
+     "Fire"
+    ]
    ]
   ]
  },
@@ -9608,11 +9868,17 @@
   "forms": [
    [
     "Rainstorm",
-    null
+    [
+     "Dark",
+     "Water"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Ice"
+    ]
    ]
   ]
  },
@@ -9710,7 +9976,9 @@
   "forms": [
    [
     "Nighttime",
-    null
+    [
+     "Water"
+    ]
    ]
   ]
  },
@@ -9835,15 +10103,23 @@
   "forms": [
    [
     "Thunderstorm",
-    null
+    [
+     "Lightning",
+     "Grass"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Water",
+     "Grass"
+    ]
    ],
    [
     "Towerwood",
-    null
+    [
+     "Grass"
+    ]
    ]
   ]
  },
@@ -9961,11 +10237,17 @@
   "forms": [
    [
     "Beach",
-    null
+    [
+     "Water",
+     "Wind"
+    ]
    ],
    [
     "Highland",
-    null
+    [
+     "Grass",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -10094,11 +10376,17 @@
   "forms": [
    [
     "Beach",
-    null
+    [
+     "Water",
+     "Wind"
+    ]
    ],
    [
     "Highland",
-    null
+    [
+     "Grass",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -10215,7 +10503,10 @@
   "forms": [
    [
     "Mountain",
-    null
+    [
+     "Grass",
+     "Earth"
+    ]
    ]
   ]
  },
@@ -10338,19 +10629,30 @@
   "forms": [
    [
     "Rainstorm",
-    null
+    [
+     "Lightning",
+     "Wind"
+    ]
    ],
    [
     "Cloudmist",
-    null
+    [
+     "Wind"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Wind"
+    ]
    ],
    [
     "Plateau",
-    null
+    [
+     "Ice",
+     "Wind"
+    ]
    ]
   ]
  },
@@ -10567,11 +10869,17 @@
   "forms": [
    [
     "Snowfield",
-    null
+    [
+     "Ice",
+     "Earth"
+    ]
    ],
    [
     "Prismana",
-    null
+    [
+     "Dark",
+     "Earth"
+    ]
    ]
   ]
  },
@@ -10753,11 +11061,17 @@
   "forms": [
    [
     "Forest",
-    null
+    [
+     "Dark",
+     "Grass"
+    ]
    ],
    [
     "Highland",
-    null
+    [
+     "Dark",
+     "Fire"
+    ]
    ]
   ]
  }

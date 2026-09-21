@@ -1,0 +1,140 @@
+[
+ {
+  "name": "Bubbeep",
+  "no": "088",
+  "el": [
+   "Water",
+   "Grass"
+  ],
+  "stage": "Lumin",
+  "stats": {
+   "hp": 104,
+   "atk": 85,
+   "pdef": 78,
+   "reg": 82,
+   "mdef": 75,
+   "brk": 43
+  },
+  "total": 467,
+  "src": "aniidex",
+  "manque": [
+   "role"
+  ],
+  "formes": []
+ },
+ {
+  "name": "Glameep",
+  "no": "089",
+  "el": [
+   "Water",
+   "Grass"
+  ],
+  "stage": "Nova",
+  "stats": {
+   "hp": 122,
+   "atk": 100,
+   "pdef": 92,
+   "reg": 97,
+   "mdef": 89,
+   "brk": 50
+  },
+  "total": 550,
+  "src": "aniidex",
+  "manque": [
+   "role"
+  ],
+  "formes": [
+   "Prismana"
+  ]
+ },
+ {
+  "name": "Popapus",
+  "no": "090",
+  "el": [
+   "Water"
+  ],
+  "stage": "Lumin",
+  "stats": {
+   "hp": 90,
+   "atk": 102,
+   "pdef": 58,
+   "reg": 90,
+   "mdef": 65,
+   "brk": 45
+  },
+  "total": 450,
+  "src": "aniidex",
+  "manque": [
+   "role"
+  ],
+  "formes": []
+ },
+ {
+  "name": "Gachapus",
+  "no": "091",
+  "el": [
+   "Water"
+  ],
+  "stage": "Nova",
+  "stats": {
+   "hp": 106,
+   "atk": 121,
+   "pdef": 68,
+   "reg": 106,
+   "mdef": 77,
+   "brk": 51
+  },
+  "total": 529,
+  "src": "aniidex",
+  "manque": [
+   "role"
+  ],
+  "formes": []
+ },
+ {
+  "name": "Sparkelf",
+  "no": "11001",
+  "el": [
+   "Fire"
+  ],
+  "stage": "Nova",
+  "stats": {
+   "hp": 107,
+   "atk": 113,
+   "pdef": 60,
+   "reg": 99,
+   "mdef": 88,
+   "brk": 50
+  },
+  "total": 517,
+  "src": "aniidex",
+  "manque": [
+   "role"
+  ],
+  "formes": [
+   "Prismana"
+  ]
+ },
+ {
+  "name": "Soleon",
+  "no": "99997",
+  "el": [
+   "Light"
+  ],
+  "stage": "Nova",
+  "stats": {
+   "hp": 100,
+   "atk": 116,
+   "pdef": 72,
+   "reg": 90,
+   "mdef": 72,
+   "brk": 64
+  },
+  "total": 514,
+  "src": "aniidex",
+  "manque": [
+   "stats non attestees (ligne partagee avec Fennelun, Helion, Lunara)"
+  ],
+  "formes": []
+ }
+]

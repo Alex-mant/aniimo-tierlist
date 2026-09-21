@@ -176,6 +176,10 @@ tbody tr:hover{background:var(--bg2)}
 .meth code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:12.5px;color:var(--tx)}
 .meth ul{margin:0 0 10px 20px}
 .meth li{margin-bottom:5px}
+table.wait{border-collapse:collapse;width:100%;margin:6px 0 14px;font-size:12.5px}
+table.wait th,table.wait td{text-align:left;padding:5px 9px;border-bottom:1px solid var(--line)}
+table.wait th{color:var(--tx);font-weight:600;white-space:nowrap}
+table.wait td:last-child{color:var(--tx2)}
 </style>
 </head>
 <body>
@@ -1087,16 +1091,35 @@ function viewMeth(){
   structurels retirent directement des points : aucune source d'EP, aucun BREAK, aucune survie, ou
   un Pawney sans briseur pour ouvrir les cibles.</p>
 
+  <h2>Annoncés par le jeu, pas encore classés</h2>
+  <p>Deux sources sont relevées : les fiches Game8, qui s'arrêtent au N° 083, et une base
+  communautaire qui va plus loin. La seconde n'écrase jamais la première — elle ne fait
+  qu'<b>ajouter</b> ce que Game8 n'a pas encore rédigé. ${META.attente.length} Aniimo sont
+  annoncés sans que le jeu en publie de quoi les classer : ils sont nommés ici plutôt que
+  devinés.</p>
+  <table class="wait"><thead><tr><th>Aniimo</th><th>N°</th><th>Élément</th><th>Total</th>
+  <th>Ce qui manque</th></tr></thead><tbody>
+  ${META.attente.map(a=>`<tr><td><b>${esc(a.name)}</b></td><td>${esc(a.no||"—")}</td>
+    <td>${a.el.length?a.el.map(esc).join(" / "):"—"}</td><td>${a.total||"—"}</td>
+    <td>${a.manque.map(esc).join(", ")}</td></tr>`).join("")}
+  </tbody></table>
+
   <h2>Limites connues</h2>
   <ul>
-    <li><b>P.Déf est une valeur dérivée.</b> Le tableau source duplique l'Attaque dans la cellule
+    <li><b>P.Déf est une valeur dérivée.</b> Le tableau Game8 duplique l'Attaque dans la cellule
       P.Déf — vérifié sur les 207 pages, sans une seule exception. Le Total de base étant correct,
       P.Déf est reconstruit par soustraction.</li>
-    <li><b>Lunara</b> affiche ATQ 64 / P.Déf 116 pour un DPS. Les deux ordres donnent le même Total
-      de 514, donc la source ne permet pas de trancher ; la cellule Attaque faisant foi partout
-      ailleurs, la valeur est conservée telle quelle. C'est la plus forte divergence avec Game8,
-      qui le classe S.</li>
-    <li><b>Soleon</b> (N° 9999) affiche <code>??</code> partout dans la source : non sorti, exclu.</li>
+    <li><b>Lunara</b> affiche ATQ 64 / P.Déf 116 pour un DPS, ce qui surprend. La seconde source
+      annonce l'inverse (ATQ 116) — mais elle donne <b>la même ligne de statistiques à Lunara,
+      Fennelun, Helion et Soleon</b>, et Game8 la dément pour les trois qu'il publie : elle ne sait
+      donc rien de particulier sur Lunara, elle recopie. La valeur Game8 est conservée telle
+      quelle, et la question reste ouverte.</li>
+    <li><b>Soleon</b> est laissé de côté pour la même raison : sa seule fiche publiée porte cette
+      ligne partagée. Game8, lui, affiche <code>??</code> partout sur sa page.</li>
+    <li><b>Les formes régionales des nouveaux venus</b> n'ont pas de page à elles : seule la tuile
+      de leur fiche de base dit ce qui change, à savoir leurs éléments. C'est donc tout ce qui leur
+      est appliqué. Le report a été vérifié sur les 119 formes que les deux sources ont en
+      commun : les éléments lus dans les tuiles coïncident avec Game8 <b>119 fois sur 119</b>.</li>
     <li>Le modèle ne mesure ni la vitesse d'animation, ni la portée, ni le confort de jeu.</li>
   </ul>
   </div>`;

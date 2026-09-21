@@ -81,6 +81,16 @@
     "team": 2
    }
   },
+  "Coraliz": {
+   "always": {
+    "brk": 0,
+    "ctrl": 3,
+    "dmg": 2,
+    "res": 3,
+    "sust": 0,
+    "team": 0
+   }
+  },
   "Cornet": {
    "always": {
     "brk": 1,
@@ -399,6 +409,16 @@
     "res": 0,
     "sust": 0,
     "team": 1
+   }
+  },
+  "Malevsera": {
+   "always": {
+    "brk": 0,
+    "ctrl": 0,
+    "dmg": 3,
+    "res": 0,
+    "sust": 0,
+    "team": 0
    }
   },
   "Melloblum": {
@@ -891,6 +911,16 @@
     "team": 0
    }
   },
+  "Wavwal": {
+   "always": {
+    "brk": 3,
+    "ctrl": 0,
+    "dmg": 0,
+    "res": 0,
+    "sust": 3,
+    "team": 3
+   }
+  },
   "Wisptis": {
    "always": {
     "brk": 1,
@@ -1112,6 +1142,22 @@
    "sust": 2,
    "team": 0
   },
+  "Coral Impact": {
+   "brk": 0,
+   "ctrl": 1,
+   "dmg": 2,
+   "res": 1,
+   "sust": 0,
+   "team": 0
+  },
+  "Coral Trap": {
+   "brk": 0,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
   "Cozite Nest Sentry": {
    "brk": 0,
    "ctrl": 0,
@@ -1194,6 +1240,22 @@
    "dmg": 1,
    "res": 0,
    "sust": 0,
+   "team": 0
+  },
+  "Demon Steps": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 1,
+   "res": 0,
+   "sust": 1,
+   "team": 0
+  },
+  "Demonic State": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 2,
+   "sust": 2,
    "team": 0
   },
   "Detect Weakness": {
@@ -1460,6 +1522,14 @@
    "sust": 0,
    "team": 0
   },
+  "Ground Slam": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
   "Guardbreak Slam": {
    "brk": 1,
    "ctrl": 2,
@@ -1616,6 +1686,14 @@
    "team": 0
   },
   "Ice Strikes": {
+   "brk": 1,
+   "ctrl": 2,
+   "dmg": 2,
+   "res": 0,
+   "sust": 0,
+   "team": 0
+  },
+  "Icebreaker": {
    "brk": 1,
    "ctrl": 2,
    "dmg": 2,
@@ -2007,6 +2085,14 @@
    "res": 2,
    "sust": 2,
    "team": 2
+  },
+  "Quicksand Slam": {
+   "brk": 0,
+   "ctrl": 3,
+   "dmg": 1,
+   "res": 0,
+   "sust": 0,
+   "team": 0
   },
   "Radiant Dart": {
    "brk": 0,
@@ -2454,6 +2540,14 @@
    "sust": 0,
    "team": 0
   },
+  "Wave Surge": {
+   "brk": 1,
+   "ctrl": 0,
+   "dmg": 3,
+   "res": 0,
+   "sust": 2,
+   "team": 0
+  },
   "Weakening Slam": {
    "brk": 1,
    "ctrl": 2,
@@ -2468,6 +2562,14 @@
    "dmg": 1,
    "res": 0,
    "sust": 0,
+   "team": 0
+  },
+  "Wild Dance": {
+   "brk": 0,
+   "ctrl": 0,
+   "dmg": 2,
+   "res": 0,
+   "sust": 1,
    "team": 0
   },
   "Wild Show": {

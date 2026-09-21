@@ -1,0 +1,14 @@
+{
+ "Reefish":   {"dmg":3,"team":0,"brk":0,"sust":0,"res":4,"ctrl":6,"cond":2,
+   "why":"Piege de corail qui empile la Fragilite Terre et sable mouvant qui emprisonne 2 s ; l'EP d'entree de combat ne sert qu'a lui et se compte en allies Terre."},
+ "Coraliz":   {"dmg":5,"team":0,"brk":0,"sust":0,"res":6,"ctrl":8,"cond":2,
+   "why":"Deux emprisonnements, la Fragilite Terre en continu et une marque qui detonne sur chaque degat Terre encaisse ; l'ultime rend 30 EP, mais rien ne part aux allies."},
+ "Cheekie":   {"dmg":3,"team":0,"brk":6,"sust":2,"res":0,"ctrl":5,"cond":3,
+   "why":"+20% puis +40% d'efficacite BREAK, mais il faut passer sous 75% puis 50% de PV et c'est sa propre charge, a -10% de PV par touche, qui l'y amene."},
+ "Wavwal":    {"dmg":4,"team":6,"brk":6,"sust":6,"res":0,"ctrl":5,"cond":3,
+   "why":"Le meme +40% de BREAK que Cheekie, mais son ultime bouclie toute l'equipe a hauteur de 55% de ses PV manquants : la condition qui l'affaiblit est celle qui alimente ce qu'il donne."},
+ "Malangel":  {"dmg":6,"team":0,"brk":0,"sust":3,"res":0,"ctrl":0,"cond":2,
+   "why":"Jusqu'a +48% de degats en se mettant en danger, une rafale sans temps de recharge a -20% de degats subis, et rien d'autre."},
+ "Malevsera": {"dmg":8,"team":0,"brk":0,"sust":5,"res":3,"ctrl":0,"cond":2,
+   "why":"Les +48% de Soif de sang et les +30% d'Etat demoniaque se composent, l'etat payant les competences en PV au lieu d'EP et rendant jusqu'a 50% des PV max en sortant."}
+}

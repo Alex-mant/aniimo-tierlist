@@ -7,3 +7,4 @@ raw_aniidex/*.html
 __pycache__/
 *.pyc
 *.bak
+node_modules/
