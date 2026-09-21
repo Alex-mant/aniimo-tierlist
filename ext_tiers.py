@@ -5,6 +5,12 @@ le modele et mesurer la confiance - jamais comme entree du score.
 Sources independantes retenues. Ecartees : showgamer.com et gamezebo.com (copies
 quasi exactes de Game8), progameguides.com (403), games.gg (liste tronquee).
 Sortie : raw/_ext_tiers.json  {source: {nom_roster: position 0..1 (1 = meilleur)}}
+
+Les noms qu'une source cite et que le roster ne connait pas sont conserves dans
+la sortie (champ hors_roster) au lieu d'etre oublies : c'est ce silence qui
+avait cache douze Aniimo reels (No. 084 et au-dela) que Game8 n'a pas encore
+rediges. Un nom hors roster est soit un Aniimo qui nous manque, soit un nom
+qu'une source a invente - dans les deux cas, il faut le voir.
 """
 import io, json, re, difflib
 
@@ -86,9 +92,17 @@ for src, (url, levels, text) in SRC.items():
             # position 0..1 : haut de l'echelle = 1. Echelles de longueurs differentes
             # ramenees au meme intervalle ; la comparaison se fait ensuite en rangs.
             pos.setdefault(n, 1 - i / (len(levels) - 1))
-    out[src] = {"url": url, "levels": levels, "pos": pos}
+    out[src] = {"url": url, "levels": levels, "pos": pos,
+                "hors_roster": sorted(set(dropped.get(src, [])))}
 
 io.open("raw/_ext_tiers.json", "w", encoding="utf-8").write(
     json.dumps(out, ensure_ascii=False, indent=1, sort_keys=True))
-for s, v in out.items():
-    print("%-11s %3d entrees du roster | hors roster : %s" % (s, len(v["pos"]), ", ".join(sorted(set(dropped.get(s, []))))))
+for s, v in sorted(out.items()):
+    print("%-11s %3d entrees du roster | %2d hors roster" % (s, len(v["pos"]), len(v["hors_roster"])))
+
+# Un nom cite par plusieurs sources independantes et absent du roster n'est plus
+# une faute de frappe : c'est un Aniimo a aller chercher.
+import collections
+c = collections.Counter(n for v in out.values() for n in v["hors_roster"])
+multi = sorted(n for n, k in c.items() if k >= 2)
+print("hors roster cites par au moins deux sources (%d) : %s" % (len(multi), ", ".join(multi)))

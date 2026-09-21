@@ -15,16 +15,30 @@ python -m http.server 8777 --bind 127.0.0.1
 ## Chaîne de traitement
 
 ```
-raw/*.html  ──parse.py──>  raw/parsed.json  ──score.py──>  data.js  ──>  index.html
- 219 pages                   207 fiches        ▲             207 entrées
-                                               │
-                          kits.json (116 lectures) + kit_skills.json + synergy.json
-                          + raw/_kitmap.json + raw/_ext_tiers.json (6 tier lists)
+                fetch.py  (le seul accès réseau du dépôt)
+                   │
+      ┌─────────┴──────────┐
+ raw/*.html            raw_aniidex/*.html
+ 219 pages (Game8)     100 fiches (aniidex.com)
+      │                     │
+  parse.py            parse_aniidex.py
+      │                     │
+ raw/parsed.json      raw/parsed_aniidex.json  ──audit.py──>  raw/_audit.json
+      │
+   score.py  ──>  data.js  ──>  index.html
+      ▲                           207 entrées
+      │
+ kits.json (116 lectures) + kit_skills.json + synergy.json
+ + raw/_kitmap.json + raw/_ext_tiers.json (6 tier lists)
 ```
 
 | Fichier | Rôle |
 |---|---|
-| `raw/` | Pages sources scrapées (47 Mo). Ne pas re-télécharger, c'est la vérité terrain. |
+| `fetch.py` | Le seul fichier qui touche au réseau. Relève les deux sources, dit ce qui a bougé. |
+| `raw/` | Pages Game8 scrapées (47 Mo). Ne pas re-télécharger sans raison : c'est la vérité terrain. |
+| `raw_aniidex/` | Fiches aniidex.com (19 Mo), seconde source indépendante. |
+| `parse_aniidex.py` | HTML aniidex → `raw/parsed_aniidex.json`, même schéma que `parse.py`. |
+| `audit.py` | Confronte les deux sources → `raw/_audit.json`. N'arbitre rien, signale tout. |
 | `parse.py` | HTML → JSON : stats, traits, compétences, formes, mobilité. |
 | `RUBRIC.md` | La grille de notation des kits, écrite **avant** la lecture. |
 | `kits/b1..b6.json` | Les 116 kits notés, par lots de 20 — la trace de la lecture. |
@@ -187,16 +201,56 @@ communautaires notent plus haut les DPS à burst conditionnel et plus bas les Br
 Support à grosses stats. C'est cohérent — elles jugent la facilité de jeu réelle, ce modèle
 juge le plafond à investissement maximal.
 
+## Deux sources, aucune d'elles arbitre
+
+Game8 a été la source unique jusqu'ici. Elle a deux trous : elle n'a pas encore rédigé les
+Aniimo à partir du **N° 084**, et elle ne publie ni la Puissance, ni le coût en EP, ni le
+temps de recharge d'une compétence — les trois chiffres qui permettraient de *calculer* un
+kit au lieu de le noter à la main. `aniidex.com` publie les deux.
+
+`audit.py` confronte les deux relevés et **ne tranche jamais** : quand ils divergent, les
+deux valeurs restent côte à côte dans `raw/_audit.json`, à vérifier dans le jeu. État au
+21/09/2026, sur les 88 bases communes :
+
+| | |
+|---|---|
+| Éléments | **0** divergence — accord parfait |
+| Stats | **5** : Fennelun, Helion, Leafy, Lunara, Nimbi |
+| Rôle | **5** : Blazen, Bolty, Fulmintis, Infergon, Somniwing |
+| Compétences | **44**, dont 41 où aniidex est un *sous-ensemble* de Game8 |
+
+Les 41 sous-ensembles ne sont pas un désaccord mais une précision de plus : Game8 empile sur
+la fiche de base les compétences de **toutes** ses formes régionales, aniidex les sépare
+forme par forme. Restent **11 vrais désaccords**, listés dans `raw/_audit.json`.
+
+Ce qu'aniidex apporte et qui n'est pas encore exploité : **262 compétences chiffrées**
+(Puissance / EP / recharge / étiquettes Dégâts, Contrôle, Statut anormal, Soin…) et
+**50 versions améliorées** de compétences — la matière du futur simulateur d'éveil.
+
+## Ce qui manque au roster
+
+Douze Aniimo réels sont absents des 207 entrées : **Reefish** (084), **Coraliz** (085),
+**Cheekie** (086), **Wavwal** (087), **Bubbeep** (088), **Glameep** (089), **Popapus** (090),
+**Gachapus** (091), **Malangel** (092), **Malevsera** (093), **Sparkelf** (11001) et
+**Soleon** (99997), plus quatre formes (Rainstorm Reefish et Coraliz, Prismana Glameep et
+Sparkelf). Cinq d'entre eux n'ont pas encore de rôle publié : ils ne peuvent pas être
+classés, et on ne leur en invente pas un.
+
+Ils étaient cités par les tier lists externes mais `ext_tiers.py` les écartait sans le dire.
+Il conserve maintenant ces noms (champ `hors_roster`) et signale ceux que **deux sources au
+moins** citent : ce seuil suffisait à tous les retrouver.
+
 ## Limites connues
 
 - **P.Déf est une valeur dérivée.** Le tableau source duplique l'Attaque dans la cellule
   P.Déf — vérifié sur les 207 pages, sans une seule exception. Le Total de base étant
   correct, P.Déf est reconstruit par soustraction.
-- **Lunara** affiche ATQ 64 / P.Déf 116 pour un DPS. Les deux ordres donnent le même Total
-  de 514, donc la source ne permet pas de trancher ; la cellule Attaque faisant foi partout
-  ailleurs, la valeur est conservée telle quelle et signalée dans sa fiche. C'est la plus
-  forte divergence avec Game8, qui le classe S.
-- **Soleon** (N° 9999) affiche `??` partout dans la source : non sorti, donc exclu.
+- **Lunara** affiche chez Game8 ATQ 64 / P.Déf 116 pour un DPS. Les deux ordres donnent le
+  même Total de 514, et Game8 seule ne permettait pas de trancher. La seconde source donne
+  ATQ 116 / P.Déf 72 / BREAK 64 : l'ordre des cellules Game8 est bien brédouillé. La valeur
+  n'est pas encore corrigée — le changement déplace un S, il sera fait à part.
+- **Soleon** affiche `??` partout chez Game8 (N° 9999, non rédigé) ; aniidex publie sa fiche
+  complète sous le N° 99997. Il n'est pas encore classé.
 - Le modèle ne mesure ni la vitesse d'animation, ni la portée, ni le confort de jeu.
 - Les paliers sont des percentiles : une position relative dans le vivier affiché, pas une
   puissance absolue. Changer un filtre les recalcule.

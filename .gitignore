@@ -1,6 +1,8 @@
 # Pages sources scrapees : 47 Mo de HTML tiers, non redistribuees.
 # Regenerer avec parse.py si besoin ; raw/parsed.json suffit a rejouer score.py.
 raw/*.html
+# Idem pour la seconde source (aniidex.com) : 19 Mo, regenerables par fetch.py.
+raw_aniidex/*.html
 
 __pycache__/
 *.pyc

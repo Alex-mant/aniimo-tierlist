@@ -1,5 +1,16 @@
 {
  "allthings": {
+  "hors_roster": [
+   "Bubbeep",
+   "Coraliz",
+   "Gachapus",
+   "Glameep",
+   "Malevsera",
+   "Popapus",
+   "Soleon",
+   "Wavwal",
+   "Witchin"
+  ],
   "levels": [
    "S",
    "A",
@@ -60,6 +71,7 @@
   "url": "allthings.how/aniimo-release-meta-tier-list"
  },
  "aniimoguide": {
+  "hors_roster": [],
   "levels": [
    "T0",
    "T0.5",
@@ -159,6 +171,7 @@
   "url": "aniimoguide.com/tier-list"
  },
  "game8": {
+  "hors_roster": [],
   "levels": [
    "S",
    "A",
@@ -255,6 +268,33 @@
   "url": "game8.co/games/Aniimo/archives/621098"
  },
  "kongbakpao": {
+  "hors_roster": [
+   "Blazen (Mountain Form)",
+   "Budclaw (ALT Form)",
+   "Bybbeep",
+   "Cheekie",
+   "Coraliz",
+   "Coraliz (Rainstorm Form)",
+   "Gachapus",
+   "Glameep",
+   "Glameep (Prismana Form)",
+   "Helmut (Mountain Form)",
+   "Irisal (Mountain Form)",
+   "Malangel",
+   "Malevsera",
+   "Pawny (Mountain Form)",
+   "Popapus",
+   "Reefish",
+   "Reefish (Rainstorm Form)",
+   "Rookey (Mountain Form)",
+   "Sparkelf",
+   "Sparkelf (Prismana Form)",
+   "Thornblade (Rainstorm Form)",
+   "Wavwal",
+   "Witchin",
+   "Witchin (Prismana Form)",
+   "Witching (Umbrabow Form)"
+  ],
   "levels": [
    "SS",
    "S",
@@ -440,6 +480,62 @@
   "url": "kongbakpao.com/aniimo-tier-list"
  },
  "mobi": {
+  "hors_roster": [
+   "Baleetle (Highland Form)",
+   "Blazen (Highland Form)",
+   "Bolty (Highland Form)",
+   "Bonesky (Highland Form)",
+   "Bouldus (Highland Form)",
+   "Coraliz",
+   "Coraliz (Highland Form)",
+   "Cornet (Mountain Woods Form)",
+   "Cornet (Umbrabow Form)",
+   "Fenrier (Highland Form)",
+   "Flutternym (Highland Form)",
+   "Flutternym (Thunderstorm Form)",
+   "Gachapus",
+   "Glameep",
+   "Glynsera (Highland Form)",
+   "Gracewing (Highland Form)",
+   "Gracewing (Thunderstorm Form)",
+   "Hummin (Highland Form)",
+   "Ignitis (Umbrabow Form)",
+   "Iris (Mudflat Form)",
+   "Iris (Rainstorm Form)",
+   "Iris (Thunderstorm Form)",
+   "Irisal (Rainstorm Form)",
+   "Magmarex (Umbrabow Form)",
+   "Malevsera",
+   "Nimbi (Highland Form)",
+   "Panpanta (Highland Form)",
+   "Pawney (Highland Form)",
+   "Pawney (Umbrabow Form)",
+   "Perfumer",
+   "Piopiota (Highland Form)",
+   "Pomawk (Thunderstorm Form)",
+   "Popapus",
+   "Popota (Highland Form)",
+   "Scorchhowl (Umbrabow Form)",
+   "Sherro (Umbrabow Form)",
+   "Stellarys (Umbrabow Form)",
+   "Susuta (Highland Form)",
+   "Thornblade (Highland Form)",
+   "Thornblade (Rainstorm Form)",
+   "Thornblade (Umbrabow Form)",
+   "Tromber (Mountain Woods Form)",
+   "Tubster (Mountain Woods Form)",
+   "Turbo (Highland Form)",
+   "Turbo (Mountain Woods Form)",
+   "Turbo (Thunderstorm Form)",
+   "Turbo (Umbrabow Form)",
+   "Waleetle (Highland Form)",
+   "Wavwal",
+   "Wisptis (Mountain Woods Form)",
+   "Witchin",
+   "Witchin (Highland Form)",
+   "Witchin (Prismana Form)",
+   "Witchin (Umbrabow Form)"
+  ],
   "levels": [
    "S+",
    "S",
@@ -548,6 +644,11 @@
   "url": "mobi.gg/en/tips/aniimo-tier-list"
  },
  "powerup": {
+  "hors_roster": [
+   "Coraliz",
+   "Malevsera",
+   "Wavwal"
+  ],
   "levels": [
    "S",
    "A",

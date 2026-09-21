@@ -1,0 +1,612 @@
+{
+ "absents_de_game8": [
+  "Bubbeep",
+  "Cheekie",
+  "Coraliz",
+  "Gachapus",
+  "Glameep",
+  "Malangel",
+  "Malevsera",
+  "Popapus",
+  "Reefish",
+  "Soleon",
+  "Sparkelf",
+  "Wavwal"
+ ],
+ "absents_d_aniidex": [],
+ "bases_communes": 88,
+ "fiches_incompletes": {
+  "Bubbeep": [
+   "role"
+  ],
+  "Gachapus": [
+   "role"
+  ],
+  "Glameep": [
+   "role"
+  ],
+  "Popapus": [
+   "role"
+  ],
+  "Sparkelf": [
+   "role"
+  ]
+ },
+ "divergences": {
+  "Baleetle": {
+   "competences": {
+    "game8_seul": [
+     "Ice Ball Cutting"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Blazen": {
+   "role": {
+    "game8": "Break",
+    "aniidex": "DPS"
+   },
+   "competences": {
+    "game8_seul": [
+     "Dark Claw"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Bolty": {
+   "role": {
+    "game8": "Break",
+    "aniidex": "DPS"
+   }
+  },
+  "Bonesky": {
+   "competences": {
+    "game8_seul": [
+     "Ice Spikes",
+     "Night Slash"
+    ],
+    "aniidex_seul": [
+     "Ice Strikes"
+    ],
+    "sous_ensemble": false
+   }
+  },
+  "Bouldus": {
+   "competences": {
+    "game8_seul": [
+     "Ice Sphere"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Budclaw": {
+   "competences": {
+    "game8_seul": [
+     "The Luminus Gust"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Chirpi": {
+   "competences": {
+    "game8_seul": [
+     "Leaf Tornado",
+     "Water Tornado"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Cornet": {
+   "competences": {
+    "game8_seul": [
+     "Leaf Tornado",
+     "Lightning Splitter",
+     "Water Tornado"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Emberpup": {
+   "competences": {
+    "game8_seul": [
+     "Pebble Kick"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Fenmane": {
+   "competences": {
+    "game8_seul": [
+     "Radiant Dart"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Fennelun": {
+   "stats": {
+    "game8": {
+     "hp": 90,
+     "pdef": 65,
+     "atk": 116,
+     "mdef": 65,
+     "brk": 85,
+     "reg": 83
+    },
+    "aniidex": {
+     "hp": 100,
+     "atk": 116,
+     "pdef": 72,
+     "reg": 90,
+     "mdef": 72,
+     "brk": 64
+    }
+   }
+  },
+  "Fenrier": {
+   "competences": {
+    "game8_seul": [
+     "Night Slash"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Flameruff": {
+   "competences": {
+    "game8_seul": [
+     "Pebble Kick"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Flutternym": {
+   "competences": {
+    "game8_seul": [
+     "Healing Dance",
+     "Phantom Dance",
+     "Wind of Regeneration"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Fulmintis": {
+   "role": {
+    "game8": "DPS",
+    "aniidex": "Break"
+   },
+   "competences": {
+    "game8_seul": [
+     "Enhanced Light Blade",
+     "Enhanced Lightning Blade",
+     "Lightning Blade Storm"
+    ],
+    "aniidex_seul": [
+     "Lightning Rush",
+     "Lightning Surge"
+    ],
+    "sous_ensemble": false
+   }
+  },
+  "Glacy": {
+   "competences": {
+    "game8_seul": [
+     "Glimmer Shot",
+     "Ice Orb"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Glynsera": {
+   "competences": {
+    "game8_seul": [
+     "Night Slash",
+     "Prismana Slash"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Gracewing": {
+   "competences": {
+    "game8_seul": [
+     "Healing Dance",
+     "Phantom Dance",
+     "Wind of Regeneration"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Grizbo": {
+   "competences": {
+    "game8_seul": [
+     "Claw of Madness"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Helion": {
+   "stats": {
+    "game8": {
+     "hp": 90,
+     "pdef": 65,
+     "atk": 116,
+     "mdef": 65,
+     "brk": 85,
+     "reg": 83
+    },
+    "aniidex": {
+     "hp": 100,
+     "atk": 116,
+     "pdef": 72,
+     "reg": 90,
+     "mdef": 72,
+     "brk": 64
+    }
+   }
+  },
+  "Helmut": {
+   "competences": {
+    "game8_seul": [
+     "Guardbreak Smash"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Hexxin": {
+   "competences": {
+    "game8_seul": [
+     "Malicious Outburst",
+     "Shard Impact"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Hummin": {
+   "competences": {
+    "game8_seul": [
+     "Gravel Tackle"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Ignitis": {
+   "competences": {
+    "game8_seul": [
+     "Fire Dash",
+     "Forest Whirl"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Infergon": {
+   "role": {
+    "game8": "DPS",
+    "aniidex": "Break"
+   }
+  },
+  "Leafy": {
+   "stats": {
+    "game8": {
+     "hp": 102,
+     "pdef": 82,
+     "atk": 95,
+     "mdef": 82,
+     "brk": 50,
+     "reg": 106
+    },
+    "aniidex": {
+     "hp": 120,
+     "atk": 95,
+     "pdef": 82,
+     "reg": 106,
+     "mdef": 82,
+     "brk": 50
+    }
+   }
+  },
+  "Luminelle": {
+   "competences": {
+    "game8_seul": [
+     "Healing Impact",
+     "Water Rush"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Lunara": {
+   "stats": {
+    "game8": {
+     "hp": 100,
+     "pdef": 116,
+     "atk": 64,
+     "mdef": 72,
+     "brk": 90,
+     "reg": 72
+    },
+    "aniidex": {
+     "hp": 100,
+     "atk": 116,
+     "pdef": 72,
+     "reg": 90,
+     "mdef": 72,
+     "brk": 64
+    }
+   },
+   "competences": {
+    "game8_seul": [],
+    "aniidex_seul": [
+     "Lunar Eclipse",
+     "Moon-Washed"
+    ],
+    "sous_ensemble": false
+   }
+  },
+  "Magmarex": {
+   "competences": {
+    "game8_seul": [
+     "Dark Energy Surge"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Nimbi": {
+   "stats": {
+    "game8": {
+     "hp": 80,
+     "pdef": 69,
+     "atk": 94,
+     "mdef": 82,
+     "brk": 43,
+     "reg": 93
+    },
+    "aniidex": {
+     "hp": 80,
+     "atk": 84,
+     "pdef": 69,
+     "reg": 93,
+     "mdef": 82,
+     "brk": 43
+    }
+   },
+   "competences": {
+    "game8_seul": [
+     "Thunder Bolt"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Panpanta": {
+   "competences": {
+    "game8_seul": [
+     "Water Cannonade"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Pawney": {
+   "competences": {
+    "game8_seul": [
+     "Weakening Smash"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Piopiota": {
+   "competences": {
+    "game8_seul": [
+     "Dark Tide"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Pomawk": {
+   "competences": {
+    "game8_seul": [
+     "Frost Strike"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Pomegg": {
+   "competences": {
+    "game8_seul": [
+     "Frost Strike"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Pranky": {
+   "competences": {
+    "game8_seul": [
+     "Ice Orb"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Rookey": {
+   "competences": {
+    "game8_seul": [
+     "Guardbreak Smash"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Scorchhowl": {
+   "competences": {
+    "game8_seul": [
+     "Lightning Kick",
+     "Pebble Kick"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Sherro": {
+   "competences": {
+    "game8_seul": [
+     "Prismana Slam",
+     "Thunder Slam"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Shrubclaw": {
+   "competences": {
+    "game8_seul": [
+     "The Luminus Gust"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Skippy": {
+   "competences": {
+    "game8_seul": [
+     "Ice Orb"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Somniwing": {
+   "role": {
+    "game8": "Regen",
+    "aniidex": "Support"
+   }
+  },
+  "Stellarys": {
+   "competences": {
+    "game8_seul": [
+     "Aquatic Glide",
+     "Chill Glide"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Thornblade": {
+   "competences": {
+    "game8_seul": [
+     "Aqua Defense",
+     "Lightning Impact"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Tromber": {
+   "competences": {
+    "game8_seul": [
+     "Leaf Tornado",
+     "Water Tornado"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Tubster": {
+   "competences": {
+    "game8_seul": [
+     "Leaf Tornado",
+     "Water Tornado"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Tuckin": {
+   "competences": {
+    "game8_seul": [
+     "Noisy Strikes"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Turbo": {
+   "competences": {
+    "game8_seul": [
+     "Nebula Burst",
+     "Thunder Bolt"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Waleetle": {
+   "competences": {
+    "game8_seul": [
+     "Ice Ball Cutting"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  },
+  "Wisptis": {
+   "competences": {
+    "game8_seul": [
+     "Forest Whirl"
+    ],
+    "aniidex_seul": [],
+    "sous_ensemble": true
+   }
+  }
+ },
+ "compte_divergences": {
+  "stats": 5,
+  "elements": 0,
+  "role": 5,
+  "competences": 44
+ },
+ "desaccords_vrais": [
+  "Blazen",
+  "Bolty",
+  "Bonesky",
+  "Fennelun",
+  "Fulmintis",
+  "Helion",
+  "Infergon",
+  "Leafy",
+  "Lunara",
+  "Nimbi",
+  "Somniwing"
+ ],
+ "apports_aniidex": {
+  "competences_chiffrees": 262,
+  "ameliorations_eveil": 50,
+  "formes_annoncees": [
+   "Coraliz (Rainstorm)",
+   "Glameep (Prismana)",
+   "Reefish (Rainstorm)",
+   "Sparkelf (Prismana)"
+  ]
+ }
+}
