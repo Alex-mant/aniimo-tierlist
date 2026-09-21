@@ -41,6 +41,14 @@ DETAILS = re.compile(r'<div class="ab-card__details">.*?<p>(.*?)</p>', re.S)
 TILE = re.compile(r'<button[^>]*class="[^"]*form-tile[^"]*"[^>]*>(.*?)</button>', re.S)
 LABEL = re.compile(r'class="form-tile__label"[^>]*>(.*?)</span>', re.S)
 ICON = re.compile(r"IconAttribute/(\w+)\.webp")
+# Le jeu designe sur chaque fiche DEUX statistiques recommandees -- le pouce vert
+# de l'hexagone. Ce ne sont pas les deux stats du role : c'est par Aniimo, et
+# c'est ce que le jeu lui-meme couronne (potentiel plafonne a 24 au lieu de 20,
+# et c'est a elles que le Capafruit ajoute son point). aniidex les ecrit de deux
+# facons selon la fiche, d'ou les deux lectures ; 43 fiches sur 100 ne les
+# portent pas du tout, et on ne les devine pas.
+RECO = re.compile(r"Recommended stat: (HP|ATK|P\.DEF|REGEN|M\.DEF|BREAK)")
+RECOALT = re.compile(r'alt="([^"]*\(recommended\)[^"]*)"')
 
 
 def text(s):
@@ -141,6 +149,14 @@ def parse(path):
     # Les formes regionales n'ont pas de page a elles : la fiche de base porte
     # une tuile par forme, et cette tuile est le seul endroit ou le site dit
     # quels elements la forme remplace. On ne releve que cela.
+    reco = sorted({STATKEY[x] for x in RECO.findall(html)})
+    if not reco:
+        a = RECOALT.search(html)
+        if a:
+            reco = sorted({STATKEY[c.split()[0].upper()]
+                           for c in a.group(1).split(",")
+                           if "(recommended)" in c and c.split()[0].upper() in STATKEY})
+
     forms = []
     for b in TILE.findall(html):
         lab = LABEL.search(b)
@@ -153,7 +169,7 @@ def parse(path):
         "name": name, "no": no.group(1) if no else None,
         "kind": "base", "src": "aniidex",
         "el": els, "role": role, "stage": stage,
-        "stats": stats, "total": sum(stats.values()),
+        "stats": stats, "total": sum(stats.values()), "reco": reco,
         "homeland": hl,
         "pathfinding": None,
         "mobility": mob[0]["n"] if mob else None,
@@ -176,3 +192,5 @@ if __name__ == "__main__":
     print("aniidex : %d fiches lues, %d ecartees %s" % (len(out), len(bad), bad[:6]))
     miss = [r["name"] for r in out if not r["role"] or not r["el"] or not r["skills"]]
     print("role / element / competences manquants (%d) : %s" % (len(miss), ", ".join(miss[:10])))
+    rc = [r for r in out if r["reco"]]
+    print("stats recommandees par le jeu : %d fiches sur %d" % (len(rc), len(out)))

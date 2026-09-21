@@ -51,7 +51,12 @@
    }
   ],
   "log": "Bailites' anatomy allows independent rotation of their upper and lower bodies. This means they can observe surroundings flexibly, ready to transform into turrets to repel opponents.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "pdef"
+  ],
+  "recoOf": "Bailite"
  },
  {
   "name": "Baleetle",
@@ -115,7 +120,9 @@
     "Snowfield Baleetle",
     "56B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Bay Budclaw",
@@ -187,7 +194,9 @@
     "Beach Budclaw",
     "23C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Bay Shrubclaw",
@@ -267,7 +276,12 @@
     "Beach Shrubclaw",
     "24C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Shrubclaw"
  },
  {
   "name": "Beach Budclaw",
@@ -339,7 +353,9 @@
     "Bay Budclaw",
     "23D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Beach Chirpi",
@@ -416,7 +432,9 @@
     "Highland Chirpi",
     "7C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Beach Cornet",
@@ -505,7 +523,12 @@
     "Highland Cornet",
     "9D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Cornet"
  },
  {
   "name": "Beach Shrubclaw",
@@ -585,7 +608,12 @@
     "Bay Shrubclaw",
     "24D"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Shrubclaw"
  },
  {
   "name": "Beach Tromber",
@@ -666,7 +694,12 @@
     "Highland Tromber",
     "8C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Tromber"
  },
  {
   "name": "Beach Tubster",
@@ -738,7 +771,12 @@
     "Highland Tubster",
     "10C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "mdef"
+  ],
+  "recoOf": "Tubster"
  },
  {
   "name": "Besauce",
@@ -792,7 +830,12 @@
    }
   ],
   "log": "Always trying to find beats to drown out its persistent heartbeat, Besauce loves to groove to the music.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Besauce"
  },
  {
   "name": "Blazen",
@@ -868,7 +911,12 @@
     "Mountain Woods Blazen",
     "46C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Blazen"
  },
  {
   "name": "Bolty",
@@ -928,7 +976,9 @@
     "Mountain Woods Bolty",
     "45B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Bonesky",
@@ -992,7 +1042,9 @@
     "Nighttime Bonesky",
     "42B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Bouldus",
@@ -1055,7 +1107,12 @@
     "Snowfield Bouldus",
     "58B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "pdef"
+  ],
+  "recoOf": "Bouldus"
  },
  {
   "name": "Budclaw",
@@ -1132,7 +1189,9 @@
     "Bay Budclaw",
     "23D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Budsquire",
@@ -1183,7 +1242,9 @@
     "Towerwood Budsquire",
     "33B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Bulbly",
@@ -1238,7 +1299,9 @@
    }
   ],
   "log": "Their first reaction to everything is to escape, and their bulb-like organs indicate whether they are healthy.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Celestis",
@@ -1293,7 +1356,9 @@
    }
   ],
   "log": "They love food! When they search the forest for food, the glowing stars on their heads are often mistaken for comets. They like hoarding food, adorning their nest with it.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Chirpi",
@@ -1365,7 +1430,9 @@
     "Highland Chirpi",
     "7C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Cloudmist Nimbi",
@@ -1437,7 +1504,9 @@
     "Plateau Nimbi",
     "17D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Cloudmist Turbo",
@@ -1525,7 +1594,12 @@
     "Plateau Turbo",
     "18E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "mdef"
+  ],
+  "recoOf": "Turbo"
  },
  {
   "name": "Cornet",
@@ -1609,7 +1683,12 @@
     "Highland Cornet",
     "9D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Cornet"
  },
  {
   "name": "Cozite",
@@ -1664,7 +1743,9 @@
    }
   ],
   "log": "Cozites build their shells bit by bit with mud. When in danger, they spray smoke from the top hole to cover the surroundings and hide themselves.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Cubbo",
@@ -1719,7 +1800,9 @@
    }
   ],
   "log": "They spend the day sleepwalking. If woken up, they instantly become violent and lose control. Once they exhaust their energy, they fall back asleep like a baby.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Dazmand",
@@ -1773,7 +1856,12 @@
    }
   ],
   "log": "They have flexible limbs and love to show off their flashy kicks to anyone watching. They wear their shed skin over their heads like a cool hood.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Dazmand"
  },
  {
   "name": "Dewy",
@@ -1832,7 +1920,9 @@
    }
   ],
   "log": "As partners to perfumers, they store and ferment nectar within their bodies, transforming it into perfume ingredients.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Dreaple",
@@ -1895,7 +1985,12 @@
    }
   ],
   "log": "Their fur that has absorbed dream energy presents a mesmerizing illusion of colors. When they use this fur as a pillow to sleep, they sink into sweet dreams.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "mdef"
+  ],
+  "recoOf": "Dreaple"
  },
  {
   "name": "Eklue",
@@ -1958,7 +2053,12 @@
    }
   ],
   "log": "Curious and keen on searching for traces and tracking targets. The ring on their tail amplifies ultrasound, allowing them to easily see through cloaked creatures.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Eklue"
  },
  {
   "name": "Eko",
@@ -2013,7 +2113,9 @@
    }
   ],
   "log": "With their big ears perked up, they are extremely sensitive to sound. They won't miss any movement that catches their attention, near or far.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Emberpup",
@@ -2081,7 +2183,9 @@
     "Mountain Woods Emberpup",
     "1C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Erlath",
@@ -2140,7 +2244,12 @@
    }
   ],
   "log": "Their feathers constantly secrete oil, creating various bubbles with just a little friction. They naturally use the softest, densest foam to protect the Fahloos on their backs.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Erlath"
  },
  {
   "name": "Fahloo",
@@ -2191,7 +2300,9 @@
    }
   ],
   "log": "They rub the oil on their bodies to create a thick foam. This foam cleans and protects them, though they sometimes slip on it by accident.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Fenmane",
@@ -2263,7 +2374,12 @@
     "Prismana Fenmane",
     "60B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Fenmane"
  },
  {
   "name": "Fennelun",
@@ -2330,7 +2446,12 @@
    }
   ],
   "log": "The soft moonlight running through their fur gives them an aloof and rational look. But they can also be sentimental.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Fennelun"
  },
  {
   "name": "Fenrier",
@@ -2394,7 +2515,9 @@
     "Nighttime Fenrier",
     "43B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Fentuft",
@@ -2449,7 +2572,9 @@
    }
   ],
   "log": "They always wear a signature smile and invite other aniimo to play. Though they sometimes cause trouble due to mischief and greed, they are always forgiven.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Flamerion",
@@ -2516,7 +2641,12 @@
     "Sea of Flowers Flamerion",
     "27D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Flamerion"
  },
  {
   "name": "Flameruff",
@@ -2584,7 +2714,9 @@
     "Mountain Woods Flameruff",
     "2C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Flutternym",
@@ -2664,7 +2796,9 @@
     "Mountain Woods Flutternym",
     "28D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Forest Flamerion",
@@ -2731,7 +2865,12 @@
     "Sea of Flowers Flamerion",
     "27D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Flamerion"
  },
  {
   "name": "Forest Ignitis",
@@ -2820,7 +2959,12 @@
     "Highland Ignitis",
     "41D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Ignitis"
  },
  {
   "name": "Forest Iris",
@@ -2900,7 +3044,9 @@
     "Mountain Woods Iris",
     "11G"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Forest Irisal",
@@ -2988,7 +3134,12 @@
     "Mountain Woods Irisal",
     "12G"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Irisal"
  },
  {
   "name": "Forest Sparki",
@@ -3047,7 +3198,9 @@
     "Sea of Flowers Sparki",
     "26D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Forest Wisptis",
@@ -3120,7 +3273,9 @@
     "Highland Wisptis",
     "40C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Fragrancier",
@@ -3187,7 +3342,12 @@
    }
   ],
   "log": "They're picky about odors, so they harvest and store various nectar within them to craft unique perfume ingredients.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Fragrancier"
  },
  {
   "name": "Fulmintis",
@@ -3259,7 +3419,12 @@
     "Prismana Fulmintis",
     "S1I"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Fulmintis"
  },
  {
   "name": "Geoclaw",
@@ -3322,7 +3487,12 @@
    }
   ],
   "log": "They live in caves, feed on minerals, and use their beautifully crystallized shells to lure prey.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Geoclaw"
  },
  {
   "name": "Geodeback",
@@ -3377,7 +3547,9 @@
    }
   ],
   "log": "The minerals they eat will grow back on them with refined energy stored inside.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Glacy",
@@ -3466,7 +3638,12 @@
     "Prismana Glacy",
     "15D"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "mdef"
+  ],
+  "recoOf": "Glacy"
  },
  {
   "name": "Glynsera",
@@ -3546,7 +3723,12 @@
     "Prismana Glynsera",
     "S1C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Glynsera"
  },
  {
   "name": "Gracewing",
@@ -3634,7 +3816,12 @@
     "Mountain Woods Gracewing",
     "29D"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Gracewing"
  },
  {
   "name": "Grassland Iris",
@@ -3714,7 +3901,9 @@
     "Mountain Woods Iris",
     "11G"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Grassland Irisal",
@@ -3802,7 +3991,12 @@
     "Mountain Woods Irisal",
     "12G"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Irisal"
  },
  {
   "name": "Grizbo",
@@ -3874,7 +4068,12 @@
     "Prismana Grizbo",
     "69B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Grizbo"
  },
  {
   "name": "Helgon",
@@ -3942,7 +4141,12 @@
     "Mountain Helgon",
     "66B"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Helgon"
  },
  {
   "name": "Helion",
@@ -4009,7 +4213,12 @@
    }
   ],
   "log": "Enthusiastic and confident, they always stand up for their friends at critical moments, displaying amazing power.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Helion"
  },
  {
   "name": "Helmut",
@@ -4077,7 +4286,9 @@
     "Mountain Woods Helmut",
     "61C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Helmwhelp",
@@ -4137,7 +4348,9 @@
     "Mountain Helmwhelp",
     "65B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Hexxin",
@@ -4222,7 +4435,12 @@
     "Prismana Hexxin",
     "21C"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Hexxin"
  },
  {
   "name": "Highland Chirpi",
@@ -4299,7 +4517,9 @@
     "Beach Chirpi",
     "7B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Highland Cornet",
@@ -4388,7 +4608,12 @@
     "Prismana Cornet",
     "9C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Cornet"
  },
  {
   "name": "Highland Emberpup",
@@ -4461,7 +4686,9 @@
     "Mountain Woods Emberpup",
     "1C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Highland Flamerion",
@@ -4528,7 +4755,12 @@
     "Sea of Flowers Flamerion",
     "27D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Flamerion"
  },
  {
   "name": "Highland Flameruff",
@@ -4601,7 +4833,9 @@
     "Mountain Woods Flameruff",
     "2C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Highland Ignitis",
@@ -4690,7 +4924,12 @@
     "Prismana Ignitis",
     "41C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Ignitis"
  },
  {
   "name": "Highland Iris",
@@ -4770,7 +5009,9 @@
     "Mountain Woods Iris",
     "11G"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Highland Irisal",
@@ -4858,7 +5099,12 @@
     "Mountain Woods Irisal",
     "12G"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Irisal"
  },
  {
   "name": "Highland Pomawk",
@@ -4929,7 +5175,12 @@
     "Sea of Flowers Pomawk",
     "37D"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Pomawk"
  },
  {
   "name": "Highland Pomegg",
@@ -4996,7 +5247,9 @@
     "Sea of Flowers Pomegg",
     "36D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Highland Scorchhowl",
@@ -5089,7 +5342,12 @@
     "Mountain Woods Scorchhowl",
     "3E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Scorchhowl"
  },
  {
   "name": "Highland Sparki",
@@ -5148,7 +5406,9 @@
     "Sea of Flowers Sparki",
     "26D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Highland Tromber",
@@ -5229,7 +5489,12 @@
     "Beach Tromber",
     "8B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Tromber"
  },
  {
   "name": "Highland Tubster",
@@ -5301,7 +5566,12 @@
     "Beach Tubster",
     "10B"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "mdef"
+  ],
+  "recoOf": "Tubster"
  },
  {
   "name": "Highland Wisptis",
@@ -5374,7 +5644,9 @@
     "Forest Wisptis",
     "40B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Hummin",
@@ -5434,7 +5706,9 @@
     "Mountain Hummin",
     "20B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Ignitis",
@@ -5518,7 +5792,12 @@
     "Highland Ignitis",
     "41D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Ignitis"
  },
  {
   "name": "Infergon",
@@ -5586,7 +5865,12 @@
     "Prismana Infergon",
     "S1E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Infergon"
  },
  {
   "name": "Inferlupa",
@@ -5659,7 +5943,12 @@
     "Prismana Inferlupa",
     "S1A"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Inferlupa"
  },
  {
   "name": "Iris",
@@ -5739,7 +6028,9 @@
     "Mountain Woods Iris",
     "11G"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Irisal",
@@ -5827,7 +6118,12 @@
     "Mountain Woods Irisal",
     "12G"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Irisal"
  },
  {
   "name": "Irisalis",
@@ -5886,7 +6182,12 @@
    }
   ],
   "log": "They absorb the world's colors as floral raiment, bringing colorful vitality to nature. If petals wither, they can bloom again by returning to the earth's embrace.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Irisalis"
  },
  {
   "name": "Jawling",
@@ -5946,7 +6247,9 @@
     "Mountain Jawling",
     "64B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Lavazar",
@@ -5993,7 +6296,9 @@
    }
   ],
   "log": "They use hard claws to crush crystals and eat them to store heat, causing fiery red patterns to appear on their body. Though small, they can continuously spew high-heat flame streams from their mouth.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Leafy",
@@ -6057,7 +6362,12 @@
    }
   ],
   "log": "They live among lotus flowers and use their lotus leaf tails to conceal their face and show off their elegant nature.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Leafy"
  },
  {
   "name": "Luminelle",
@@ -6137,7 +6447,12 @@
     "Prismana Luminelle",
     "79C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Luminelle"
  },
  {
   "name": "Lunara",
@@ -6183,7 +6498,12 @@
    }
   ],
   "log": null,
-  "forms": []
+  "forms": [],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Lunara"
  },
  {
   "name": "Magmarex",
@@ -6260,7 +6580,12 @@
     "Prismana Magmarex",
     "72B"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "hp"
+  ],
+  "recoOf": "Magmarex"
  },
  {
   "name": "Melloblum",
@@ -6319,7 +6644,12 @@
     "Prismana Melloblum",
     "S1B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Melloblum"
  },
  {
   "name": "Minespine",
@@ -6382,7 +6712,12 @@
    }
   ],
   "log": "Wherever crystal minerals are found, so are they. Their hard spines serve both as protection and as storage for energy.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "brk",
+   "hp"
+  ],
+  "recoOf": "Minespine"
  },
  {
   "name": "Mountain Helgon",
@@ -6450,7 +6785,12 @@
     "Helgon",
     "66A"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Helgon"
  },
  {
   "name": "Mountain Helmwhelp",
@@ -6510,7 +6850,9 @@
     "Helmwhelp",
     "65A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Hexxin",
@@ -6595,7 +6937,12 @@
     "Prismana Hexxin",
     "21C"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Hexxin"
  },
  {
   "name": "Mountain Hummin",
@@ -6655,7 +7002,9 @@
     "Hummin",
     "20A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Jawling",
@@ -6715,7 +7064,9 @@
     "Jawling",
     "64A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Tuckin",
@@ -6779,7 +7130,12 @@
     "Tuckin",
     "22A"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "hp"
+  ],
+  "recoOf": "Tuckin"
  },
  {
   "name": "Mountain Woods Blazen",
@@ -6855,7 +7211,12 @@
     "Prismana Blazen",
     "46B"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Blazen"
  },
  {
   "name": "Mountain Woods Bolty",
@@ -6915,7 +7276,9 @@
     "Bolty",
     "45A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Woods Emberpup",
@@ -6983,7 +7346,9 @@
     "Highland Emberpup",
     "1B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Woods Flameruff",
@@ -7051,7 +7416,9 @@
     "Highland Flameruff",
     "2B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Woods Flutternym",
@@ -7136,7 +7503,9 @@
     "Nighttime Flutternym",
     "28C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Woods Gracewing",
@@ -7229,7 +7598,12 @@
     "Nighttime Gracewing",
     "29C"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Gracewing"
  },
  {
   "name": "Mountain Woods Helmut",
@@ -7297,7 +7671,9 @@
     "Snowfield Helmut",
     "61B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Woods Iris",
@@ -7377,7 +7753,9 @@
     "Plateau Iris",
     "11F"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mountain Woods Irisal",
@@ -7465,7 +7843,12 @@
     "Plateau Irisal",
     "12F"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Irisal"
  },
  {
   "name": "Mountain Woods Pawney",
@@ -7545,7 +7928,12 @@
     "Prismana Pawney",
     "62D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Pawney"
  },
  {
   "name": "Mountain Woods Rookey",
@@ -7621,7 +8009,12 @@
     "Snowfield Rookey",
     "63B"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Rookey"
  },
  {
   "name": "Mountain Woods Scorchhowl",
@@ -7709,7 +8102,12 @@
     "Prismana Scorchhowl",
     "3D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Scorchhowl"
  },
  {
   "name": "Mudflat Budclaw",
@@ -7781,7 +8179,9 @@
     "Bay Budclaw",
     "23D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Mudflat Shrubclaw",
@@ -7861,7 +8261,12 @@
     "Bay Shrubclaw",
     "24D"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Shrubclaw"
  },
  {
   "name": "Nighttime Bonesky",
@@ -7930,7 +8335,9 @@
     "Bonesky",
     "42A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Nighttime Fenrier",
@@ -7999,7 +8406,9 @@
     "Fenrier",
     "43A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Nighttime Flutternym",
@@ -8084,7 +8493,9 @@
     "Mountain Woods Flutternym",
     "28D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Nighttime Glynsera",
@@ -8169,7 +8580,12 @@
     "Prismana Glynsera",
     "S1C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Glynsera"
  },
  {
   "name": "Nighttime Gracewing",
@@ -8262,7 +8678,12 @@
     "Mountain Woods Gracewing",
     "29D"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Gracewing"
  },
  {
   "name": "Nighttime Panpanta",
@@ -8338,7 +8759,12 @@
     "Prismana Panpanta",
     "52C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "mdef"
+  ],
+  "recoOf": "Panpanta"
  },
  {
   "name": "Nighttime Piopiota",
@@ -8415,7 +8841,12 @@
     "Piopiota",
     "51A"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "pdef"
+  ],
+  "recoOf": "Piopiota"
  },
  {
   "name": "Nighttime Popota",
@@ -8475,7 +8906,9 @@
     "Popota",
     "50A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Nighttime Susuta",
@@ -8535,7 +8968,9 @@
     "Susuta",
     "49A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Nimbi",
@@ -8607,7 +9042,9 @@
     "Plateau Nimbi",
     "17D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Panpanta",
@@ -8683,7 +9120,12 @@
     "Prismana Panpanta",
     "52C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "mdef"
+  ],
+  "recoOf": "Panpanta"
  },
  {
   "name": "Pawney",
@@ -8763,7 +9205,12 @@
     "Prismana Pawney",
     "62D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Pawney"
  },
  {
   "name": "Pebbling",
@@ -8818,7 +9265,9 @@
    }
   ],
   "log": "They are natural geologists who like eating all kinds of minerals. And what they eat determines how they grow.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Piopiota",
@@ -8890,7 +9339,12 @@
     "Nighttime Piopiota",
     "51B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "pdef"
+  ],
+  "recoOf": "Piopiota"
  },
  {
   "name": "Plateau Iris",
@@ -8970,7 +9424,9 @@
     "Mountain Woods Iris",
     "11G"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Plateau Irisal",
@@ -9058,7 +9514,12 @@
     "Mountain Woods Irisal",
     "12G"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Irisal"
  },
  {
   "name": "Plateau Nimbi",
@@ -9135,7 +9596,9 @@
     "Cloudmist Nimbi",
     "17C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Plateau Turbo",
@@ -9228,7 +9691,12 @@
     "Prismana Turbo",
     "18D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "mdef"
+  ],
+  "recoOf": "Turbo"
  },
  {
   "name": "Pomawk",
@@ -9299,7 +9767,12 @@
     "Sea of Flowers Pomawk",
     "37D"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Pomawk"
  },
  {
   "name": "Pomegg",
@@ -9362,7 +9835,9 @@
     "Sea of Flowers Pomegg",
     "36D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Popota",
@@ -9422,7 +9897,9 @@
     "Nighttime Popota",
     "50B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Pranky",
@@ -9490,7 +9967,9 @@
     "Snowfield Pranky",
     "14C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Prismana Blazen",
@@ -9571,7 +10050,12 @@
     "Mountain Woods Blazen",
     "46C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Blazen"
  },
  {
   "name": "Prismana Cornet",
@@ -9660,7 +10144,12 @@
     "Highland Cornet",
     "9D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Cornet"
  },
  {
   "name": "Prismana Fenmane",
@@ -9741,7 +10230,12 @@
     "Fenmane",
     "60A"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Fenmane"
  },
  {
   "name": "Prismana Fulmintis",
@@ -9818,7 +10312,12 @@
     "Fulmintis",
     "S1H"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Fulmintis"
  },
  {
   "name": "Prismana Glacy",
@@ -9907,7 +10406,12 @@
     "Snowfield Glacy",
     "15C"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "mdef"
+  ],
+  "recoOf": "Glacy"
  },
  {
   "name": "Prismana Glynsera",
@@ -9992,7 +10496,12 @@
     "Nighttime Glynsera",
     "44B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Glynsera"
  },
  {
   "name": "Prismana Grizbo",
@@ -10069,7 +10578,12 @@
     "Grizbo",
     "69A"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Grizbo"
  },
  {
   "name": "Prismana Hexxin",
@@ -10154,7 +10668,12 @@
     "Mountain Hexxin",
     "21B"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Hexxin"
  },
  {
   "name": "Prismana Ignitis",
@@ -10243,7 +10762,12 @@
     "Highland Ignitis",
     "41D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Ignitis"
  },
  {
   "name": "Prismana Infergon",
@@ -10320,7 +10844,12 @@
     "Infergon",
     "67"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Infergon"
  },
  {
   "name": "Prismana Inferlupa",
@@ -10397,7 +10926,12 @@
     "Inferlupa",
     "4"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Inferlupa"
  },
  {
   "name": "Prismana Iris",
@@ -10477,7 +11011,9 @@
     "Mountain Woods Iris",
     "11G"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Prismana Irisal",
@@ -10565,7 +11101,12 @@
     "Mountain Woods Irisal",
     "12G"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Irisal"
  },
  {
   "name": "Prismana Luminelle",
@@ -10650,7 +11191,12 @@
     "Rainstorm Luminelle",
     "79B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Luminelle"
  },
  {
   "name": "Prismana Magmarex",
@@ -10727,7 +11273,12 @@
     "Magmarex",
     "72A"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "hp"
+  ],
+  "recoOf": "Magmarex"
  },
  {
   "name": "Prismana Melloblum",
@@ -10791,7 +11342,12 @@
     "Melloblum",
     "35"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Melloblum"
  },
  {
   "name": "Prismana Panpanta",
@@ -10867,7 +11423,12 @@
     "Nighttime Panpanta",
     "52B"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "mdef"
+  ],
+  "recoOf": "Panpanta"
  },
  {
   "name": "Prismana Pawney",
@@ -10947,7 +11508,12 @@
     "Mountain Woods Pawney",
     "62C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Pawney"
  },
  {
   "name": "Prismana Scorchhowl",
@@ -11035,7 +11601,12 @@
     "Mountain Woods Scorchhowl",
     "3E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Scorchhowl"
  },
  {
   "name": "Prismana Sherro",
@@ -11107,7 +11678,12 @@
     "Thunderstorm Sherro",
     "55B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Sherro"
  },
  {
   "name": "Prismana Stellarys",
@@ -11192,7 +11768,12 @@
     "Rainstorm Stellarys",
     "6B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Stellarys"
  },
  {
   "name": "Prismana Thornblade",
@@ -11268,7 +11849,12 @@
     "Towerwood Thornblade",
     "34D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Thornblade"
  },
  {
   "name": "Prismana Turbo",
@@ -11361,7 +11947,12 @@
     "Plateau Turbo",
     "18E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "mdef"
+  ],
+  "recoOf": "Turbo"
  },
  {
   "name": "Prismana Waleetle",
@@ -11442,7 +12033,12 @@
     "Snowfield Waleetle",
     "57B"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Waleetle"
  },
  {
   "name": "Rainstorm Luminelle",
@@ -11527,7 +12123,12 @@
     "Prismana Luminelle",
     "79C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Luminelle"
  },
  {
   "name": "Rainstorm Nimbi",
@@ -11604,7 +12205,9 @@
     "Plateau Nimbi",
     "17D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Rainstorm Stellarys",
@@ -11689,7 +12292,12 @@
     "Prismana Stellarys",
     "6C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Stellarys"
  },
  {
   "name": "Rainstorm Turbo",
@@ -11782,7 +12390,12 @@
     "Plateau Turbo",
     "18E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "mdef"
+  ],
+  "recoOf": "Turbo"
  },
  {
   "name": "Rookey",
@@ -11858,7 +12471,12 @@
     "Mountain Woods Rookey",
     "63C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Rookey"
  },
  {
   "name": "Scorchhowl",
@@ -11946,7 +12564,12 @@
     "Mountain Woods Scorchhowl",
     "3E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Scorchhowl"
  },
  {
   "name": "Sea of Flowers Flamerion",
@@ -12013,7 +12636,12 @@
     "Forest Flamerion",
     "27C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Flamerion"
  },
  {
   "name": "Sea of Flowers Flutternym",
@@ -12098,7 +12726,9 @@
     "Mountain Woods Flutternym",
     "28D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Sea of Flowers Glacy",
@@ -12187,7 +12817,12 @@
     "Prismana Glacy",
     "15D"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "mdef"
+  ],
+  "recoOf": "Glacy"
  },
  {
   "name": "Sea of Flowers Gracewing",
@@ -12280,7 +12915,12 @@
     "Mountain Woods Gracewing",
     "29D"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Gracewing"
  },
  {
   "name": "Sea of Flowers Pomawk",
@@ -12351,7 +12991,12 @@
     "Highland Pomawk",
     "37C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Pomawk"
  },
  {
   "name": "Sea of Flowers Pomegg",
@@ -12414,7 +13059,9 @@
     "Highland Pomegg",
     "36C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Sea of Flowers Pranky",
@@ -12482,7 +13129,9 @@
     "Snowfield Pranky",
     "14C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Sea of Flowers Skippy",
@@ -12550,7 +13199,9 @@
     "Snowfield Skippy",
     "13C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Sea of Flowers Sparki",
@@ -12609,7 +13260,9 @@
     "Forest Sparki",
     "26C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Sheldon",
@@ -12655,7 +13308,9 @@
    }
   ],
   "log": "Lying on their shells, they face the night sky, drowning in a dream woven by the stars.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Shelly",
@@ -12701,7 +13356,9 @@
    }
   ],
   "log": "Conceals itself among beach shells using its soft appendages to hold shells in place. Remains sealed during daylight.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Sherro",
@@ -12772,7 +13429,12 @@
     "Prismana Sherro",
     "55C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Sherro"
  },
  {
   "name": "Shrubclaw",
@@ -12857,7 +13519,12 @@
     "Bay Shrubclaw",
     "24D"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Shrubclaw"
  },
  {
   "name": "Skippy",
@@ -12925,7 +13592,9 @@
     "Snowfield Skippy",
     "13C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Snowfield Baleetle",
@@ -12994,7 +13663,9 @@
     "Baleetle",
     "56A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Snowfield Bouldus",
@@ -13058,7 +13729,12 @@
     "Bouldus",
     "58A"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "pdef"
+  ],
+  "recoOf": "Bouldus"
  },
  {
   "name": "Snowfield Glacy",
@@ -13147,7 +13823,12 @@
     "Prismana Glacy",
     "15D"
    ]
-  ]
+  ],
+  "reco": [
+   "hp",
+   "mdef"
+  ],
+  "recoOf": "Glacy"
  },
  {
   "name": "Snowfield Helmut",
@@ -13220,7 +13901,9 @@
     "Mountain Woods Helmut",
     "61C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Snowfield Pawney",
@@ -13301,7 +13984,12 @@
     "Prismana Pawney",
     "62D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Pawney"
  },
  {
   "name": "Snowfield Pomawk",
@@ -13385,7 +14073,12 @@
     "Sea of Flowers Pomawk",
     "37D"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "reg"
+  ],
+  "recoOf": "Pomawk"
  },
  {
   "name": "Snowfield Pomegg",
@@ -13449,7 +14142,9 @@
     "Sea of Flowers Pomegg",
     "36D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Snowfield Pranky",
@@ -13522,7 +14217,9 @@
     "Sea of Flowers Pranky",
     "14B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Snowfield Rookey",
@@ -13603,7 +14300,12 @@
     "Mountain Woods Rookey",
     "63C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "pdef"
+  ],
+  "recoOf": "Rookey"
  },
  {
   "name": "Snowfield Skippy",
@@ -13676,7 +14378,9 @@
     "Sea of Flowers Skippy",
     "13B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Snowfield Waleetle",
@@ -13757,7 +14461,12 @@
     "Prismana Waleetle",
     "S1D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Waleetle"
  },
  {
   "name": "Somniwing",
@@ -13825,7 +14534,12 @@
    }
   ],
   "log": "Their magnificent wings spread scales to help flowers grow and spread vitality wherever they fly.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "hp",
+   "reg"
+  ],
+  "recoOf": "Somniwing"
  },
  {
   "name": "Sparki",
@@ -13884,7 +14598,9 @@
     "Sea of Flowers Sparki",
     "26D"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Squarrel",
@@ -13939,7 +14655,9 @@
    }
   ],
   "log": "Squarrel has a large, first-shaped tail. When its greasy tail fur is rubbed even slightly, it can burst into flames. Anyone who eyes its stockpiled pinecones will get a taste of its scorching fire fists.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Squashel",
@@ -14002,7 +14720,12 @@
    }
   ],
   "log": "Squashel has twin fist-like tails, giving its power a super-boost. Pinecones thrown with that force strike like cannonballls — not to be underestimated.",
-  "forms": []
+  "forms": [],
+  "reco": [
+   "brk",
+   "hp"
+  ],
+  "recoOf": "Squashel"
  },
  {
   "name": "Stellarys",
@@ -14082,7 +14805,12 @@
     "Prismana Stellarys",
     "6C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Stellarys"
  },
  {
   "name": "Susuta",
@@ -14142,7 +14870,9 @@
     "Nighttime Susuta",
     "49B"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Thornblade",
@@ -14217,7 +14947,12 @@
     "Towerwood Thornblade",
     "34D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Thornblade"
  },
  {
   "name": "Thunderstorm Scorchhowl",
@@ -14310,7 +15045,12 @@
     "Mountain Woods Scorchhowl",
     "3E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Scorchhowl"
  },
  {
   "name": "Thunderstorm Sherro",
@@ -14382,7 +15122,12 @@
     "Prismana Sherro",
     "55C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Sherro"
  },
  {
   "name": "Thunderstorm Thornblade",
@@ -14458,7 +15203,12 @@
     "Towerwood Thornblade",
     "34D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Thornblade"
  },
  {
   "name": "Towerwood Budsquire",
@@ -14509,7 +15259,9 @@
     "Budsquire",
     "33A"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Towerwood Thornblade",
@@ -14584,7 +15336,12 @@
     "Prismana Thornblade",
     "34C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Thornblade"
  },
  {
   "name": "Tromber",
@@ -14660,7 +15417,12 @@
     "Highland Tromber",
     "8C"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "hp"
+  ],
+  "recoOf": "Tromber"
  },
  {
   "name": "Tubster",
@@ -14731,7 +15493,12 @@
     "Highland Tubster",
     "10C"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "mdef"
+  ],
+  "recoOf": "Tubster"
  },
  {
   "name": "Tuckin",
@@ -14794,7 +15561,12 @@
     "Mountain Tuckin",
     "22B"
    ]
-  ]
+  ],
+  "reco": [
+   "brk",
+   "hp"
+  ],
+  "recoOf": "Tuckin"
  },
  {
   "name": "Turbo",
@@ -14882,7 +15654,12 @@
     "Plateau Turbo",
     "18E"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "mdef"
+  ],
+  "recoOf": "Turbo"
  },
  {
   "name": "Veilfloat",
@@ -14937,7 +15714,9 @@
    }
   ],
   "log": "A light-dependent creature that glows when night falls, keeping its light on even while sleeping.",
-  "forms": []
+  "forms": [],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Waleetle",
@@ -15013,7 +15792,12 @@
     "Prismana Waleetle",
     "S1D"
    ]
-  ]
+  ],
+  "reco": [
+   "atk",
+   "reg"
+  ],
+  "recoOf": "Waleetle"
  },
  {
   "name": "Wisptis",
@@ -15081,7 +15865,9 @@
     "Highland Wisptis",
     "40C"
    ]
-  ]
+  ],
+  "reco": [],
+  "recoOf": null
  },
  {
   "name": "Reefish",
@@ -15103,6 +15889,7 @@
    "brk": 91
   },
   "total": 486,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -15165,7 +15952,8 @@
     "Rainstorm",
     null
    ]
-  ]
+  ],
+  "recoOf": null
  },
  {
   "name": "Rainstorm Reefish",
@@ -15186,6 +15974,7 @@
    "brk": 91
   },
   "total": 486,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -15243,7 +16032,8 @@
   ],
   "upgrades": [],
   "log": "They burrow underground to camouflage as coral and bite any prey that comes near. However, they sometimes get impatient and peek around.",
-  "forms": []
+  "forms": [],
+  "recoOf": null
  },
  {
   "name": "Coraliz",
@@ -15265,6 +16055,10 @@
    "brk": 107
   },
   "total": 572,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Water",
@@ -15351,7 +16145,8 @@
     "Rainstorm",
     null
    ]
-  ]
+  ],
+  "recoOf": "Coraliz"
  },
  {
   "name": "Rainstorm Coraliz",
@@ -15372,6 +16167,10 @@
    "brk": 107
   },
   "total": 572,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Water",
@@ -15453,7 +16252,8 @@
   ],
   "upgrades": [],
   "log": "They love to bury themselves in sand, mimicking coral clumps. They use the glow of the coral on their head and back to lure creatures for a surprise attack.",
-  "forms": []
+  "forms": [],
+  "recoOf": "Coraliz"
  },
  {
   "name": "Cheekie",
@@ -15474,6 +16274,7 @@
    "brk": 92
   },
   "total": 488,
+  "reco": [],
   "homeland": [
    [
     "Ice",
@@ -15527,7 +16328,8 @@
   ],
   "upgrades": [],
   "log": "People often mistake the circles on their cheeks for eyes. They love to gather in groups on the shore, feeling safe only when they huddle closely with their companions.",
-  "forms": []
+  "forms": [],
+  "recoOf": null
  },
  {
   "name": "Wavwal",
@@ -15548,6 +16350,10 @@
    "brk": 110
   },
   "total": 575,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Ice",
@@ -15618,7 +16424,8 @@
   ],
   "upgrades": [],
   "log": "They move clumsily on land using their four limbs, but they are experts at sliding on their bellies. The males are highly territorial against other males, once angered, they unleash their wrath like a tsunami.",
-  "forms": []
+  "forms": [],
+  "recoOf": "Wavwal"
  },
  {
   "name": "Malangel",
@@ -15639,6 +16446,7 @@
    "brk": 50
   },
   "total": 515,
+  "reco": [],
   "homeland": [
    [
     "Ice",
@@ -15692,7 +16500,8 @@
   ],
   "upgrades": [],
   "log": "They disguise themselves with a cheerful smile to sneak up on targets. Once in combat, they reveal their true colors and bare their fangs poised to strike.",
-  "forms": []
+  "forms": [],
+  "recoOf": null
  },
  {
   "name": "Malevsera",
@@ -15713,6 +16522,10 @@
    "brk": 52
   },
   "total": 525,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Ice",
@@ -15783,6 +16596,7 @@
   ],
   "upgrades": [],
   "log": "They hide their fangs and claws in their soft body. Expert at using their gentle, harmless look to lower other creatures' guard before casually freezing them into ice sculptures.",
-  "forms": []
+  "forms": [],
+  "recoOf": "Malevsera"
  }
 ]

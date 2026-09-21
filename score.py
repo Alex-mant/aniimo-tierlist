@@ -57,23 +57,94 @@ W = {
 # Support, Regen et Heal ne cassent pas les jauges : le BREAK ne compte pas pour eux,
 # ni dans leurs stats ni dans leur kit. Ce qu'ils apportent au BREAK de l'equipe
 # reste visible dans le constructeur d'equipe.
-# Stats "favorables" (pouce vert) : potentiel plafonne a 24 au lieu de 20.
-# A investissement maximal, elles disposent donc de +20% de marge de croissance.
-FAV = {
-    "DPS":     ["atk", "hp"],
-    "Break":   ["brk", "hp"],
-    "Support": ["reg", "mdef"],
-    "Regen":   ["reg", "hp"],
-    "Heal":    ["reg", "hp"],
-}
-CROWN = 24.0 / 20.0
+# --- POTENTIEL : ce que devient une stat sur l'exemplaire parfait -----------
+# Deux exemplaires d'un meme Aniimo n'ont pas les memes stats : a la capture, le
+# jeu tire un POTENTIEL INNE par statistique (l'expertise le classe Commun / Bon
+# / Elite / Parfait), puis l'Eveil d'aptitude laisse monter ce potentiel contre
+# de la Poussiere d'etoile. Inne et acquis se partagent le meme plafond :
+#   - 20 points par statistique ;
+#   - 24 sur les deux statistiques que le jeu recommande, une fois l'Ascension
+#     de resident passee -- ce sont elles que porte l'icone couronne, et c'est a
+#     elles que le Capafruit ajoute son point ;
+#   - chaque point vaut +4% de la statistique (et +6 PC).
+# La tier list se place sur l'exemplaire PARFAIT, donc tout le monde est a son
+# plafond : x1,80 sur une stat ordinaire, x1,96 sur une stat couronnee. La
+# couronne vaut donc +8,9%, et non les +20% que suggerait le rapport 24/20 --
+# c'est la correction de fond de cette version.
+PT = 0.04
+CAP, CAP_FAV = 20, 24
+GROW, GROW_FAV = 1 + PT * CAP, 1 + PT * CAP_FAV
+CROWN = GROW_FAV / GROW
 
-# Normalisation en PERCENTILE sur tout le roster jouable (207 entrees) : un
-# min-max laisse un seul extreme (un PV hors norme) ecraser toute l'echelle.
+# Le grade du tirage inne, tel que l'expertise le note, et les frequences
+# relevees a la capture. Cela ne change rien au classement -- la tier list se
+# place sur l'exemplaire parfait, donc sur le meme plafond pour tout le monde --
+# mais c'est ce qui explique que deux exemplaires du meme Aniimo n'aient pas les
+# memes statistiques, et ce que le joueur doit relancer pour atteindre ce plafond
+# sans y laisser toute sa Poussiere d'etoile.
+GRADES = [["Commun", 66.0], ["Bon", 26.0], ["Elite", 7.2], ["Parfait", 0.8]]
+
+# Second tirage aleatoire a la capture : la PERSONNALITE (16 types facon MBTI,
+# quatre creneaux de deux lettres). Elle se rejoue au Fruit de psyche : sur
+# l'exemplaire parfait, c'est donc un choix et non un tirage. Elle n'entre PAS
+# dans le calcul, et c'est voulu : le meilleur choix est le meme pour tous les
+# Aniimo d'un meme role, or la note de stat est normalisee par role -- un bonus
+# uniforme s'y annulerait exactement. Elle est publiee parce qu'elle fait partie
+# de la forme parfaite que le joueur doit viser, et parce que deux de ses effets
+# (degats, critique, reduction) ne sont meme pas des statistiques.
+PERSO = [
+    [["E", "Energique", "ATQ +2%, BREAK +2%"], ["I", "Instinctif", "REGEN +4%"]],
+    [["S", "Pratique", "Degats +4%"], ["N", "Agile", "Taux critique +5%"]],
+    [["T", "Tenace", "DEF.P +6%"], ["F", "Fidele", "DEF.M +6%"]],
+    [["J", "Judicieux", "PV +4%"], ["P", "Joueur", "Reduction de degats +4%"]],
+]
+PERSO_BEST = {"DPS": "EN", "Break": "ES", "Support": "IJ", "Regen": "IJ", "Heal": "IJ"}
+
 PLAY = [r for r in D if r["kind"] in ("base", "form", "prismana")]
+
+# Quelles stats sont couronnables ? Le jeu le dit PAR ANIIMO, pas par role, et
+# merge.py a reporte cette donnee dans "reco" (103 entrees sur 215). Pour les
+# autres, il faut bien un defaut : on prend les deux stats que le jeu recommande
+# le plus souvent AU SEIN DU MEME ROLE, comptees sur les fiches ou il les a
+# reellement publiees. C'est un defaut mesure, pas suppose -- et il est affiche
+# comme tel sur la fiche ("defaut de role" au lieu du nom de la fiche source).
+def _fav_defaut():
+    cnt, vu = collections.defaultdict(collections.Counter), set()
+    for r in PLAY:
+        src = r.get("recoOf")
+        if not src or src in vu or not r["role"]:
+            continue
+        vu.add(src)
+        for st in r["reco"]:
+            cnt[r["role"]][st] += 1
+    out = {}
+    for role in W:
+        c = cnt.get(role)
+        # a defaut de tout releve, les deux stats les plus lourdes du role
+        ordre = sorted(STATS, key=lambda st: (-(c[st] if c else 0), -W[role][st]))
+        out[role] = sorted(ordre[:2])
+    return out
+
+
+FAV = _fav_defaut()
+
+
+def fav_of(r):
+    """Les deux stats couronnables de CET Aniimo."""
+    return r["reco"] or FAV[r["role"] or "DPS"]
+
+
+def grown(r, s):
+    """La statistique de l'exemplaire parfait, potentiel pousse a son plafond."""
+    return r["stats"][s] * (GROW_FAV if s in fav_of(r) else GROW)
+
+
+# Normalisation en PERCENTILE sur tout le roster jouable : un min-max laisse un
+# seul extreme (un PV hors norme) ecraser toute l'echelle. Le percentile porte
+# sur la valeur POUSSEE, pas sur la stat de base : c'est elle qu'on compare.
 LO = {s: min(r["stats"][s] for r in PLAY) for s in STATS}
 HI = {s: max(r["stats"][s] for r in PLAY) for s in STATS}
-SORTED = {s: sorted(r["stats"][s] for r in PLAY) for s in STATS}
+SORTED = {s: sorted(grown(r, s) for r in PLAY) for s in STATS}
 
 
 def pctl(s, v):
@@ -83,19 +154,16 @@ def pctl(s, v):
 
 
 def stat_score(r):
-    """0..100. Stats de base en percentile du roster, ponderees par role,
-    majorees du potentiel couronnable a 24 sur les stats favorables du role."""
-    role = r["role"] or "DPS"
-    w, fav = W[role], FAV[role]
-    tot = det = 0.0
+    """0..100. Stats de l'exemplaire parfait (potentiel au plafond, couronne
+    comprise) en percentile du roster, ponderees par le role."""
+    w = W[r["role"] or "DPS"]
+    tot = 0.0
     parts = {}
     for s in STATS:
-        n = pctl(s, r["stats"][s])
-        eff = n * (CROWN if s in fav else 1.0)
-        parts[s] = round(eff * 100, 1)
-        tot += w[s] * eff
-        det += w[s] * (CROWN if s in fav else 1.0)
-    return min(100.0, tot / det * 100), parts
+        n = pctl(s, grown(r, s))
+        parts[s] = round(n * 100, 1)
+        tot += w[s] * n
+    return min(100.0, tot * 100), parts
 
 
 # ----------------------------------------------------------------- 2. KIT ---
@@ -364,10 +432,9 @@ SAME = {r["name"]: is_same(r) for r in PLAY}
 
 
 def _stat(r, w):
-    fav = FAV[r["role"] or "DPS"]; tot = det = 0.0
+    tot = det = 0.0
     for s in STATS:
-        f = CROWN if s in fav else 1.0
-        tot += w[s] * pctl(s, r["stats"][s]) * f; det += w[s] * f
+        tot += w[s] * pctl(s, grown(r, s)); det += w[s]
     return min(100.0, tot / det * 100) if det else 0.0
 
 
@@ -516,8 +583,22 @@ ORDER = [t for t, _ in CUT]
 
 
 def tiers_of(sc):
+    """Decoupe par quantile -- mais une coupure ne passe jamais entre deux notes
+    EGALES. Trois formes d'un meme Aniimo qui partagent stats et kit ont la meme
+    note a la decimale pres : les separer parce que la frontiere des 10 % tombe
+    au milieu du paquet serait un artefact du decoupage, pas un jugement. Tout
+    ex aequo suit donc le premier de son groupe."""
     ranked = sorted(sc, key=lambda n: -sc[n]); n = len(ranked)
-    return {nm: next(t for t, th in CUT if (i + .5) / n < th) for i, nm in enumerate(ranked)}
+    out, i = {}, 0
+    while i < n:
+        j = i
+        while j + 1 < n and sc[ranked[j + 1]] == sc[ranked[i]]:
+            j += 1
+        t = next(t for t, th in CUT if (i + .5) / n < th)
+        for k in range(i, j + 1):
+            out[ranked[k]] = t
+        i = j + 1
+    return out
 
 
 TIER = tiers_of(FIN)
@@ -602,7 +683,8 @@ for r in PLAY:
         "name": n, "no": r["no"], "kind": r["kind"],
         "el": r["el"], "role": r["role"], "stage": r["stage"],
         "stats": r["stats"], "total": r["total"],
-        "fav": FAV[r["role"] or "DPS"],
+        "fav": fav_of(r), "reco": r["reco"], "recoOf": r["recoOf"],
+        "grown": {s: round(grown(r, s), 1) for s in STATS},
         "sStat": round(st, 2), "sKit": round(kt, 2), "sSyn": round(sy, 2),
         "sStage": stage, "score": round(M0[n][0], 2), "fin": round(FIN[n], 4), "tier": TIER[n],
         "statParts": parts, "kitWhy": kwhy, "synWhy": swhy,
@@ -627,7 +709,11 @@ out.sort(key=lambda g: -g["fin"])
 io.open("data.js", "w", encoding="utf-8").write(
     "const ANIIMO = " + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";\n"
     + "const META = " + json.dumps({
-        "weights": W, "fav": FAV, "crown": CROWN, "stage": STAGE_MULT,
+        "weights": W, "fav": FAV, "crown": round(CROWN, 4), "stage": STAGE_MULT,
+        "pot": {"pt": PT, "cap": CAP, "capFav": CAP_FAV,
+                "grow": round(GROW, 4), "growFav": round(GROW_FAV, 4),
+                "nReco": sum(1 for g in out if g["reco"]),
+                "grades": GRADES, "perso": PERSO, "persoBest": PERSO_BEST},
         "mix": MIX, "shrink": SHRINK, "fit": FIT,
         "kitW": KW, "giveW": GIVE_W, "synMix": SYN_MIX, "condPen": COND_PEN,
         "axes": AXES, "axLabel": AXLABEL,

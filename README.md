@@ -29,7 +29,7 @@ python -m http.server 8777 --bind 127.0.0.1
              merge.py  ──>  raw/roster.json     215 entrées classables
                 │        ──>  raw/_attente.json    6 annoncées, non classables
                 │
-   score.py  ──>  data.js  ──>  index.html  ──>  smoke.js (61 assertions)
+   score.py  ──>  data.js  ──>  index.html  ──>  smoke.js (75 assertions)
       ▲
       │
  kits.json (122 lectures) + kit_skills.json + synergy.json
@@ -41,9 +41,9 @@ python -m http.server 8777 --bind 127.0.0.1
 | `fetch.py` | Le seul fichier qui touche au réseau. Relève les deux sources, dit ce qui a bougé. |
 | `raw/` | Pages Game8 scrapées (47 Mo). Ne pas re-télécharger sans raison : c'est la vérité terrain. |
 | `raw_aniidex/` | Fiches aniidex.com (19 Mo), seconde source indépendante. |
-| `parse_aniidex.py` | HTML aniidex → `raw/parsed_aniidex.json`, même schéma que `parse.py`. |
+| `parse_aniidex.py` | HTML aniidex → `raw/parsed_aniidex.json`, même schéma que `parse.py`, plus les deux statistiques recommandées par le jeu (57 fiches). |
 | `audit.py` | Confronte les deux sources → `raw/_audit.json`. N'arbitre rien, signale tout. |
-| `merge.py` | Assemble le roster classable des deux sources → `raw/roster.json` + `raw/_attente.json`. |
+| `merge.py` | Assemble le roster classable des deux sources → `raw/roster.json` + `raw/_attente.json`, et reporte les statistiques recommandées sur les formes de la même espèce. |
 | `parse.py` | HTML → JSON : stats, traits, compétences, formes, mobilité. |
 | `RUBRIC.md` | La grille de notation des kits, écrite **avant** la lecture. |
 | `kits/b1..b7.json` | Les 122 kits notés, par lots — la trace de la lecture. |
@@ -70,11 +70,52 @@ tel quel. Rien n'y est deviné.
 
 `score = (0,50 × stats + 0,32 × kit + 0,18 × synergie) × multiplicateur de stade`
 
-Tous les curseurs d'investissement sont poussés au maximum jouable. Comme le plafond
-(niveau, Résonance, potentiel, Points et Fruit de Capacité, Rangs d'Attribut) est
-**identique pour tous les Aniimo**, le classement se joue sur ce qui diffère réellement :
-stats de base, marge de croissance des stats couronnables (×24/20 sur les deux stats
-favorables du rôle) et kit.
+Tous les curseurs d'investissement sont poussés au maximum jouable : la tier list juge
+l'**exemplaire parfait**, jamais celui qu'on vient d'attraper.
+
+### Le hasard de la capture, et pourquoi il ne classe rien
+
+Deux exemplaires d'un même Aniimo n'ont pas les mêmes statistiques. Le jeu tire à la capture
+un **potentiel inné** par statistique — l'expertise le note Commun 66 % · Bon 26 % ·
+Élite 7,2 % · Parfait 0,8 % — puis l'Éveil d'aptitude laisse monter ce potentiel contre de la
+Poussière d'étoile. Inné et acquis partagent le même plafond :
+
+| | plafond | croissance de la stat |
+|---|---|---|
+| statistique ordinaire | 20 points | ×1,80 |
+| statistique recommandée par le jeu, après Ascension de résident | 24 points | ×1,96 |
+
+Chaque point vaut **+4 %** de la statistique (et +6 PC). Le plafond étant le même pour tous,
+le tirage ne classe rien : il dit seulement combien de Poussière d'étoile il faudra. Ce qui
+classe, c'est la stat de base **poussée à ce plafond**, puis le kit.
+
+L'avantage d'une statistique couronnée est donc de **+8,9 %** (1,96 / 1,80), et non les
++20 % que suggère le rapport 24/20 — c'est la correction de fond apportée à cette version, et
+elle ne déplace que 4 entrées sur 215, ce qui en dit long sur la robustesse du reste.
+
+**Quelles statistiques sont couronnables ?** Le jeu le dit **par Aniimo, pas par rôle** : c'est
+le pouce vert de l'hexagone, celui que porte l'icône couronne et auquel le Capafruit ajoute son
+point. aniidex le publie pour 57 fiches, ce qui couvre **128 entrées sur 215** une fois reporté
+aux formes régionales et Prismana de la même espèce. Pour les 87 restantes, on retombe sur les
+deux statistiques que le jeu recommande le plus souvent *dans le même rôle*, comptées sur les
+fiches où il les a réellement publiées — DPS ATQ+RÉG, Break BREAK+DÉF.P, Support ATQ+PV,
+Regen PV+RÉG, Heal PV+RÉG. C'est un défaut **mesuré**, pas supposé, et la fiche de chaque
+Aniimo dit laquelle des deux situations s'applique. La version précédente devinait ces deux
+stats par rôle : le jeu lui donnait raison 7 fois sur 57.
+
+### La personnalité, deuxième tirage
+
+Le jeu tire aussi une **personnalité** à la capture (16 types, quatre créneaux de deux
+lettres) — E Énergique ATQ +2 %/BREAK +2 % ou I Instinctif RÉGEN +4 % ; S Pratique dégâts
++4 % ou N Agile critique +5 % ; T Tenace DÉF.P +6 % ou F Fidèle DÉF.M +6 % ; J Judicieux
+PV +4 % ou P Joueur réduction de dégâts +4 %. Elle se rejoue au Fruit de psyché : sur
+l'exemplaire parfait c'est donc un **choix**, pas un tirage.
+
+Elle n'entre volontairement **pas** dans le calcul, et la raison est arithmétique : le
+meilleur choix est le même pour tous les Aniimo d'un rôle, or la note de stat est normalisée
+par rôle — un bonus uniforme s'y annulerait exactement. Deux de ses quatre créneaux ne
+touchent d'ailleurs même pas une statistique (dégâts, critique, réduction). Elle est publiée
+sur chaque fiche parce qu'elle fait partie de la forme parfaite à viser.
 
 ### Le kit : 122 lectures à la main
 
@@ -114,7 +155,7 @@ entière :
 
 Les paliers sont des percentiles (10 / 25 / 52 / 80 %) découpés sur le vivier affiché : une
 position relative, pas une puissance absolue. Sans filtre, la découpe porte sur les 215
-entrées et donne S 21 · A 33 · B 58 · C 60 · D 43. Les Prismana y remontent d'elles-mêmes
+entrées et donne S 23 · A 31 · B 58 · C 60 · D 43. Les Prismana y remontent d'elles-mêmes
 (**S 10 · A 5 · B 8 · C 0 · D 1**), ce qui est attendu : ce sont des versions améliorées
 d'Aniimo déjà corrects, leur médiane est plus haute que celle du roster de base.
 
@@ -186,10 +227,10 @@ rééchantillonnés avec remise — autrement dit : *qu'aurait donné ce classem
 sources ?* C'est un test bien plus dur qu'une simple perturbation des poids, et les taux ne
 se comparent pas à ceux d'une version antérieure.
 
-Chaque entrée reçoit un badge : **sûr** (52) garde son palier dans au moins 75 % des tirages
+Chaque entrée reçoit un badge : **sûr** (49) garde son palier dans au moins 75 % des tirages
 *et* est classée par au moins deux sources ; **incertain** (35) n'est classée par aucune
-source, ou ses tirages s'étalent sur trois paliers ; **probable** (128) est le reste, en
-général à cheval sur deux paliers. Taux de maintien moyen : **66,7 %**, 131 entrées sur 215
+source, ou ses tirages s'étalent sur trois paliers ; **probable** (131) est le reste, en
+général à cheval sur deux paliers. Taux de maintien moyen : **66,2 %**, 126 entrées sur 215
 au-dessus de 60 %.
 
 Le seuil des 75 % porte sur le **taux arrondi**, celui que la page affiche à côté du badge :
@@ -317,10 +358,12 @@ cd /d/REPOS/amo && npm install   # une fois, installe jsdom dans le dossier
 npm test                         # = node smoke.js
 ```
 
-61 assertions : conformité du recalcul client au `score.py` de référence, tier list unique,
+75 assertions : conformité du recalcul client au `score.py` de référence, tier list unique,
 alignement des entrées identiques sur leur base, puces de roster cumulables, badges `=` et
 badges de confiance, filtres, modale, tri du tableau, constructeur d'équipe de bout en bout,
 curseurs de poids, validation hors-source, cohérence de l'indice de confiance, et la
-correspondance entre `raw/_attente.json` et le tableau des Aniimo annoncés mais pas classés.
+correspondance entre `raw/_attente.json` et le tableau des Aniimo annoncés mais pas classés,
+et le modèle de potentiel : croissance au plafond, facteur de couronne, héritage exact de la
+recommandation du jeu par les formes, et présence de tout cela sur la fiche.
 
 `node_modules/` est ignoré par git : le site, lui, n'a toujours aucune dépendance.

@@ -200,6 +200,42 @@ ok(M.attente.every(a => !A.some(r => r.name === a.name)),
 ok(M.attente.every(a => a.manque && a.manque.length),
    "chacun dit ce qui lui manque");
 
+console.log("\n== 11. potentiel : l'exemplaire parfait ==");
+const POT = M.pot;
+ok(Math.abs(POT.grow - (1 + POT.pt * POT.cap)) < 1e-9
+   && Math.abs(POT.growFav - (1 + POT.pt * POT.capFav)) < 1e-9,
+   "croissance au plafond : x" + POT.grow + " ordinaire, x" + POT.growFav + " couronnee");
+ok(Math.abs(M.crown - POT.growFav / POT.grow) < 1e-4,
+   "la couronne vaut +" + ((M.crown - 1) * 100).toFixed(1) + " %, pas +20 %");
+ok(A.every(r => r.fav.length === 2), "chaque entree a deux stats couronnables");
+ok(A.every(r => Object.keys(r.stats).every(s => Math.abs(r.grown[s]
+     - r.stats[s] * (r.fav.indexOf(s) >= 0 ? POT.growFav : POT.grow)) < .06)),
+   "les stats poussees suivent le plafond de potentiel de chaque stat");
+ok(A.filter(r => r.reco.length).length === POT.nReco,
+   POT.nReco + " entrees portent la recommandation du jeu, " + (A.length - POT.nReco)
+   + " le defaut de role");
+ok(A.every(r => !r.reco.length || (r.fav + "") === (r.reco + "")),
+   "quand le jeu recommande, c'est lui qui decide, pas le defaut de role");
+ok(A.every(r => !r.reco.length || r.recoOf),
+   "chaque recommandation dit sur quelle fiche elle a ete lue");
+ok(A.filter(r => r.recoOf && r.recoOf !== r.name)
+    .every(r => byN[r.recoOf] && (byN[r.recoOf].reco + "") === (r.reco + "")),
+   "les formes heritent exactement de la recommandation de leur base");
+ok(POT.grades.length === 4 && Math.abs(POT.grades.reduce((a, g) => a + g[1], 0) - 100) < 1,
+   "les 4 grades d'expertise couvrent 100 % des captures");
+ok(POT.perso.length === 4 && POT.perso.every(c => c.length === 2),
+   "personnalite : 4 creneaux de 2 lettres");
+ok(Object.keys(POT.persoBest).length === Object.keys(M.weights).length,
+   "une personnalite a viser pour chacun des " + Object.keys(M.weights).length + " roles");
+click('[data-v="tier"]');
+$(".card").click();
+const mod = $("#modal").textContent;
+ok(mod.includes("Exemplaire parfait"), "la fiche montre les stats de l'exemplaire parfait");
+ok(mod.includes("Personnalité à viser"), "la fiche dit quelle personnalite viser");
+ok(/recommandées par le jeu|défaut mesuré du rôle/.test(mod),
+   "la fiche dit d'ou viennent ses stats couronnables");
+click("#cl");
+
 console.log("\n== erreurs JS =="); console.log(errs.length ? errs : "  aucune");
 console.log(ko ? "\nRESULTAT : " + ko + " test(s) en echec" : "\nRESULTAT : tout passe");
 process.exit(ko || errs.length ? 1 : 0);

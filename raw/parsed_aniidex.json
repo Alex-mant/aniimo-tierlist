@@ -18,6 +18,10 @@
    "brk": 50
   },
   "total": 514,
+  "reco": [
+   "atk",
+   "pdef"
+  ],
   "homeland": [
    [
     "Earth",
@@ -129,6 +133,7 @@
    "brk": 42
   },
   "total": 437,
+  "reco": [],
   "homeland": [
    [
     "Earth",
@@ -222,6 +227,10 @@
    "brk": 90
   },
   "total": 538,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Lightning",
@@ -332,6 +341,10 @@
    "brk": 104
   },
   "total": 530,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Lightning",
@@ -465,6 +478,7 @@
    "brk": 87
   },
   "total": 450,
+  "reco": [],
   "homeland": [
    [
     "Lightning",
@@ -557,6 +571,7 @@
    "brk": 38
   },
   "total": 377,
+  "reco": [],
   "homeland": [
    [
     "Ice",
@@ -658,6 +673,10 @@
    "brk": 52
   },
   "total": 516,
+  "reco": [
+   "atk",
+   "pdef"
+  ],
   "homeland": [
    [
     "Earth",
@@ -779,6 +798,7 @@
    "brk": 43
   },
   "total": 467,
+  "reco": [],
   "homeland": [
    [
     "Grass",
@@ -854,6 +874,7 @@
    "brk": 84
   },
   "total": 454,
+  "reco": [],
   "homeland": [
    [
     "Grass",
@@ -969,6 +990,7 @@
    "brk": 43
   },
   "total": 428,
+  "reco": [],
   "homeland": [
    [
     "Grass",
@@ -1062,6 +1084,7 @@
    "brk": 37
   },
   "total": 404,
+  "reco": [],
   "homeland": [
    [
     "Lightning",
@@ -1155,6 +1178,7 @@
    "brk": 46
   },
   "total": 429,
+  "reco": [],
   "homeland": [
    [
     "Dark",
@@ -1240,6 +1264,7 @@
    "brk": 92
   },
   "total": 488,
+  "reco": [],
   "homeland": [
    [
     "Ice",
@@ -1314,6 +1339,7 @@
    "brk": 43
   },
   "total": 452,
+  "reco": [],
   "homeland": [
    [
     "Wind",
@@ -1422,6 +1448,10 @@
    "brk": 107
   },
   "total": 572,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Water",
@@ -1531,6 +1561,10 @@
    "brk": 54
   },
   "total": 509,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Wind",
@@ -1668,6 +1702,7 @@
    "brk": 50
   },
   "total": 448,
+  "reco": [],
   "homeland": [
    [
     "Earth",
@@ -1745,6 +1780,7 @@
    "brk": 42
   },
   "total": 435,
+  "reco": [],
   "homeland": [
    [
     "Earth",
@@ -1823,6 +1859,10 @@
    "brk": 55
   },
   "total": 522,
+  "reco": [
+   "atk",
+   "hp"
+  ],
   "homeland": [
    [
     "Lightning",
@@ -1938,6 +1978,7 @@
    "brk": 69
   },
   "total": 441,
+  "reco": [],
   "homeland": [
    [
     "Dark",
@@ -2027,6 +2068,10 @@
    "brk": 50
   },
   "total": 520,
+  "reco": [
+   "atk",
+   "mdef"
+  ],
   "homeland": [
    [
     "Dark",
@@ -2141,6 +2186,10 @@
    "brk": 49
   },
   "total": 510,
+  "reco": [
+   "atk",
+   "hp"
+  ],
   "homeland": [
    [
     "Wind",
@@ -2251,6 +2300,7 @@
    "brk": 42
   },
   "total": 427,
+  "reco": [],
   "homeland": [
    [
     "Wind",
@@ -2328,6 +2378,7 @@
    "brk": 40
   },
   "total": 382,
+  "reco": [],
   "homeland": [
    [
     "Fire",
@@ -2428,6 +2479,10 @@
    "brk": 50
   },
   "total": 540,
+  "reco": [
+   "hp",
+   "reg"
+  ],
   "homeland": [
    [
     "Water",
@@ -2534,6 +2589,7 @@
    "brk": 44
   },
   "total": 459,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -2608,6 +2664,10 @@
    "brk": 50
   },
   "total": 505,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Lightning",
@@ -2728,6 +2788,10 @@
    "brk": 64
   },
   "total": 514,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Light",
@@ -2850,6 +2914,7 @@
    "brk": 45
   },
   "total": 453,
+  "reco": [],
   "homeland": [
    [
     "Ice",
@@ -2951,6 +3016,7 @@
    "brk": 41
   },
   "total": 429,
+  "reco": [],
   "homeland": [
    [
     "Lightning",
@@ -3029,6 +3095,10 @@
    "brk": 50
   },
   "total": 517,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Fire",
@@ -3163,6 +3233,7 @@
    "brk": 45
   },
   "total": 456,
+  "reco": [],
   "homeland": [
    [
     "Fire",
@@ -3263,6 +3334,7 @@
    "brk": 41
   },
   "total": 437,
+  "reco": [],
   "homeland": [
    [
     "Wind",
@@ -3368,6 +3440,10 @@
    "brk": 81
   },
   "total": 519,
+  "reco": [
+   "atk",
+   "hp"
+  ],
   "homeland": [
    [
     "Dark",
@@ -3493,6 +3569,10 @@
    "brk": 50
   },
   "total": 520,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Lightning",
@@ -3612,6 +3692,10 @@
    "brk": 51
   },
   "total": 529,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Water",
@@ -3709,6 +3793,10 @@
    "brk": 103
   },
   "total": 550,
+  "reco": [
+   "brk",
+   "pdef"
+  ],
   "homeland": [
    [
     "Ice",
@@ -3837,6 +3925,7 @@
    "brk": 102
   },
   "total": 486,
+  "reco": [],
   "homeland": [
    [
     "Earth",
@@ -3923,6 +4012,10 @@
    "brk": 50
   },
   "total": 535,
+  "reco": [
+   "hp",
+   "mdef"
+  ],
   "homeland": [
    [
     "Water",
@@ -4067,6 +4160,10 @@
    "brk": 50
   },
   "total": 550,
+  "reco": [
+   "hp",
+   "reg"
+  ],
   "homeland": [
    [
     "Grass",
@@ -4156,6 +4253,10 @@
    "brk": 53
   },
   "total": 512,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Ice",
@@ -4298,6 +4399,10 @@
    "brk": 50
   },
   "total": 532,
+  "reco": [
+   "hp",
+   "reg"
+  ],
   "homeland": [
    [
     "Wind",
@@ -4435,6 +4540,10 @@
    "brk": 50
   },
   "total": 506,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Earth",
@@ -4555,6 +4664,10 @@
    "brk": 102
   },
   "total": 543,
+  "reco": [
+   "brk",
+   "pdef"
+  ],
   "homeland": [
    [
     "Wind",
@@ -4681,6 +4794,10 @@
    "brk": 64
   },
   "total": 514,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Light",
@@ -4804,6 +4921,7 @@
    "brk": 60
   },
   "total": 339,
+  "reco": [],
   "homeland": [
    [
     "Dark",
@@ -4898,6 +5016,7 @@
    "brk": 92
   },
   "total": 489,
+  "reco": [],
   "homeland": [
    [
     "Wind",
@@ -4991,6 +5110,10 @@
    "brk": 50
   },
   "total": 542,
+  "reco": [
+   "hp",
+   "reg"
+  ],
   "homeland": [
    [
     "Grass",
@@ -5122,6 +5245,7 @@
    "brk": 80
   },
   "total": 467,
+  "reco": [],
   "homeland": [
    [
     "Grass",
@@ -5210,6 +5334,10 @@
    "brk": 52
   },
   "total": 505,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Dark",
@@ -5352,6 +5480,10 @@
    "brk": 50
   },
   "total": 505,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Fire",
@@ -5475,6 +5607,10 @@
    "brk": 108
   },
   "total": 541,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Fire",
@@ -5600,6 +5736,7 @@
    "brk": 50
   },
   "total": 397,
+  "reco": [],
   "homeland": [
    [
     "Grass",
@@ -5722,6 +5859,10 @@
    "brk": 52
   },
   "total": 504,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Grass",
@@ -5878,6 +6019,10 @@
    "brk": 56
   },
   "total": 540,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Grass",
@@ -5980,6 +6125,7 @@
    "brk": 76
   },
   "total": 407,
+  "reco": [],
   "homeland": [
    [
     "Wind",
@@ -6073,6 +6219,7 @@
    "brk": 93
   },
   "total": 485,
+  "reco": [],
   "homeland": [
    [
     "Fire",
@@ -6156,6 +6303,10 @@
    "brk": 50
   },
   "total": 535,
+  "reco": [
+   "hp",
+   "reg"
+  ],
   "homeland": [
    [
     "Grass",
@@ -6286,6 +6437,10 @@
    "brk": 50
   },
   "total": 515,
+  "reco": [
+   "atk",
+   "hp"
+  ],
   "homeland": [
    [
     "Lightning",
@@ -6426,6 +6581,10 @@
    "brk": 64
   },
   "total": 514,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Light",
@@ -6550,6 +6709,10 @@
    "brk": 104
   },
   "total": 539,
+  "reco": [
+   "brk",
+   "hp"
+  ],
   "homeland": [
    [
     "Fire",
@@ -6674,6 +6837,7 @@
    "brk": 50
   },
   "total": 515,
+  "reco": [],
   "homeland": [
    [
     "Ice",
@@ -6748,6 +6912,10 @@
    "brk": 52
   },
   "total": 525,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Ice",
@@ -6839,6 +7007,10 @@
    "brk": 91
   },
   "total": 517,
+  "reco": [
+   "atk",
+   "hp"
+  ],
   "homeland": [
    [
     "Grass",
@@ -6959,6 +7131,10 @@
    "brk": 105
   },
   "total": 540,
+  "reco": [
+   "brk",
+   "hp"
+  ],
   "homeland": [
    [
     "Earth",
@@ -7080,6 +7256,7 @@
    "brk": 43
   },
   "total": 451,
+  "reco": [],
   "homeland": [
    [
     "Wind",
@@ -7185,6 +7362,10 @@
    "brk": 100
   },
   "total": 545,
+  "reco": [
+   "brk",
+   "mdef"
+  ],
   "homeland": [
    [
     "Water",
@@ -7328,6 +7509,10 @@
    "brk": 55
   },
   "total": 505,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Dark",
@@ -7468,6 +7653,7 @@
    "brk": 79
   },
   "total": 412,
+  "reco": [],
   "homeland": [
    [
     "Earth",
@@ -7553,6 +7739,10 @@
    "brk": 50
   },
   "total": 522,
+  "reco": [
+   "atk",
+   "pdef"
+  ],
   "homeland": [
    [
     "Water",
@@ -7689,6 +7879,10 @@
    "brk": 107
   },
   "total": 540,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Grass",
@@ -7823,6 +8017,7 @@
    "brk": 91
   },
   "total": 455,
+  "reco": [],
   "homeland": [
    [
     "Grass",
@@ -7921,6 +8116,7 @@
    "brk": 45
   },
   "total": 450,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -7995,6 +8191,7 @@
    "brk": 80
   },
   "total": 471,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -8095,6 +8292,7 @@
    "brk": 50
   },
   "total": 482,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -8194,6 +8392,7 @@
    "brk": 91
   },
   "total": 486,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -8279,6 +8478,10 @@
    "brk": 105
   },
   "total": 540,
+  "reco": [
+   "brk",
+   "pdef"
+  ],
   "homeland": [
    [
     "Dark",
@@ -8416,6 +8619,10 @@
    "brk": 52
   },
   "total": 511,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Fire",
@@ -8563,6 +8770,7 @@
    "brk": 44
   },
   "total": 458,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -8650,6 +8858,7 @@
    "brk": 39
   },
   "total": 382,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -8737,6 +8946,10 @@
    "brk": 50
   },
   "total": 509,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Water",
@@ -8876,6 +9089,10 @@
    "brk": 104
   },
   "total": 550,
+  "reco": [
+   "brk",
+   "pdef"
+  ],
   "homeland": [
    [
     "Grass",
@@ -9025,6 +9242,7 @@
    "brk": 50
   },
   "total": 402,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -9123,6 +9341,10 @@
    "brk": 64
   },
   "total": 514,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Light",
@@ -9246,6 +9468,10 @@
    "brk": 50
   },
   "total": 538,
+  "reco": [
+   "hp",
+   "reg"
+  ],
   "homeland": [
    [
     "Grass",
@@ -9360,6 +9586,10 @@
    "brk": 50
   },
   "total": 517,
+  "reco": [
+   "atk",
+   "hp"
+  ],
   "homeland": [
    [
     "Fire",
@@ -9474,6 +9704,7 @@
    "brk": 41
   },
   "total": 435,
+  "reco": [],
   "homeland": [
    [
     "Fire",
@@ -9574,6 +9805,7 @@
    "brk": 94
   },
   "total": 455,
+  "reco": [],
   "homeland": [
    [
     "Fire",
@@ -9653,6 +9885,10 @@
    "brk": 108
   },
   "total": 548,
+  "reco": [
+   "brk",
+   "hp"
+  ],
   "homeland": [
    [
     "Fire",
@@ -9768,6 +10004,10 @@
    "brk": 54
   },
   "total": 505,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Dark",
@@ -9901,6 +10141,7 @@
    "brk": 72
   },
   "total": 411,
+  "reco": [],
   "homeland": [
    [
     "Water",
@@ -10001,6 +10242,10 @@
    "brk": 53
   },
   "total": 509,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Grass",
@@ -10142,6 +10387,10 @@
    "brk": 51
   },
   "total": 531,
+  "reco": [
+   "atk",
+   "hp"
+  ],
   "homeland": [
    [
     "Wind",
@@ -10270,6 +10519,10 @@
    "brk": 107
   },
   "total": 550,
+  "reco": [
+   "brk",
+   "mdef"
+  ],
   "homeland": [
    [
     "Wind",
@@ -10409,6 +10662,10 @@
    "brk": 100
   },
   "total": 550,
+  "reco": [
+   "brk",
+   "hp"
+  ],
   "homeland": [
    [
     "Grass",
@@ -10529,6 +10786,10 @@
    "brk": 50
   },
   "total": 518,
+  "reco": [
+   "atk",
+   "mdef"
+  ],
   "homeland": [
    [
     "Wind",
@@ -10675,6 +10936,7 @@
    "brk": 45
   },
   "total": 473,
+  "reco": [],
   "homeland": [
    [
     "Lightning",
@@ -10768,6 +11030,10 @@
    "brk": 52
   },
   "total": 516,
+  "reco": [
+   "atk",
+   "reg"
+  ],
   "homeland": [
    [
     "Earth",
@@ -10902,6 +11168,10 @@
    "brk": 110
   },
   "total": 575,
+  "reco": [
+   "brk",
+   "reg"
+  ],
   "homeland": [
    [
     "Ice",
@@ -10993,6 +11263,7 @@
    "brk": 43
   },
   "total": 423,
+  "reco": [],
   "homeland": [
    [
     "Dark",

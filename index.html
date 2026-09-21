@@ -241,14 +241,12 @@ const WS = {                                 // poids vivants, modifiables
 const WS0 = clone(WS);
 
 /* ====================================================== recalcul score == */
-/* statParts[s] contient deja la normalisation et le bonus de couronne :
-   il suffit de re-ponderer, donc tout est recalculable cote client. */
+/* statParts[s] est le percentile de la stat POUSSEE (potentiel au plafond,
+   couronne comprise) : la couronne est deja dans la valeur, il ne reste qu'a
+   re-ponderer, donc tout est recalculable cote client. */
 function sStat(r,w){
-  const C = META.crown; let tot=0, det=0;
-  for(const s of STATS){
-    tot += w[s]*r.statParts[s]/100;
-    det += w[s]*(r.fav.indexOf(s)>=0 ? C : 1);
-  }
+  let tot=0, det=0;
+  for(const s of STATS){ tot += w[s]*r.statParts[s]/100; det += w[s]; }
   return det ? Math.min(100, tot/det*100) : 0;
 }
 function sKit(r,w,pen){
@@ -335,6 +333,10 @@ function tiers(pool){
     let end = (i===META.cut.length-1) ? n : Math.round(th*n);
     if(n>=TIERS.length) end = Math.max(end, prev+1);        // jamais de palier vide
     end = Math.min(n, Math.max(end, prev));
+    // une coupure ne passe jamais entre deux notes egales : trois formes d'un
+    // meme Aniimo qui partagent stats et kit ont la meme note, les separer
+    // serait un artefact de la frontiere, pas un jugement.
+    while(end>prev && end<n && pool[end]._fin===pool[end-1]._fin) end++;
     for(let k=prev;k<end;k++){ pool[k]._tier=t; pool[k]._rk=k+1; pool[k]._of=n; }
     prev = end;
   });
@@ -1002,11 +1004,36 @@ function viewMeth(){
   <p><code>score = (${(WS.mix.stat*100).toFixed(0)} % × stats + ${(WS.mix.kit*100).toFixed(0)} % × kit
   + ${(WS.mix.syn*100).toFixed(0)} % × synergie) × multiplicateur de stade</code></p>
 
-  <h2>Les stats</h2>
-  <p>Six stats normalisées sur l'ensemble du roster, puis pondérées par rôle : un DPS vit de son
-  Attaque, un Regen de sa Régénération. Les deux stats « favorables » du rôle montent à un potentiel
-  de 24 au lieu de 20 : elles reçoivent un facteur ${META.crown.toFixed(1)}, soit 20 % de marge de
-  croissance en plus. Elles apparaissent en vert dans la vue Stats.</p>
+  <h2>Les stats, et le fait que deux exemplaires n'ont pas les mêmes</h2>
+  <p>Deux exemplaires d'un même Aniimo ne sortent pas avec les mêmes statistiques : à la capture, le
+  jeu tire un <b>potentiel inné</b> par statistique, que l'expertise note
+  ${META.pot.grades.map(g=>`${g[0]} ${g[1]} %`).join(" · ")}. Ce potentiel se monte ensuite à
+  l'Éveil d'aptitude contre de la Poussière d'étoile, inné et acquis partageant le même plafond :
+  <b>${META.pot.cap} points</b> par statistique, <b>${META.pot.capFav}</b> sur les deux statistiques
+  que le jeu recommande une fois l'Ascension de résident passée — celles que porte l'icône couronne,
+  et celles auxquelles le Capafruit ajoute son point. Chaque point vaut <b>+4 %</b> de la statistique.</p>
+  <p>Cette tier list se place sur l'<b>exemplaire parfait</b> : tout le monde est à son plafond, donc
+  ×${META.pot.grow.toFixed(2)} sur une statistique ordinaire et ×${META.pot.growFav.toFixed(2)} sur une
+  statistique couronnée. La couronne vaut donc <b>+${((META.crown-1)*100).toFixed(1)} %</b> — et non les
+  +20 % que suggère le rapport ${META.pot.capFav}/${META.pot.cap}, erreur que portaient les versions
+  précédentes. Ce sont ces valeurs poussées qui sont normalisées en percentile sur tout le roster,
+  puis pondérées par rôle : un DPS vit de son Attaque, un Regen de sa Régénération.</p>
+  <p>Quelles statistiques sont couronnables ? <b>Le jeu le dit par Aniimo, pas par rôle</b> — et il le
+  publie pour ${META.pot.nReco} entrées sur ${META.n.base+META.n.form+META.n.prismana}. Pour les
+  autres, on retombe sur les deux statistiques que le jeu recommande le plus souvent
+  <i>dans le même rôle</i>, comptées sur les fiches où il les a réellement publiées
+  (${Object.entries(META.fav).map(([k,v])=>`${k} ${v.map(x=>SLAB[x]).join("+")}`).join(" · ")}).
+  La fiche de chaque Aniimo dit laquelle des deux situations s'applique. Les statistiques couronnables
+  apparaissent en vert dans la vue Stats.</p>
+  <p>Un second tirage a lieu à la capture, la <b>personnalité</b> (16 types, quatre créneaux de deux
+  lettres). Il se rejoue au Fruit de psyché : sur l'exemplaire parfait, c'est donc un choix, pas un
+  tirage. Il n'entre volontairement pas dans le calcul — le meilleur choix est le même pour tous les
+  Aniimo d'un rôle, or la note de stat est normalisée par rôle, un bonus uniforme s'y annulerait
+  exactement — mais il fait partie de la forme parfaite à viser, et la fiche de chaque Aniimo indique
+  laquelle prendre.</p>
+  <table class="tbl"><thead><tr><th>Créneau</th><th>Première lettre</th><th>Seconde lettre</th></tr></thead>
+  <tbody>${META.pot.perso.map((c,i)=>`<tr><td>${i+1}</td>${c.map(x=>
+    `<td><b>${x[0]}</b> ${x[1]} — ${x[2]}</td>`).join("")}</tr>`).join("")}</tbody></table>
 
   <h2>Le kit : ${META.nKits} lectures à la main</h2>
   <p>C'est ici que ce classement se sépare d'une extraction automatique. Les ${META.nKits} kits
@@ -1245,9 +1272,26 @@ function openModal(name){
 
   <div class="grid2">
     <div><h3 style="font-size:13px;margin-bottom:8px">Stats de base
-      <span style="color:var(--tx3);font-weight:400">— total ${r.total}, ● = couronnable à 24</span></h3>
+      <span style="color:var(--tx3);font-weight:400">— total ${r.total}, ● = couronnable à
+      ${META.pot.capFav}</span></h3>
       ${STATS.map(s=>bar(SLAB[s]+(r.fav.indexOf(s)>=0?" ●":""), r.stats[s], META.hi[s],
           r.fav.indexOf(s)>=0?"var(--ok)":null)).join("")}
+      <div class="note" style="margin:6px 0 0">Exemplaire parfait (potentiel au plafond) :
+        ${STATS.map(s=>`${SLAB[s]} <b${r.fav.indexOf(s)>=0?' style="color:var(--ok)"':""}>${
+          Math.round(r.grown[s])}</b>`).join(" · ")}</div>
+      <div class="note" style="margin:4px 0 0">${r.reco.length
+        ? (r.recoOf===r.name
+            ? `Statistiques recommandées <b>par le jeu</b> sur la fiche de ${esc(r.name)}.`
+            : `Statistiques recommandées <b>par le jeu</b> sur la fiche de
+               <b>${esc(r.recoOf)}</b>, dont cette forme hérite.`)
+        : `Le jeu ne publie pas de statistique recommandée pour cet Aniimo : on retombe sur le
+           défaut mesuré du rôle ${esc(r.role||"DPS")}
+           (${r.fav.map(x=>SLAB[x]).join(" + ")}).`}
+        Personnalité à viser : <b>${META.pot.persoBest[r.role]||META.pot.persoBest.DPS}</b>
+        — ${META.pot.perso.map((c,i)=>{
+          const L=(META.pot.persoBest[r.role]||META.pot.persoBest.DPS);
+          const pick=c.find(x=>L.indexOf(x[0])>=0);
+          return pick?`${pick[1]} (${pick[2]})`:null;}).filter(Boolean).join(", ")}.</div>
       <h3 style="font-size:13px;margin:16px 0 8px">Décomposition du calcul
         <span style="color:var(--tx3);font-weight:400">— brut, puis situé dans son rôle (50 = moyenne du rôle)</span></h3>
       <div class="kv"><span>Stats (${(WS.mix.stat*100).toFixed(0)} %)</span><b>${r._st.toFixed(0)} → ${r._nst.toFixed(0)}</b></div>
