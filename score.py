@@ -117,7 +117,37 @@ COND_PEN = 0.06
 # bruite" (p = w/5) : l'echelle de lecture sature, deux sources moyennes ne valent
 # pas le double d'une seule, mais retirer la seule source d'un axe le vide.
 EQUIP = 2
-TAGS = json.load(io.open("kit_skills.json", encoding="utf-8"))
+_TAGS = json.load(io.open("kit_skills.json", encoding="utf-8"))
+
+
+def _tags():
+    """kit_skills.json note les COMPETENCES, pas les couples (Aniimo, competence).
+    Une meme competence ne peut donc plus recevoir deux notes selon qui la lance.
+    On reconstitue ici la vue par proprietaire dont le reste du calcul a besoin,
+    en resolvant chaque competence sur son texte de jeu exact : un nom porte
+    plusieurs notations uniquement s'il porte plusieurs textes (Ballistic Guard,
+    lignee Helmut contre lignee Rookey)."""
+    cat, out = _TAGS["skills"], {}
+    for o, v in _TAGS["owners"].items():
+        out[o] = {"always": v["always"], "skills": {}}
+    for r in D:
+        o = r["name"]
+        if o not in out:
+            continue
+        for s in r.get("skills") or []:
+            e = cat.get(s["n"])
+            if e is None:
+                raise SystemExit("competence absente de la table : %s / %s" % (o, s["n"]))
+            if "variants" in e:
+                d = (s.get("d") or "").strip()
+                e = next((x for x in e["variants"] if x["when"] == d), None)
+                if e is None:
+                    raise SystemExit("texte non reconnu : %s / %s" % (o, s["n"]))
+            out[o]["skills"][s["n"]] = e
+    return out
+
+
+TAGS = _tags()
 KITS_ALL = {o: dict(k) for o, k in KITS.items()}
 LOADOUT = {}
 # Un sort dont l'effet ne vise qu'un element allie (Nebula Burst : degats Tenebres
@@ -221,7 +251,7 @@ AXLABEL = {"dmg": "degats", "team": "apport d'equipe", "brk": "BREAK",
 def rating(owner):
     """Les notes seules, sans le commentaire : deux kits notes a l'identique sont
     identiques, meme si leur phrase d'explication differe."""
-    k = KITS[owner]
+    k = KITS_ALL[owner]
     return tuple([k[a] for a in AXES] + [k["cond"]])
 
 
@@ -305,15 +335,25 @@ for r in PLAY:
             parent[r["name"]] = b
 
 
+def skillset(r):
+    """Les competences telles que le jeu les donne : nom ET texte. Prismana
+    Inferlupa a un sort de plus que sa base (Blazing Wolf Assault) et son attaque
+    de base perd le marqueur (BREAK) ; elle n'est donc PAS identique, meme si ses
+    stats et ses notes coincident."""
+    return (sorted((s["n"], (s.get("d") or "").strip()) for s in r.get("skills") or []),
+            sorted((x.get("n"), (x.get("d") or "").strip()) for x in r.get("innate") or []))
+
+
 def is_same(r):
-    """Forme strictement identique a sa base sur tous les axes mesures. On compare
-    les NOTES du kit, pas le nom du proprietaire : une Prismana est toujours son
-    propre proprietaire de kit, mais ses notes peuvent etre celles de sa base."""
+    """Forme strictement identique a sa base sur tout ce que le jeu expose. On
+    compare les notes LUES A LA MAIN (KITS_ALL) et non KITS, que l'optimisation de
+    loadout a reecrit en flottants : deux kits identiques y divergent au dixieme."""
     p = parent.get(r["name"])
     return bool(p and r["stats"] == BASES[p]["stats"]
                 and rating(kit_owner(r["name"])) == rating(kit_owner(p))
                 and sorted(r["el"]) == sorted(BASES[p]["el"])
-                and r["role"] == BASES[p]["role"])
+                and r["role"] == BASES[p]["role"]
+                and skillset(r) == skillset(BASES[p]))
 
 
 SAME = {r["name"]: is_same(r) for r in PLAY}
@@ -399,16 +439,33 @@ LABEL = {s: {n: EXT[s]["levels"][round((1 - p) * (len(EXT[s]["levels"]) - 1))]
              for n, p in EXT[s]["pos"].items()} for s in SRCS}
 
 
+# Un groupe d'identite = une base et les formes que le jeu lui donne a
+# l'identique (memes stats, memes elements, meme role, memes notes de kit, memes
+# competences). Pour le jeu c'est un seul Aniimo ; une source qui le liste deux
+# fois a des places differentes emet deux avis sur la MEME chose. On en prend la
+# moyenne et on la donne a tout le groupe : sans cela une Prismana se retrouvait
+# classee sous sa base alors que rien ne les distingue.
+GROUP = {}
+for _r in PLAY:
+    _p = parent.get(_r["name"])
+    GROUP.setdefault(_p if (_p and SAME[_r["name"]]) else _r["name"], []).append(_r["name"])
+for _h, _m in list(GROUP.items()):
+    if _h not in _m:
+        _m.insert(0, _h)
+GRP = {n: GROUP[h] for h, m in GROUP.items() for n in m}
+
+
 def opinions(name):
-    """Les avis sur cette entree : les siens, ou ceux de sa base si elle lui est
-    strictement identique."""
-    keys = [name] + ([parent[name]] if SAME[name] else [])
+    """Les avis sur cette entree : ceux de son groupe d'identite, moyennes."""
+    grp = GRP.get(name, [name])
     out = {}
     for s in SRCS:
-        for k in keys:
-            if k in PCT[s]:
-                out[s] = (PCT[s][k], LABEL[s][k], k != name)
-                break
+        hits = [k for k in grp if k in PCT[s]]
+        if not hits:
+            continue
+        p = sum(PCT[s][k] for k in hits) / len(hits)
+        lab = LABEL[s][name] if name in hits else LABEL[s][hits[0]]
+        out[s] = (p, lab, name not in hits)
     return out
 
 
