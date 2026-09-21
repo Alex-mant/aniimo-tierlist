@@ -16,9 +16,14 @@ lus un par un et notes sur 6 axes (voir RUBRIC.md et kits.json). Les 91 formes
 regionales qui reutilisent le kit de leur base heritent de ses notes via
 raw/_kitmap.json.
 
+Ce calcul est ensuite CROISE avec six tier lists publiees (raw/_ext_tiers.json,
+voir ext_tiers.py) : chaque source pese selon son accord avec les autres, le
+calcul pese comme une source de plus, et un reechantillonnage donne a chaque
+Aniimo un indice de confiance (sur / probable / incertain).
+
 Sortie : data.js
 """
-import json, io, collections
+import json, io, collections, math, random, bisect, re, os
 
 D = json.load(io.open("raw/parsed.json", encoding="utf-8"))
 KITS = json.load(io.open("kits.json", encoding="utf-8"))
@@ -38,10 +43,16 @@ AXES = ["dmg", "team", "brk", "sust", "res", "ctrl"]
 W = {
     "DPS":     {"atk": .50, "brk": .15, "hp": .15, "pdef": .07, "mdef": .07, "reg": .06},
     "Break":   {"brk": .45, "atk": .18, "hp": .17, "pdef": .08, "mdef": .07, "reg": .05},
-    "Support": {"reg": .35, "hp": .22, "mdef": .16, "pdef": .12, "atk": .10, "brk": .05},
-    "Regen":   {"reg": .45, "hp": .22, "mdef": .13, "pdef": .11, "atk": .05, "brk": .04},
-    "Heal":    {"reg": .38, "hp": .25, "mdef": .17, "pdef": .12, "atk": .05, "brk": .03},
+    "Support": {"reg": .37, "hp": .23, "mdef": .17, "pdef": .13, "atk": .10, "brk": 0},
+    "Regen":   {"reg": .47, "hp": .23, "mdef": .14, "pdef": .11, "atk": .05, "brk": 0},
+    "Heal":    {"hp": .42, "reg": .22, "mdef": .14, "pdef": .12, "atk": .10, "brk": 0},
 }
+# Ce que mesurent vraiment les stats (verifie dans les fiches) : REGEN est la
+# recuperation d'EP, pas du soin ; les soins et boucliers s'indexent sur les PV max
+# (22 soins de Heal sur 22). Un Heal vit donc de ses PV, un Regen de sa REGEN.
+# Support, Regen et Heal ne cassent pas les jauges : le BREAK ne compte pas pour eux,
+# ni dans leurs stats ni dans leur kit. Ce qu'ils apportent au BREAK de l'equipe
+# reste visible dans le constructeur d'equipe.
 # Stats "favorables" (pouce vert) : potentiel plafonne a 24 au lieu de 20.
 # A investissement maximal, elles disposent donc de +20% de marge de croissance.
 FAV = {
@@ -53,21 +64,29 @@ FAV = {
 }
 CROWN = 24.0 / 20.0
 
-# Bornes de normalisation calculees sur TOUT le roster jouable (207 entrees).
+# Normalisation en PERCENTILE sur tout le roster jouable (207 entrees) : un
+# min-max laisse un seul extreme (un PV hors norme) ecraser toute l'echelle.
 PLAY = [r for r in D if r["kind"] in ("base", "form", "prismana")]
 LO = {s: min(r["stats"][s] for r in PLAY) for s in STATS}
 HI = {s: max(r["stats"][s] for r in PLAY) for s in STATS}
+SORTED = {s: sorted(r["stats"][s] for r in PLAY) for s in STATS}
+
+
+def pctl(s, v):
+    a = SORTED[s]
+    lt, le = bisect.bisect_left(a, v), bisect.bisect_right(a, v)
+    return (lt + .5 * (le - lt)) / len(a)
 
 
 def stat_score(r):
-    """0..100. Stats de base normalisees, ponderees par role, majorees du
-    potentiel couronnable a 24 sur les stats favorables du role."""
+    """0..100. Stats de base en percentile du roster, ponderees par role,
+    majorees du potentiel couronnable a 24 sur les stats favorables du role."""
     role = r["role"] or "DPS"
     w, fav = W[role], FAV[role]
     tot = det = 0.0
     parts = {}
     for s in STATS:
-        n = (r["stats"][s] - LO[s]) / max(1, HI[s] - LO[s])
+        n = pctl(s, r["stats"][s])
         eff = n * (CROWN if s in fav else 1.0)
         parts[s] = round(eff * 100, 1)
         tot += w[s] * eff
@@ -77,17 +96,123 @@ def stat_score(r):
 
 # ----------------------------------------------------------------- 2. KIT ---
 # Poids des 6 axes de lecture, par role. Un Break vit de son BREAK, un Heal de
-# sa survie : le meme kit ne vaut pas la meme chose selon qui le porte.
+# ses soins, un Regen de l'EP qu'il rend a l'equipe (Regen = recharge d'EP, PAS
+# du soin) : le meme kit ne vaut pas la meme chose selon qui le porte.
 KW = {
     "DPS":     {"dmg": .45, "team": .15, "brk": .12, "ctrl": .12, "res": .08, "sust": .08},
     "Break":   {"brk": .45, "dmg": .18, "ctrl": .12, "team": .12, "res": .08, "sust": .05},
-    "Support": {"team": .40, "res": .18, "sust": .15, "ctrl": .12, "dmg": .08, "brk": .07},
-    "Regen":   {"res": .40, "sust": .25, "team": .15, "ctrl": .07, "dmg": .07, "brk": .06},
-    "Heal":    {"sust": .45, "team": .20, "res": .15, "ctrl": .09, "dmg": .06, "brk": .05},
+    "Support": {"team": .43, "res": .19, "sust": .16, "ctrl": .13, "dmg": .09, "brk": 0},
+    "Regen":   {"res": .48, "team": .18, "ctrl": .12, "dmg": .12, "sust": .10, "brk": 0},
+    "Heal":    {"sust": .47, "team": .21, "res": .16, "ctrl": .10, "dmg": .06, "brk": 0},
 }
 # Penalite de conditionnalite : un kit qui empile trois conditions ne delivre
 # pas les chiffres qu'il affiche. -6% par palier, -18% au maximum.
 COND_PEN = 0.06
+
+# Deux sorts equipes a la fois, pas plus. Les notes de kits.json lisent le kit
+# ENTIER ; kit_skills.json dit, pour chaque sort (et pour la part toujours active :
+# ultime, attaque de base, traits), quelle part de chaque axe il porte (0..3).
+# On garde, par kit, la paire de sorts qui vaut le plus pour son role, et chaque
+# axe est ramene a ce que cette paire + la part fixe delivrent. Cumul en "OU
+# bruite" (p = w/5) : l'echelle de lecture sature, deux sources moyennes ne valent
+# pas le double d'une seule, mais retirer la seule source d'un axe le vide.
+EQUIP = 2
+TAGS = json.load(io.open("kit_skills.json", encoding="utf-8"))
+KITS_ALL = {o: dict(k) for o, k in KITS.items()}
+LOADOUT = {}
+# Un sort dont l'effet ne vise qu'un element allie (Nebula Burst : degats Tenebres
+# des allies ; Lightning Surge : allies Foudre) porte dans kit_skills.json un
+# "lock" {el, off} : ses notes "off" valent quand aucun allie n'a cet element.
+# LOADOUT_EL liste la meilleure paire pour chaque jeu d'elements allies presents ;
+# le constructeur d'equipe prend celle que la composition autorise.
+ELS = "Fire|Water|Grass|Wind|Dark|Light|Ice|Earth|Lightning"
+LOCK_RE = [re.compile(r"(?:teammates'|allies'|team's) (%s) damage" % ELS),
+           re.compile(r"(%s)[- ](?:type|element) (?:teammates|allies)" % ELS)]
+LOADOUT_EL = {}
+NEED_OFF = 0.5
+ADD_AXES = tuple(x for x in os.environ.get("AMO_ADD", "dmg,brk").split(",") if x)
+
+
+ULT_RE = re.compile(r"(%s) Elemental Boost for (?:all )?team members|entire team \d+%% (%s) Elemental Boost" % (ELS, ELS))
+
+
+def ult_el(r):
+    """Element dope pour toute l'equipe par l'ultime (Fragrancier : Tenebres)."""
+    m = ULT_RE.search(" ".join(x.get("d", "") for x in r.get("innate") or []))
+    return m and (m.group(1) or m.group(2))
+
+
+def _reach(parts):
+    s = 1.0
+    for w in parts:
+        s *= 1 - w / 5.0
+    return 1 - s
+
+
+def _equip():
+    role_of = {r["name"]: r["role"] or "DPS" for r in D}
+    sk_of = {r["name"]: list(dict.fromkeys(s["n"] for s in r["skills"])) for r in D}   # un sort liste deux fois
+    by_name = {}
+    for r in D:
+        by_name.setdefault(r["name"], r)
+    for o, k in KITS_ALL.items():
+        names = sk_of[o]
+        if len(names) <= EQUIP or o not in TAGS:
+            LOADOUT[o] = names
+            continue
+        t = TAGS[o]
+        desc = {s["n"]: s["d"] for s in by_name[o]["skills"]}
+        for n in names:   # garde-fou : un texte "allies X" sans lock annote
+            m = next((x.search(desc[n]) for x in LOCK_RE if x.search(desc[n])), None)
+            if m and t["skills"][n].get("lock", {}).get("el") != m.group(1):
+                print("  ! lock manquant : %s / %s (%s)" % (o, n, m.group(1)))
+        locks = {n: t["skills"][n]["lock"] for n in names if "lock" in t["skills"][n]}
+        w = KW[role_of[o]]
+        full = {a: _reach([t["always"][a]] + [t["skills"][n][a] for n in names]) for a in AXES}
+        top = {a: t["always"][a] + sum(sorted((t["skills"][n][a] for n in names), reverse=True)[:EQUIP])
+               for a in ADD_AXES}
+
+        def share(a, parts):
+            if a in ADD_AXES:     # les degats s'additionnent : 2e sort de degats = 2e source
+                return sum(parts) / top[a] if top[a] > 0 else 1.0
+            return _reach(parts) / full[a] if full[a] > 0 else 1.0
+
+        def best_pair(on, must=()):
+            def tag(n, a, L):
+                lk, sk = locks.get(n), t["skills"][n]
+                v = lk["off"][a] if lk and lk["el"] not in on else sk[a]
+                # consomme une marque que seul un autre sort pose (Critical Hit / Claw of Madness)
+                return v * NEED_OFF if sk.get("needs") and not set(sk["needs"]) & set(L) else v
+            best = None
+            for i in range(len(names)):
+                for j in range(i + 1, len(names)):
+                    L = (names[i], names[j])
+                    if any(not any(locks.get(n, {}).get("el") == e for n in L) for e in must):
+                        continue
+                    ax = {a: round(k[a] * share(a, [t["always"][a]] + [tag(n, a, L) for n in L]), 1) for a in AXES}
+                    v = sum(w[a] * ax[a] for a in AXES)
+                    if best is None or v > best[0] + 1e-9:
+                        best = (v, L, ax)
+            return best
+        els = sorted({lk["el"] for lk in locks.values()})
+        best = best_pair(set(els))        # tier list : l'equipe qui lui convient
+        LOADOUT[o] = list(best[1])
+        KITS[o] = dict(k, **best[2])
+        if not locks:
+            continue
+        vars_ = {}
+        for m in sorted(range(1 << len(els)), key=lambda x: bin(x).count("1")):
+            on = {e for i, e in enumerate(els) if m >> i & 1}
+            # la meilleure paire, et celle qui sert vraiment ces allies (le combo d'equipe peut la preferer)
+            for v in filter(None, (best_pair(on), best_pair(on, must=on))):
+                uses = [n for n in v[1] if n in locks and locks[n]["el"] in on]
+                need = sorted({locks[n]["el"] for n in uses})
+                vars_.setdefault(v[1], {"need": need, "equip": list(v[1]), "axes": v[2]})   # need minimal en premier
+        LOADOUT_EL[o] = {"locks": {n: lk["el"] for n, lk in locks.items()},
+                         "vars": sorted(vars_.values(), key=lambda x: len(x["need"]))}
+
+
+_equip()
 
 AXLABEL = {"dmg": "degats", "team": "apport d'equipe", "brk": "BREAK",
            "sust": "survie / soin", "res": "ressource EP", "ctrl": "controle"}
@@ -127,7 +252,10 @@ GIVE_W = {"team": .40, "sust": .20, "res": .20, "brk": .10, "ctrl": .10}
 # n'importe quelle composition sans condition. Noter les deux pareil
 # penaliserait mecaniquement tous les DPS.
 SYN_MIX = {"DPS": .35, "Break": .55, "Support": .78, "Regen": .72, "Heal": .75}
-COND_FIT = {0: 34, 1: 20, 2: 10, 3: 0}
+# Insertion : base 40, +30 bi-element, +30 si utile partout (controle ou gros degats).
+# Ne comptent plus : la mobilite d'exploration (hors combat), la forme finale (deja
+# dans le multiplicateur de stade) et la conditionnalite (deja retiree du kit).
+FIT = {"base": 40, "dual": 30, "any": 30}
 
 
 def syn_score(r, k):
@@ -138,30 +266,27 @@ def syn_score(r, k):
     for a in sorted(GIVE_W, key=lambda x: -k[x]):
         if k[a] > 0:
             why.append("apporte : %s %d/10" % (AXLABEL[a], k[a]))
-
-    fit = COND_FIT[k["cond"]]
-    why.append("conditionnalite %d/3, soit %d points d'insertion"
-               % (k["cond"], COND_FIT[k["cond"]]))
+    fit = FIT["base"]
     if len(r["el"]) > 1:
-        fit += 24
+        fit += FIT["dual"]
         why.append("bi-element (%s)" % "/".join(r["el"]))
-    if r["stage"] in ("Nova", None):
-        fit += 20
-        why.append("forme finale, pas d'evolution a attendre")
-    pf = (r.get("pathfinding") or "").lower()
-    if any(x in pf for x in ("fly", "swim", "climb", "glide")):
-        fit += 12
-        why.append("mobilite d'exploration")
     if k["ctrl"] >= 5 or k["dmg"] >= 7:
-        fit += 10
+        fit += FIT["any"]
         why.append("utile dans n'importe quelle composition")
-
     m = SYN_MIX.get(r["role"] or "DPS", .5)
     return min(100.0, m * min(100, give) + (1 - m) * min(100, fit)), why
 
 
 # ------------------------------------------------------------------ TOTAL ---
 STAGE_MULT = {"Nova": 1.0, "Gamma": 0.90, "Lumin": 0.78}
+MIX = {"stat": .50, "kit": .32, "syn": .18}
+ROLES = ["DPS", "Break", "Support", "Regen", "Heal"]
+# Normalisation par role : chaque composante est recentree dans son role (moyenne
+# 50, ecart-type 15), sinon un role entier finit en bas parce que ses stats
+# "naturelles" sont plus basses. Moyenne et ecart-type sont retrecis vers le global
+# (SHRINK entrees fictives) : un role de 11 membres ne donne qu'une estimation
+# bruitee. Calcules sur les entrees DISTINCTES (formes identiques ecartees).
+SHRINK = 10
 
 # Rattache les formes regionales a leur Aniimo de base (affichage de famille).
 BASES = {r["name"]: r for r in PLAY if r["kind"] == "base"}
@@ -179,6 +304,225 @@ for r in PLAY:
         if b in BASES:
             parent[r["name"]] = b
 
+
+def is_same(r):
+    """Forme strictement identique a sa base sur tous les axes mesures. On compare
+    les NOTES du kit, pas le nom du proprietaire : une Prismana est toujours son
+    propre proprietaire de kit, mais ses notes peuvent etre celles de sa base."""
+    p = parent.get(r["name"])
+    return bool(p and r["stats"] == BASES[p]["stats"]
+                and rating(kit_owner(r["name"])) == rating(kit_owner(p))
+                and sorted(r["el"]) == sorted(BASES[p]["el"])
+                and r["role"] == BASES[p]["role"])
+
+
+SAME = {r["name"]: is_same(r) for r in PLAY}
+
+
+def _stat(r, w):
+    fav = FAV[r["role"] or "DPS"]; tot = det = 0.0
+    for s in STATS:
+        f = CROWN if s in fav else 1.0
+        tot += w[s] * pctl(s, r["stats"][s]) * f; det += w[s] * f
+    return min(100.0, tot / det * 100) if det else 0.0
+
+
+def model(w_stat=W, w_kit=KW, mix=MIX, kits=None):
+    """Score du calcul pour tout le roster : {nom: (score, stat, kit, syn bruts)}.
+    `kits` remplace les notes de kit (tests de robustesse)."""
+    raw = {}
+    for r in PLAY:
+        role = r["role"] or "DPS"
+        k = (kits or KITS)[kit_owner(r["name"])]
+        st = _stat(r, w_stat[role])
+        kt = min(100.0, sum(w_kit[role][a] * k[a] / 10.0 for a in AXES) * 100 * (1 - COND_PEN * k["cond"]))
+        sy = syn_score(r, k)[0]
+        raw[r["name"]] = [st, kt, sy]
+    brut = {n: tuple(v) for n, v in raw.items()}
+    for c in range(3):
+        allv = [v[c] for v in brut.values()]
+        gm = sum(allv) / len(allv)
+        gs = math.sqrt(sum((x - gm) ** 2 for x in allv) / len(allv))
+        for R in ROLES:
+            mem = [r["name"] for r in PLAY if (r["role"] or "DPS") == R]
+            vs = [brut[n][c] for n in mem if not SAME[n]]
+            if not vs:
+                continue
+            n = len(vs); m = sum(vs) / n
+            sd = math.sqrt(sum((x - m) ** 2 for x in vs) / n) or gs
+            m2 = (n * m + SHRINK * gm) / (n + SHRINK); sd2 = (n * sd + SHRINK * gs) / (n + SHRINK)
+            for nm in mem:
+                raw[nm][c] = 50 + 15 * (brut[nm][c] - m2) / sd2
+    tot = sum(mix.values())
+    out = {}
+    for r in PLAY:
+        st, kt, sy = raw[r["name"]]
+        sc = (mix["stat"] * st + mix["kit"] * kt + mix["syn"] * sy) / tot * STAGE_MULT.get(r["stage"], 1.0)
+        out[r["name"]] = (sc,) + brut[r["name"]]
+    return out
+
+
+def rank(v):
+    o = sorted(range(len(v)), key=lambda i: v[i]); rk = [0.0] * len(v); i = 0
+    while i < len(o):
+        j = i
+        while j + 1 < len(o) and v[o[j + 1]] == v[o[i]]:
+            j += 1
+        for q in range(i, j + 1):
+            rk[o[q]] = (i + j) / 2
+        i = j + 1
+    return rk
+
+
+def spear(x, y):
+    rx, ry = rank(x), rank(y); n = len(x)
+    mx, my = sum(rx) / n, sum(ry) / n
+    c = sum((a - mx) * (b - my) for a, b in zip(rx, ry))
+    d = math.sqrt(sum((a - mx) ** 2 for a in rx) * sum((b - my) ** 2 for b in ry))
+    return c / d if d else 0.0
+
+
+def pctmap(sc):
+    """{nom: score} -> {nom: percentile 0..1 (1 = meilleur)}, ex aequo moyennes."""
+    names = list(sc); rk = rank([sc[n] for n in names])
+    return {n: (rk[i] + .5) / len(names) for i, n in enumerate(names)}
+
+
+# ------------------------------------------------ 4. CROISEMENT DES SOURCES ---
+# Six tier lists publiees (voir ext_tiers.py). Chaque source est ramenee en
+# percentile de rang A L'INTERIEUR d'elle-meme : peu importe qu'elle ait 4 ou 7
+# paliers, ou qu'elle mette la moitie du roster en S, seul l'ordre compte.
+EXT = json.load(io.open("raw/_ext_tiers.json", encoding="utf-8"))
+SRCS = sorted(EXT)
+PCT = {s: pctmap(EXT[s]["pos"]) for s in SRCS}
+LABEL = {s: {n: EXT[s]["levels"][round((1 - p) * (len(EXT[s]["levels"]) - 1))]
+             for n, p in EXT[s]["pos"].items()} for s in SRCS}
+
+
+def opinions(name):
+    """Les avis sur cette entree : les siens, ou ceux de sa base si elle lui est
+    strictement identique."""
+    keys = [name] + ([parent[name]] if SAME[name] else [])
+    out = {}
+    for s in SRCS:
+        for k in keys:
+            if k in PCT[s]:
+                out[s] = (PCT[s][k], LABEL[s][k], k != name)
+                break
+    return out
+
+
+OPI = {r["name"]: opinions(r["name"]) for r in PLAY}
+
+
+def src_weight(s, pool=None):
+    """Fiabilite d'une source = (accord de rang avec la moyenne des AUTRES)^2.
+    Une source qui classe au hasard pese ~0 ; deux sources qui se copient ne se
+    valident pas mutuellement, puisque chacune est jugee contre toutes les autres."""
+    pool = pool or SRCS
+    others = [o for o in pool if o != s]
+    com = [n for n in PCT[s] if sum(n in PCT[o] for o in others) >= 2]
+    cons = [sum(PCT[o][n] for o in others if n in PCT[o]) / sum(n in PCT[o] for o in others) for n in com]
+    return max(.05, spear([PCT[s][n] for n in com], cons)) ** 2
+
+
+SRCW = {s: src_weight(s) for s in SRCS}
+
+
+def blend(mp, wm, srcw=SRCW):
+    """Percentile final = moyenne ponderee du calcul et des sources qui classent
+    l'entree. Sans aucune source, c'est le calcul seul."""
+    out = {}
+    for n in mp:
+        num, den = wm * mp[n], wm
+        for s, (p, _, _) in OPI[n].items():
+            if s in srcw:
+                num += srcw[s] * p; den += srcw[s]
+        out[n] = num / den if den else mp[n]
+    return out
+
+
+M0 = model()
+MP = pctmap({n: v[0] for n, v in M0.items()})
+_c = {n: sum(SRCW[s] * OPI[n][s][0] for s in OPI[n]) / sum(SRCW[s] for s in OPI[n])
+      for n in MP if len(OPI[n]) >= 2}
+# Le calcul pese comme une source : son accord avec le consensus, au carre.
+WM = max(.05, spear([MP[n] for n in _c], [_c[n] for n in _c])) ** 2
+FIN = blend(MP, WM)
+
+CUT = [("S", .10), ("A", .25), ("B", .52), ("C", .80), ("D", 1.01)]
+ORDER = [t for t, _ in CUT]
+
+
+def tiers_of(sc):
+    ranked = sorted(sc, key=lambda n: -sc[n]); n = len(ranked)
+    return {nm: next(t for t, th in CUT if (i + .5) / n < th) for i, nm in enumerate(ranked)}
+
+
+TIER = tiers_of(FIN)
+
+# Validation : chaque source est predite par le calcul melange aux AUTRES sources,
+# et comparee a ce que les autres sources en disent entre elles.
+VALID, WLOO = {}, {}
+for s in SRCS:
+    others = [o for o in SRCS if o != s]
+    w2 = WLOO[s] = {o: round(src_weight(o, others), 4) for o in others}
+    f2 = blend(MP, WM, w2)
+    names = list(PCT[s])
+    peers = {n: sum(w2[o] * PCT[o][n] for o in others if n in PCT[o]) / sum(w2[o] for o in others if n in PCT[o])
+             for n in names if any(n in PCT[o] for o in others)}
+    pn = list(peers)
+    VALID[s] = {"n": len(names),
+                "model": round(spear([MP[n] for n in names], [PCT[s][n] for n in names]), 3),
+                "final": round(spear([f2[n] for n in names], [PCT[s][n] for n in names]), 3),
+                "peers": round(spear([peers[n] for n in pn], [PCT[s][n] for n in pn]), 3)}
+
+# --------------------------------------------------- 5. INDICE DE CONFIANCE ---
+# RUNS tirages ou TOUT ce qui est incertain bouge a la fois :
+#  - chaque poids du calcul perturbe de +-25 %,
+#  - chaque note de kit relue par un autre lecteur (+-1 avec probabilite 2/3),
+#  - les 7 avis (6 sources + le calcul) reechantillonnes avec remise : on se
+#    demande ce qu'aurait donne le classement avec d'autres sources.
+# SUR : garde son palier dans au moins 75 % des tirages ET classe par au moins deux
+# sources. INCERTAIN : aucune source ne l'a classe, ou ses tirages s'etalent sur
+# trois paliers. PROBABLE : le reste (en general, a cheval entre deux paliers).
+RUNS = 400
+rng = random.Random(2026)
+jit = lambda v: v * (.75 + rng.random() * .5)
+dist = {n: collections.Counter() for n in FIN}
+for _ in range(RUNS):
+    ws = {R: {k: jit(v) for k, v in W[R].items()} for R in W}
+    wk = {R: {k: jit(v) for k, v in KW[R].items()} for R in KW}
+    mx = {k: jit(v) for k, v in MIX.items()}
+    ks = {o: dict(k, **{a: max(0, min(10, k[a] + rng.choice((-1, 0, 1)))) for a in AXES}) for o, k in KITS.items()}
+    mp = pctmap({n: v[0] for n, v in model(ws, wk, mx, ks).items()})
+    pick = collections.Counter(rng.choice(SRCS + ["_calc"]) for _ in range(len(SRCS) + 1))
+    w2 = {s: SRCW[s] * pick[s] for s in SRCS if pick[s]}
+    t = tiers_of(blend(mp, WM * pick["_calc"], w2))
+    for n in t:
+        dist[n][t[n]] += 1
+
+
+def confidence(n):
+    d = dist[n]; keep = d[TIER[n]] / RUNS
+    # plus petit intervalle de paliers contigus, contenant le palier affiche,
+    # qui couvre 80 % des tirages
+    best = None; ti = ORDER.index(TIER[n])
+    for i in range(ti + 1):
+        for j in range(ti, 5):
+            if sum(d[t] for t in ORDER[i:j + 1]) >= .8 * RUNS and (best is None or j - i < best[1] - best[0]):
+                best = (i, j)
+    span = ORDER[best[0]:best[1] + 1]
+    nsrc = len(OPI[n])
+    if nsrc == 0 or len(span) >= 3:
+        lvl = "incertain"
+    elif keep >= .75 and nsrc >= 2:
+        lvl = "sur"
+    else:
+        lvl = "probable"
+    return lvl, round(keep * 100), span
+
+
 out = []
 for r in PLAY:
     st, parts = stat_score(r)
@@ -187,81 +531,63 @@ for r in PLAY:
     # Somniwing et Irisalis n'affichent aucun stade : ce sont des Aniimo sans
     # ligne d'evolution, donc deja des formes finales -> pas de penalite.
     stage = STAGE_MULT.get(r["stage"], 1.0)
-    total = (0.50 * st + 0.32 * kt + 0.18 * sy) * stage
-
-    # Une forme strictement identique a sa base sur tous les axes mesures
-    # obtient forcement le meme score : on le signale plutot que de laisser
-    # croire a deux entrees reellement distinctes.
-    # On compare les NOTES du kit, pas le nom du proprietaire : une Prismana est
-    # toujours son propre proprietaire de kit, mais ses notes peuvent etre
-    # rigoureusement celles de sa base.
-    p = parent.get(r["name"])
-    same = bool(p and r["stats"] == BASES[p]["stats"]
-                and rating(kit_owner(r["name"])) == rating(kit_owner(p))
-                and sorted(r["el"]) == sorted(BASES[p]["el"])
-                and r["role"] == BASES[p]["role"])
-
+    n = r["name"]
+    lvl, keep, span = confidence(n)
     out.append({
-        "name": r["name"], "no": r["no"], "kind": r["kind"],
+        "name": n, "no": r["no"], "kind": r["kind"],
         "el": r["el"], "role": r["role"], "stage": r["stage"],
         "stats": r["stats"], "total": r["total"],
         "fav": FAV[r["role"] or "DPS"],
-        "sStat": round(st, 1), "sKit": round(kt, 1), "sSyn": round(sy, 1),
-        "sStage": stage, "score": round(total, 1),
+        "sStat": round(st, 2), "sKit": round(kt, 2), "sSyn": round(sy, 2),
+        "sStage": stage, "score": round(M0[n][0], 2), "fin": round(FIN[n], 4), "tier": TIER[n],
         "statParts": parts, "kitWhy": kwhy, "synWhy": swhy,
         "axes": {a: k[a] for a in AXES}, "cond": k["cond"],
-        "kitWho": kit_owner(r["name"]), "kitNote": k["why"],
-        "parent": p, "same": same, "ref": REFTIER.get(r["name"]),
+        "axesAll": {a: KITS_ALL[kit_owner(n)][a] for a in AXES}, "equip": LOADOUT[kit_owner(n)],
+        "equipEl": LOADOUT_EL.get(kit_owner(n)),
+        "ultEl": ult_el(r),
+        "kitWho": kit_owner(n), "kitNote": k["why"],
+        "parent": parent.get(n), "same": SAME[n], "ref": REFTIER.get(n),
+        # avis externes : {source: [percentile, palier affiche, herite de la base]}
+        "ext": {s: [round(p, 4), lab, inh] for s, (p, lab, inh) in OPI[n].items()},
+        "conf": lvl, "keep": keep, "span": span,
+        "dist": {t: round(dist[n][t] / RUNS, 3) for t in ORDER if dist[n][t]},
         "traits": r["traits"], "skills": r["skills"], "innate": r["innate"],
         "mobility": r["mobility"], "pathfinding": r["pathfinding"],
         "homeland": r["homeland"], "log": r["log"],
-        "variants": variants.get(r["name"], []),
+        "variants": variants.get(n, []),
     })
 
-# --------- tiers calcules SEPAREMENT pour chaque roster ---------------------
-# Tiers par percentile a l'interieur de chaque roster : une pyramide lisible
-# plutot qu'un min-max qui ecrase tout le monde en bas.
-CUT = [("S", .10), ("A", .25), ("B", .52), ("C", .80), ("D", 1.01)]
-
-
-def assign(group):
-    if not group:
-        return
-    ranked = sorted(group, key=lambda g: -g["score"])
-    n = len(ranked)
-    for i, g in enumerate(ranked):
-        q = (i + 0.5) / n
-        g["tier"] = next(t for t, th in CUT if q < th)
-        g["rank"] = i + 1
-        g["of"] = n
-
-
 groups = {k: [g for g in out if g["kind"] == k] for k in ("base", "form", "prismana")}
-for g in groups.values():
-    assign(g)
-
-out.sort(key=lambda g: -g["score"])
+out.sort(key=lambda g: -g["fin"])
 io.open("data.js", "w", encoding="utf-8").write(
     "const ANIIMO = " + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";\n"
     + "const META = " + json.dumps({
         "weights": W, "fav": FAV, "crown": CROWN, "stage": STAGE_MULT,
-        "mix": {"stat": .50, "kit": .32, "syn": .18},
+        "mix": MIX, "shrink": SHRINK, "fit": FIT,
         "kitW": KW, "giveW": GIVE_W, "synMix": SYN_MIX, "condPen": COND_PEN,
-        "condFit": COND_FIT, "axes": AXES, "axLabel": AXLABEL,
+        "axes": AXES, "axLabel": AXLABEL,
         "lo": LO, "hi": HI,
         "n": {k: len(v) for k, v in groups.items()},
         "nKits": len(KITS), "nSame": sum(1 for g in out if g["same"]),
         "cut": CUT,
+        "modelW": round(WM, 4),
+        "src": {s: {"url": EXT[s]["url"], "levels": EXT[s]["levels"], "w": round(SRCW[s], 4),
+                    "n": len(EXT[s]["pos"])} for s in SRCS},
+        "valid": VALID, "wLoo": WLOO, "runs": RUNS,
         "lock": SYN["lock"], "duos": SYN["duos"], "rules": SYN["rules"],
     }, ensure_ascii=False) + ";\n")
 
 print("base=%d  formes=%d  prismana=%d  (total %d)"
       % (len(groups["base"]), len(groups["form"]), len(groups["prismana"]), len(out)))
-print("formes strictement identiques a leur base : %d" % sum(1 for g in out if g["same"]))
-print("kits lus : %d | kits herites : %d" % (len(KITS), len(KMAP["alias"])))
-for label in ("base", "form", "prismana"):
-    c = collections.Counter(g["tier"] for g in groups[label])
-    print("\n--- %s --- %s" % (label.upper(), " ".join("%s:%d" % (t, c[t]) for t, _ in CUT)))
-    for g in sorted(groups[label], key=lambda x: -x["score"])[:8]:
-        print("  %-24s %-8s %5.1f  (stat %4.1f kit %4.1f syn %4.1f)"
-              % (g["name"], g["tier"], g["score"], g["sStat"], g["sKit"], g["sSyn"]))
+print("poids des sources :", {s: round(v, 2) for s, v in SRCW.items()}, "| calcul : %.2f" % WM)
+print("validation (predire une source sans la voir) :")
+for s, v in VALID.items():
+    print("  %-11s n=%3d  calcul seul %.2f | final %.2f | les autres sources entre elles %.2f"
+          % (s, v["n"], v["model"], v["final"], v["peers"]))
+c = collections.Counter((g["tier"], g["conf"]) for g in out)
+for t in ORDER:
+    print("  %s : %2d  (sur %d, probable %d, incertain %d)" % (
+        t, sum(c[(t, l)] for l in ("sur", "probable", "incertain")), c[(t, "sur")], c[(t, "probable")], c[(t, "incertain")]))
+for g in out[:24]:
+    print("  %s %-26s %.3f %-9s garde %3d%%  %s  sources %d"
+          % (g["tier"], g["name"], g["fin"], g["conf"], g["keep"], "/".join(g["span"]), len(g["ext"])))
