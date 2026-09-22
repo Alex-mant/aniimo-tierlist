@@ -16,25 +16,25 @@
 
  "duos": [
   {"need": [["Leafy"], ["Iris", "Irisal", "Irisalis"]], "pts": 14,
-   "why": "Iris amplifie de 30% sur Gazon mais ne sait pas en creer : Leafy est le seul fournisseur de Gazon du roster."},
+   "why": "Iris amplifie de 30% sur Gazon mais ne sait pas en créer : Leafy est le seul fournisseur de Gazon du roster."},
   {"need": [["Bouldus"], ["Waleetle"]], "pts": 12,
-   "why": "La conversion complete des Rochers de Bouldus exige Waleetle dans l'equipe."},
+   "why": "La conversion complète des Rochers de Bouldus exige Waleetle dans l'équipe."},
   {"need": [["Susuta", "Popota", "Panpanta"], ["Susuta", "Popota", "Panpanta"]], "pts": 10,
-   "why": "Le +30% de BREAK de la famille Susuta ne se declenche qu'avec un Susuta du sexe oppose dans l'equipe.", "distinct": true},
+   "why": "Le +30% de BREAK de la famille Susuta ne se déclenche qu'avec un Susuta du sexe opposé dans l'équipe.", "distinct": true},
   {"need": [["Chirpi"], ["Chirpi"]], "pts": 8,
-   "why": "Les 20 EP rendus au relais par Chirpi ne profitent qu'a la famille Chirpi.", "distinct": true},
+   "why": "Les 20 EP rendus au relais par Chirpi ne profitent qu'à la famille Chirpi.", "distinct": true},
   {"need": [["Melloblum"], ["Iris", "Irisal", "Irisalis", "Leafy", "Shrubclaw", "Budclaw"]], "pts": 8,
-   "why": "Le +70% de degats critiques Herbe de Melloblum n'a de valeur qu'avec un vrai porteur de degats Herbe."}
+   "why": "Le +70% de dégâts critiques Herbe de Melloblum n'a de valeur qu'avec un vrai porteur de dégâts Herbe."}
  ],
 
  "rules": [
   {"id": "breaker", "pts": 10,
-   "why": "Pawney gagne deux fois +30% de degats sur cible brisee ou controlee : il lui faut un briseur ou un controleur."},
+   "why": "Pawney gagne deux fois +30% de dégâts sur cible brisée ou contrôlée : il lui faut un briseur ou un contrôleur."},
   {"id": "ep", "pts": 8,
-   "why": "Une equipe sans aucune source d'EP collective plafonne : ses competences ne tournent pas."},
+   "why": "Une équipe sans aucune source d'EP collective plafonne : ses compétences ne tournent pas."},
   {"id": "break", "pts": 10,
-   "why": "Sans capacite de BREAK, les fenetres de degats ne s'ouvrent jamais."},
+   "why": "Sans capacité de BREAK, les fenêtres de dégâts ne s'ouvrent jamais."},
   {"id": "sust", "pts": 8,
-   "why": "Aucune survie ni soin dans l'equipe : elle fond sur le contenu exigeant."}
+   "why": "Aucune survie ni soin dans l'équipe : elle fond sur le contenu exigeant."}
  ]
 }

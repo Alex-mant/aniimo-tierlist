@@ -27,6 +27,8 @@ G = json.load(io.open("raw/parsed.json", encoding="utf-8"))
 A = json.load(io.open("raw/parsed_aniidex.json", encoding="utf-8"))
 
 CLASSABLE = ("role", "el", "skills", "stats")
+# libelle affiche sur le site pour chaque champ manquant
+LIBELLE = {"role": "rôle", "el": "élément", "skills": "compétences", "stats": "statistiques"}
 have = {r["name"] for r in G}
 g_stats = {r["name"]: r["stats"] for r in G}
 
@@ -62,7 +64,7 @@ attente, ajouts, formes = [], [], []
 
 
 def classable(r):
-    return [k for k in CLASSABLE if not r.get(k)]
+    return [LIBELLE[k] for k in CLASSABLE if not r.get(k)]
 
 
 for r in sorted(A, key=lambda x: (x["no"] or "", x["name"])):
@@ -70,7 +72,7 @@ for r in sorted(A, key=lambda x: (x["no"] or "", x["name"])):
         continue
     manque = classable(r)
     if r["name"] in SUSPECTE:
-        manque.append("stats non attestees (ligne partagee avec %s)"
+        manque.append("stats non attestées (ligne partagée avec %s)"
                       % ", ".join(n for n in SUSPECTE[r["name"]] if n != r["name"]))
     if manque:
         attente.append({"name": r["name"], "no": r["no"], "el": r["el"],

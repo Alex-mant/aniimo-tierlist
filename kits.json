@@ -7,7 +7,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 2,
-  "why": "Shred Terre jusqu'a -20% et une sentinelle qui frappe a chaque competence alliee, mais tout passe par des cumuls."
+  "why": "Shred Terre jusqu'à -20% et une sentinelle qui frappe à chaque compétence alliée, mais tout passe par des cumuls."
  },
  "Baleetle": {
   "dmg": 7,
@@ -27,7 +27,7 @@
   "res": 8,
   "ctrl": 6,
   "cond": 1,
-  "why": "Vraie batterie d'EP (15 d'un coup puis 0,8/s pendant 12 s) doublee d'un -24% de resistance Foudre."
+  "why": "Vraie batterie d'EP (15 d'un coup puis 0,8/s pendant 12 s) doublée d'un -24% de résistance Foudre."
  },
  "Blazen": {
   "dmg": 8,
@@ -37,7 +37,7 @@
   "res": 5,
   "ctrl": 4,
   "cond": 2,
-  "why": "+50% de taux critique sur deux competences et des couts d'EP reduits, mais l'etat Surcharge bloque le gain d'UP."
+  "why": "+50% de taux critique sur deux compétences et des coûts d'EP réduits, mais l'état Surcharge bloque le gain d'UP."
  },
  "Bolty": {
   "dmg": 6,
@@ -47,7 +47,7 @@
   "res": 4,
   "ctrl": 1,
   "cond": 2,
-  "why": "Version allegee de Blazen : le +50% critique est la, le reste du kit manque."
+  "why": "Version allégée de Blazen : le +50% critique est là, le reste du kit manque."
  },
  "Bonesky": {
   "dmg": 6,
@@ -67,7 +67,7 @@
   "res": 0,
   "ctrl": 8,
   "cond": 3,
-  "why": "Jusqu'a -36% de resistance Terre, mais la conversion complete des Rochers exige Waleetle dans l'equipe."
+  "why": "Jusqu'à -36% de résistance Terre, mais la conversion complète des Rochers exige Waleetle dans l'équipe."
  },
  "Budclaw": {
   "dmg": 6,
@@ -77,7 +77,7 @@
   "res": 0,
   "ctrl": 4,
   "cond": 2,
-  "why": "+30% d'efficacite BREAK a cumuls pleins, charges deux fois plus vite en creusant."
+  "why": "+30% d'efficacité BREAK à cumuls pleins, charges deux fois plus vite en creusant."
  },
  "Budsquire": {
   "dmg": 8,
@@ -87,7 +87,7 @@
   "res": 0,
   "ctrl": 1,
   "cond": 2,
-  "why": "+180% sur les attaques chargees et jusqu'a +45% de critique, avec une posture a -20% de degats subis."
+  "why": "+180% sur les attaques chargées et jusqu'à +45% de critique, avec une posture à -20% de dégâts subis."
  },
  "Bulbly": {
   "dmg": 3,
@@ -97,7 +97,7 @@
   "res": 0,
   "ctrl": 3,
   "cond": 2,
-  "why": "+12% de degats Foudre et un soin continu, mais les deux sont reserves aux equipiers de type Foudre."
+  "why": "+12% de dégâts Foudre et un soin continu, mais les deux sont réserves aux équipiers de type Foudre."
  },
  "Celestis": {
   "dmg": 4,
@@ -107,7 +107,7 @@
   "res": 3,
   "ctrl": 0,
   "cond": 2,
-  "why": "Kit tres maigre : un petit bonus sur les attaques de base et +10% de recuperation d'EP pour lui seul."
+  "why": "Kit très maigre : un petit bonus sur les attaques de base et +10% de récupération d'EP pour lui seul."
  },
  "Cheekie": {
   "dmg": 3,
@@ -117,7 +117,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 3,
-  "why": "+20% puis +40% d'efficacite BREAK, mais il faut passer sous 75% puis 50% de PV et c'est sa propre charge, a -10% de PV par touche, qui l'y amene."
+  "why": "+20% puis +40% d'efficacité BREAK, mais il faut passer sous 75% puis 50% de PV et c'est sa propre charge, à -10% de PV par touche, qui l'y amène."
  },
  "Chirpi": {
   "dmg": 3,
@@ -127,7 +127,7 @@
   "res": 5,
   "ctrl": 7,
   "cond": 2,
-  "why": "Des vortex qui regroupent les cibles, une regeneration continue, et 20 EP au relais mais seulement pour la famille Chirpi."
+  "why": "Des vortex qui regroupent les cibles, une régénération continue, et 20 EP au relais mais seulement pour la famille Chirpi."
  },
  "Coraliz": {
   "dmg": 5,
@@ -137,7 +137,7 @@
   "res": 6,
   "ctrl": 8,
   "cond": 2,
-  "why": "Deux emprisonnements, la Fragilite Terre en continu et une marque qui detonne sur chaque degat Terre encaisse ; l'ultime rend 30 EP, mais rien ne part aux allies."
+  "why": "Deux emprisonnements, la Fragilité Terre en continu et une marque qui détonne sur chaque dégât Terre encaisse ; l'ultime rend 30 EP, mais rien ne part aux alliés."
  },
  "Cornet": {
   "dmg": 8,
@@ -147,7 +147,7 @@
   "res": 0,
   "ctrl": 7,
   "cond": 1,
-  "why": "+20% de critique en vol, etat declenche par sa propre competence, plus +30% de degats et une paralysie de 5 s."
+  "why": "+20% de critique en vol, état déclenche par sa propre compétence, plus +30% de dégâts et une paralysie de 5 s."
  },
  "Cozite": {
   "dmg": 3,
@@ -167,7 +167,7 @@
   "res": 5,
   "ctrl": 6,
   "cond": 2,
-  "why": "Boucle de Rage vers +30% de degats et +25% d'EP, avec une detonation de marques qui etourdit."
+  "why": "Boucle de Rage vers +30% de dégâts et +25% d'EP, avec une détonation de marques qui étourdit."
  },
  "Dazmand": {
   "dmg": 5,
@@ -177,7 +177,7 @@
   "res": 4,
   "ctrl": 8,
   "cond": 1,
-  "why": "+20% de taux critique Foudre pour toute l'equipe, paralysie de 5 s et une competence gratuite a l'entree."
+  "why": "+20% de taux critique Foudre pour toute l'équipe, paralysie de 5 s et une compétence gratuite à l'entrée."
  },
  "Dewy": {
   "dmg": 3,
@@ -187,7 +187,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 1,
-  "why": "Soin d'equipe de 5 a 10% de ses propres PV plus un bouclier de 10%, avec -12% de resistance Tenebres."
+  "why": "Soin d'équipe de 5 à 10% de ses propres PV plus un bouclier de 10%, avec -12% de résistance Ténèbres."
  },
  "Dreaple": {
   "dmg": 4,
@@ -197,7 +197,7 @@
   "res": 0,
   "ctrl": 9,
   "cond": 2,
-  "why": "Cauchemar : -27% de resistance, 3 s d'incapacite totale, +20% de degats Tenebres pour l'equipe et un soin de zone."
+  "why": "Cauchemar : -27% de résistance, 3 s d'incapacité totale, +20% de dégâts Ténèbres pour l'équipe et un soin de zone."
  },
  "Eklue": {
   "dmg": 3,
@@ -207,7 +207,7 @@
   "res": 0,
   "ctrl": 9,
   "cond": 1,
-  "why": "Ultime qui marque tout l'ecran : -20% de resistance Vent pendant 30 s, -12% de resistance critique, +16% de degats Vent pour l'equipe."
+  "why": "Ultime qui marque tout l'écran : -20% de résistance Vent pendant 30 s, -12% de résistance critique, +16% de dégâts Vent pour l'équipe."
  },
  "Eko": {
   "dmg": 3,
@@ -217,7 +217,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 1,
-  "why": "Meme buff Vent d'equipe qu'Eklue, mais la marque ne tient que 5 s et il n'y a pas d'ultime de zone."
+  "why": "Même buff Vent d'équipe qu'Eklue, mais la marque ne tient que 5 s et il n'y a pas d'ultime de zone."
  },
  "Emberpup": {
   "dmg": 7,
@@ -227,7 +227,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 2,
-  "why": "+25% contre les cibles en desavantage elementaire et -20% de resistance Feu, mais le meilleur passe par des esquives reussies."
+  "why": "+25% contre les cibles en désavantage élémentaire et -20% de résistance Feu, mais le meilleur passe par des esquives réussies."
  },
  "Erlath": {
   "dmg": 3,
@@ -237,7 +237,7 @@
   "res": 9,
   "ctrl": 6,
   "cond": 2,
-  "why": "Jusqu'a 34 EP rendus via le champ de bulles, +16% de degats Eau et -20% de recuperation d'EP chez l'adversaire."
+  "why": "Jusqu'à 34 EP rendus via le champ de bulles, +16% de dégâts Eau et -20% de récupération d'EP chez l'adversaire."
  },
  "Fahloo": {
   "dmg": 2,
@@ -247,7 +247,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 1,
-  "why": "Version amputee d'Erlath : il reste le ralentissement et le -20% de recuperation d'EP adverse, mais plus aucune generation d'EP."
+  "why": "Version amputée d'Erlath : il reste le ralentissement et le -20% de récupération d'EP adverse, mais plus aucune génération d'EP."
  },
  "Fenmane": {
   "dmg": 9,
@@ -257,7 +257,7 @@
   "res": 0,
   "ctrl": 7,
   "cond": 3,
-  "why": "Stockage de degats detonable a +100%, champ de foudre qui redouble chaque attaque Foudre, et jusqu'a -80% de soins recus."
+  "why": "Stockage de dégâts détonable à +100%, champ de foudre qui redouble chaque attaque Foudre, et jusqu'à -80% de soins reçus."
  },
  "Fennelun": {
   "dmg": 9,
@@ -267,7 +267,7 @@
   "res": 5,
   "ctrl": 3,
   "cond": 1,
-  "why": "+20% de degats quasi permanent, +15% definitif apres l'ultime, et des attaques de base a +100%."
+  "why": "+20% de dégâts quasi permanent, +15% définitif après l'ultime, et des attaques de base à +100%."
  },
  "Fenrier": {
   "dmg": 7,
@@ -277,7 +277,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 1,
-  "why": "Pose 5 cumuls de Givre d'un coup, ce qui declenche seul son +15% de critique ; silence de 4 s en prime."
+  "why": "Pose 5 cumuls de Givre d'un coup, ce qui déclenche seul son +15% de critique ; silence de 4 s en prime."
  },
  "Fentuft": {
   "dmg": 5,
@@ -287,7 +287,7 @@
   "res": 0,
   "ctrl": 3,
   "cond": 3,
-  "why": "Ne garde que le champ de foudre de Fenmane : la condition des 30 cumuls reste, la recompense a disparu."
+  "why": "Ne garde que le champ de foudre de Fenmane : la condition des 30 cumuls reste, la récompense a disparu."
  },
  "Flamerion": {
   "dmg": 6,
@@ -297,7 +297,7 @@
   "res": 9,
   "ctrl": 5,
   "cond": 0,
-  "why": "Le passif garantit 20 cumuls de Feu en permanence, ce qui rend les 28,8 EP de Barrage Fantome inconditionnels."
+  "why": "Le passif garantit 20 cumuls de Feu en permanence, ce qui rend les 28,8 EP de Barrage Fantôme inconditionnels."
  },
  "Flameruff": {
   "dmg": 7,
@@ -307,7 +307,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 2,
-  "why": "Kit identique a Emberpup : +25% en desavantage elementaire et -20% de resistance Feu."
+  "why": "Kit identique à Emberpup : +25% en désavantage élémentaire et -20% de résistance Feu."
  },
  "Flutternym": {
   "dmg": 0,
@@ -317,7 +317,7 @@
   "res": 5,
   "ctrl": 2,
   "cond": 0,
-  "why": "Le paquet complet de soutien : soin de zone, bouclier de 12%, purge totale, +20% de recuperation d'EP et -40% de degats BREAK."
+  "why": "Le paquet complet de soutien : soin de zone, bouclier de 12%, purge totale, +20% de récupération d'EP et -40% de dégâts BREAK."
  },
  "Fragrancier": {
   "dmg": 4,
@@ -327,7 +327,7 @@
   "res": 0,
   "ctrl": 7,
   "cond": 1,
-  "why": "Dewy augmente : +20% de boost Tenebres et +50% sur les attaques de base marquees, en plus du soin et du bouclier."
+  "why": "Dewy augmente : +20% de boost Ténèbres et +50% sur les attaques de base marquées, en plus du soin et du bouclier."
  },
  "Fulmintis": {
   "dmg": 8,
@@ -337,7 +337,7 @@
   "res": 5,
   "ctrl": 7,
   "cond": 1,
-  "why": "+35% de critique sur les competences, un finisher a +100% et une paralysie de 6 s sur coup critique."
+  "why": "+35% de critique sur les compétences, un finisher à +100% et une paralysie de 6 s sur coup critique."
  },
  "Geoclaw": {
   "dmg": 5,
@@ -347,7 +347,7 @@
   "res": 0,
   "ctrl": 7,
   "cond": 1,
-  "why": "+35% de BREAK sur cible givree, et son propre kit entretient les cumuls tout seul."
+  "why": "+35% de BREAK sur cible givrée, et son propre kit entretient les cumuls tout seul."
  },
  "Geodeback": {
   "dmg": 3,
@@ -357,7 +357,7 @@
   "res": 0,
   "ctrl": 1,
   "cond": 1,
-  "why": "+20% de BREAK en creusant, mais deux competences sans aucun effet autour."
+  "why": "+20% de BREAK en creusant, mais deux compétences sans aucun effet autour."
  },
  "Glacy": {
   "dmg": 3,
@@ -367,7 +367,7 @@
   "res": 3,
   "ctrl": 0,
   "cond": 1,
-  "why": "+15% de degats pour toute l'equipe sans verrou elementaire, double d'un soin instantane de 15% a l'ultime."
+  "why": "+15% de dégâts pour toute l'équipe sans verrou élémentaire, double d'un soin instantané de 15% à l'ultime."
  },
  "Glynsera": {
   "dmg": 8,
@@ -377,7 +377,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 2,
-  "why": "Le kit Givre le plus complet : 5 cumuls poses d'un coup, +15% de critique, et une detonation a +85% a 10 cumuls."
+  "why": "Le kit Givre le plus complet : 5 cumuls poses d'un coup, +15% de critique, et une détonation à +85% à 10 cumuls."
  },
  "Gracewing": {
   "dmg": 0,
@@ -387,7 +387,7 @@
   "res": 8,
   "ctrl": 2,
   "cond": 0,
-  "why": "Flutternym avec en plus 30% de soin instantane a l'ultime et deux lucioles qui rendent 20 EP a toute l'equipe."
+  "why": "Flutternym avec en plus 30% de soin instantané à l'ultime et deux lucioles qui rendent 20 EP à toute l'équipe."
  },
  "Grizbo": {
   "dmg": 9,
@@ -397,7 +397,7 @@
   "res": 5,
   "ctrl": 7,
   "cond": 1,
-  "why": "Cubbo pousse au bout : 12 marques au lieu de 6 et un ultime qui offre l'etat Enrage instantanement."
+  "why": "Cubbo poussé au bout : 12 marques au lieu de 6 et un ultime qui offre l'état Enragé instantanément."
  },
  "Helgon": {
   "dmg": 4,
@@ -407,7 +407,7 @@
   "res": 0,
   "ctrl": 4,
   "cond": 2,
-  "why": "Jusqu'a +45% d'efficacite BREAK cumulee, mais tout depend d'encaisser ou de parer au bon moment."
+  "why": "Jusqu'à +45% d'efficacité BREAK cumulée, mais tout dépend d'encaisser ou de parer au bon moment."
  },
  "Helion": {
   "dmg": 9,
@@ -417,7 +417,7 @@
   "res": 6,
   "ctrl": 5,
   "cond": 2,
-  "why": "Empile +20% quasi permanent, +15% definitif, deux fois +30% et +18% d'amplification Lumiere."
+  "why": "Empile +20% quasi permanent, +15% définitif, deux fois +30% et +18% d'amplification Lumière."
  },
  "Helmut": {
   "dmg": 4,
@@ -427,7 +427,7 @@
   "res": 0,
   "ctrl": 4,
   "cond": 1,
-  "why": "Son passif annonce litteralement +0 de BREAK ; il ne reste qu'une posture a -20% de degats subis et un etourdissement d'1 s."
+  "why": "Son passif annonce littéralement +0 de BREAK ; il ne reste qu'une posture à -20% de dégâts subis et un étourdissement d'1 s."
  },
  "Helmwhelp": {
   "dmg": 3,
@@ -447,7 +447,7 @@
   "res": 4,
   "ctrl": 9,
   "cond": 1,
-  "why": "-44% de soins recus et -44% de boucliers sur la cible, plus un trou noir qui l'aspire : le meilleur outil anti-soutien du roster."
+  "why": "-44% de soins reçus et -44% de boucliers sur la cible, plus un trou noir qui l'aspire : le meilleur outil anti-soutien du roster."
  },
  "Highland Pomegg": {
   "dmg": 6,
@@ -457,7 +457,7 @@
   "res": 0,
   "ctrl": 8,
   "cond": 2,
-  "why": "+20% de critique a 6 cumuls, mais son vrai atout est le controle : silence de 4 s et gel de 2,5 s."
+  "why": "+20% de critique à 6 cumuls, mais son vrai atout est le contrôle : silence de 4 s et gel de 2,5 s."
  },
  "Hummin": {
   "dmg": 2,
@@ -467,7 +467,7 @@
   "res": 3,
   "ctrl": 0,
   "cond": 1,
-  "why": "+2% de degats BREAK par tranche de 1 000 PV max : tout repose sur l'investissement en PV, le reste du kit est vide."
+  "why": "+2% de dégâts BREAK par tranche de 1 000 PV max : tout repose sur l'investissement en PV, le reste du kit est vide."
  },
  "Ignitis": {
   "dmg": 10,
@@ -477,7 +477,7 @@
   "res": 0,
   "ctrl": 2,
   "cond": 3,
-  "why": "Le plus gros empilement de degats du roster (+50% sur elimination, +32%, +50% en execution, +40% en base), mais tout est conditionne."
+  "why": "Le plus gros empilement de dégâts du roster (+50% sur élimination, +32%, +50% en exécution, +40% en base), mais tout est conditionné."
  },
  "Infergon": {
   "dmg": 8,
@@ -487,7 +487,7 @@
   "res": 0,
   "ctrl": 3,
   "cond": 1,
-  "why": "+30% de degats sur cible enflammee, et ses propres competences posent 8 cumuls d'un coup : la condition se remplit seule."
+  "why": "+30% de dégâts sur cible enflammée, et ses propres compétences posent 8 cumuls d'un coup : la condition se remplit seule."
  },
  "Inferlupa": {
   "dmg": 7,
@@ -497,7 +497,7 @@
   "res": 0,
   "ctrl": 2,
   "cond": 2,
-  "why": "+30% d'efficacite BREAK propage par ricochets sur plusieurs cibles, et +45% de Puissance en Pleine Energie."
+  "why": "+30% d'efficacité BREAK propage par ricochets sur plusieurs cibles, et +45% de Puissance en Pleine Énergie."
  },
  "Iris": {
   "dmg": 6,
@@ -507,7 +507,7 @@
   "res": 4,
   "ctrl": 0,
   "cond": 3,
-  "why": "+30% d'amplification mais uniquement sur Gazon, qu'il ne sait pas creer lui-meme : il lui faut Leafy dans l'equipe."
+  "why": "+30% d'amplification mais uniquement sur Gazon, qu'il ne sait pas créer lui-même : il lui faut Leafy dans l'équipe."
  },
  "Irisal": {
   "dmg": 7,
@@ -517,7 +517,7 @@
   "res": 4,
   "ctrl": 0,
   "cond": 3,
-  "why": "Meme dependance au Gazon qu'Iris, avec un ultime et un rayon focalise en plus."
+  "why": "Même dépendance au Gazon qu'Iris, avec un ultime et un rayon focalise en plus."
  },
  "Irisalis": {
   "dmg": 7,
@@ -527,7 +527,7 @@
   "res": 5,
   "ctrl": 0,
   "cond": 2,
-  "why": "Armee de clones qui redouble chaque attaque, -50% de cout d'EP, et surtout une auto-resurrection toutes les 180 s."
+  "why": "Armée de clones qui redouble chaque attaque, -50% de coût d'EP, et surtout une auto-résurrection toutes les 180 s."
  },
  "Jawling": {
   "dmg": 3,
@@ -537,7 +537,7 @@
   "res": 0,
   "ctrl": 1,
   "cond": 2,
-  "why": "Kit identique a Helmwhelp : +25% de BREAK apres avoir encaisse, et rien de plus."
+  "why": "Kit identique à Helmwhelp : +25% de BREAK après avoir encaisse, et rien de plus."
  },
  "Lavazar": {
   "dmg": 5,
@@ -547,7 +547,7 @@
   "res": 0,
   "ctrl": 3,
   "cond": 2,
-  "why": "Applique du Feu en zone tout seul une fois 50 EP depenses, puis detonne les cumuls a +5% de Puissance chacun."
+  "why": "Applique du Feu en zone tout seul une fois 50 EP dépensés, puis détonne les cumuls à +5% de Puissance chacun."
  },
  "Leafy": {
   "dmg": 2,
@@ -557,7 +557,7 @@
   "res": 8,
   "ctrl": 6,
   "cond": 2,
-  "why": "Seul fournisseur de Gazon du roster, 28,8 EP et un soin continu pour les allies Herbe, plus l'etourdissement le plus long (3 s)."
+  "why": "Seul fournisseur de Gazon du roster, 28,8 EP et un soin continu pour les alliés Herbe, plus l'étourdissement le plus long (3 s)."
  },
  "Luminelle": {
   "dmg": 3,
@@ -567,7 +567,7 @@
   "res": 5,
   "ctrl": 3,
   "cond": 2,
-  "why": "Empile +12%, +20%, +27% de degats et +16% de BREAK, mais tout est verrouille sur la Foudre ; seul le soin de 2%/s vaut pour tout le monde."
+  "why": "Empile +12%, +20%, +27% de dégâts et +16% de BREAK, mais tout est verrouillé sur la Foudre ; seul le soin de 2%/s vaut pour tout le monde."
  },
  "Lunara": {
   "dmg": 9,
@@ -577,7 +577,7 @@
   "res": 0,
   "ctrl": 3,
   "cond": 1,
-  "why": "Le noyau de Fennelun (+20% permanent, +15% definitif, attaques de base a +100%) sans le regain d'EP ni la competence BREAK."
+  "why": "Le noyau de Fennelun (+20% permanent, +15% définitif, attaques de base à +100%) sans le regain d'EP ni la compétence BREAK."
  },
  "Magmarex": {
   "dmg": 7,
@@ -587,7 +587,7 @@
   "res": 0,
   "ctrl": 8,
   "cond": 1,
-  "why": "Lavazar complet : deux etourdissements (3,5 s et 2,5 s) et un ultime qui grossit avec les cumuls qu'il pose lui-meme."
+  "why": "Lavazar complet : deux étourdissements (3,5 s et 2,5 s) et un ultime qui grossit avec les cumuls qu'il pose lui-même."
  },
  "Malangel": {
   "dmg": 6,
@@ -597,7 +597,7 @@
   "res": 0,
   "ctrl": 0,
   "cond": 2,
-  "why": "Jusqu'a +48% de degats en se mettant en danger, une rafale sans temps de recharge a -20% de degats subis, et rien d'autre."
+  "why": "Jusqu'à +48% de dégâts en se mettant en danger, une rafale sans temps de recharge à -20% de dégâts subis, et rien d'autre."
  },
  "Malevsera": {
   "dmg": 8,
@@ -607,7 +607,7 @@
   "res": 3,
   "ctrl": 0,
   "cond": 2,
-  "why": "Les +48% de Soif de sang et les +30% d'Etat demoniaque se composent, l'etat payant les competences en PV au lieu d'EP et rendant jusqu'a 50% des PV max en sortant."
+  "why": "Les +48% de Soif de sang et les +30% d'État démoniaque se composent, l'état payant les compétences en PV au lieu d'EP et rendant jusqu'à 50% des PV max en sortant."
  },
  "Melloblum": {
   "dmg": 5,
@@ -617,7 +617,7 @@
   "res": 6,
   "ctrl": 1,
   "cond": 2,
-  "why": "+70% de degats critiques Herbe pour l'equipe, le plus gros multiplicateur collectif du roster, mais il exige une composition Herbe critique."
+  "why": "+70% de dégâts critiques Herbe pour l'équipe, le plus gros multiplicateur collectif du roster, mais il exige une composition Herbe critique."
  },
  "Minespine": {
   "dmg": 5,
@@ -627,7 +627,7 @@
   "res": 0,
   "ctrl": 1,
   "cond": 1,
-  "why": "Geodeback avec un ultime et une onde sismique : meme +20% de BREAK en creusant, mais des degats autour."
+  "why": "Geodeback avec un ultime et une onde sismique : même +20% de BREAK en creusant, mais des dégâts autour."
  },
  "Nighttime Bonesky": {
   "dmg": 7,
@@ -637,7 +637,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 1,
-  "why": "Kit identique a Fenrier : 5 cumuls de Givre poses d'un coup, +15% de critique, silence de 4 s."
+  "why": "Kit identique à Fenrier : 5 cumuls de Givre poses d'un coup, +15% de critique, silence de 4 s."
  },
  "Nimbi": {
   "dmg": 5,
@@ -647,7 +647,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 2,
-  "why": "Bouclier personnel de 15 a 18% des PV et une paralysie de 5 s, mais rigoureusement rien pour les allies."
+  "why": "Bouclier personnel de 15 à 18% des PV et une paralysie de 5 s, mais rigoureusement rien pour les alliés."
  },
  "Panpanta": {
   "dmg": 7,
@@ -657,7 +657,7 @@
   "res": 0,
   "ctrl": 2,
   "cond": 3,
-  "why": "Deux sources de +30% de BREAK et des degats de competence doubles, mais l'une exige un Susuta du sexe oppose et l'autre de l'eau a proximite."
+  "why": "Deux sources de +30% de BREAK et des dégâts de compétence doubles, mais l'une exige un Susuta du sexe opposé et l'autre de l'eau à proximité."
  },
  "Pawney": {
   "dmg": 8,
@@ -667,7 +667,7 @@
   "res": 3,
   "ctrl": 5,
   "cond": 2,
-  "why": "Deux fois +30% de degats sur cible brisee ou controlee : le DPS taille pour capitaliser sur un briseur allie."
+  "why": "Deux fois +30% de dégâts sur cible brisée ou contrôlée : le DPS taille pour capitaliser sur un briseur allié."
  },
  "Pebbling": {
   "dmg": 3,
@@ -677,7 +677,7 @@
   "res": 0,
   "ctrl": 1,
   "cond": 1,
-  "why": "Kit identique a Geodeback : +20% de BREAK en creusant, deux competences sans effet."
+  "why": "Kit identique à Geodeback : +20% de BREAK en creusant, deux compétences sans effet."
  },
  "Piopiota": {
   "dmg": 3,
@@ -687,7 +687,7 @@
   "res": 0,
   "ctrl": 1,
   "cond": 2,
-  "why": "Surf cree les 4 flaques que Deferlante consomme : le soin double a chaque flaque, et Maree Sombre monte jusqu'a -60% de degats BREAK subis."
+  "why": "Surf crée les 4 flaques que Déferlante consomme : le soin double à chaque flaque, et Marée Sombre monte jusqu'à -60% de dégâts BREAK subis."
  },
  "Pomawk": {
   "dmg": 6,
@@ -697,7 +697,7 @@
   "res": 0,
   "ctrl": 8,
   "cond": 1,
-  "why": "Pomegg complet : l'ultime remplit le Volume d'un coup et le relachement bien calibre ajoute +30% de degats BREAK."
+  "why": "Pomegg complet : l'ultime remplit le Volume d'un coup et le relâchement bien calibré ajoute +30% de dégâts BREAK."
  },
  "Pomegg": {
   "dmg": 5,
@@ -707,7 +707,7 @@
   "res": 0,
   "ctrl": 8,
   "cond": 2,
-  "why": "Le socle de la famille : silence de 4 s et gel de 2,5 s, mais il faut monter les 6 cumuls a la main pour le +20% de critique."
+  "why": "Le socle de la famille : silence de 4 s et gel de 2,5 s, mais il faut monter les 6 cumuls à la main pour le +20% de critique."
  },
  "Popota": {
   "dmg": 3,
@@ -717,7 +717,7 @@
   "res": 0,
   "ctrl": 2,
   "cond": 3,
-  "why": "Le +30% de BREAK est la, mais conditionne a un Susuta du sexe oppose dans l'equipe, et le reste du kit est vide."
+  "why": "Le +30% de BREAK est là, mais conditionné à un Susuta du sexe opposé dans l'équipe, et le reste du kit est vide."
  },
  "Pranky": {
   "dmg": 2,
@@ -727,7 +727,7 @@
   "res": 3,
   "ctrl": 0,
   "cond": 1,
-  "why": "Le noyau de soin de Glacy et rien d'autre : ni ultime, ni buff d'equipe."
+  "why": "Le noyau de soin de Glacy et rien d'autre : ni ultime, ni buff d'équipe."
  },
  "Prismana Blazen": {
   "dmg": 8,
@@ -737,7 +737,7 @@
   "res": 5,
   "ctrl": 4,
   "cond": 2,
-  "why": "Kit identique a Blazen : +50% de critique sur deux competences, couts d'EP reduits, mais l'etat Surcharge bloque le gain d'UP."
+  "why": "Kit identique à Blazen : +50% de critique sur deux compétences, coûts d'EP réduits, mais l'état Surcharge bloque le gain d'UP."
  },
  "Prismana Cornet": {
   "dmg": 8,
@@ -747,7 +747,7 @@
   "res": 0,
   "ctrl": 7,
   "cond": 1,
-  "why": "Kit identique a Cornet : +20% de critique en vol, +30% de degats et une paralysie de 5 s."
+  "why": "Kit identique à Cornet : +20% de critique en vol, +30% de dégâts et une paralysie de 5 s."
  },
  "Prismana Fenmane": {
   "dmg": 9,
@@ -757,7 +757,7 @@
   "res": 0,
   "ctrl": 7,
   "cond": 3,
-  "why": "Kit identique a Fenmane : stockage de degats a +100%, champ de foudre et jusqu'a -80% de soins recus."
+  "why": "Kit identique à Fenmane : stockage de dégâts à +100%, champ de foudre et jusqu'à -80% de soins reçus."
  },
  "Prismana Fulmintis": {
   "dmg": 8,
@@ -767,7 +767,7 @@
   "res": 5,
   "ctrl": 7,
   "cond": 1,
-  "why": "Fulmintis qui recupere le buff de Luminelle : +27% d'attaques de base et +16% de BREAK pour les equipiers Foudre, en plus de son +35% de critique."
+  "why": "Fulmintis qui récupère le buff de Luminelle : +27% d'attaques de base et +16% de BREAK pour les équipiers Foudre, en plus de son +35% de critique."
  },
  "Prismana Glacy": {
   "dmg": 3,
@@ -777,7 +777,7 @@
   "res": 3,
   "ctrl": 0,
   "cond": 1,
-  "why": "Kit identique a Glacy : +15% de degats pour toute l'equipe sans verrou elementaire et 15% de soin instantane."
+  "why": "Kit identique à Glacy : +15% de dégâts pour toute l'équipe sans verrou élémentaire et 15% de soin instantané."
  },
  "Prismana Glynsera": {
   "dmg": 8,
@@ -787,7 +787,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 2,
-  "why": "Kit identique a Glynsera : 5 cumuls de Givre poses d'un coup et une detonation a +85%."
+  "why": "Kit identique à Glynsera : 5 cumuls de Givre poses d'un coup et une détonation à +85%."
  },
  "Prismana Grizbo": {
   "dmg": 9,
@@ -797,7 +797,7 @@
   "res": 5,
   "ctrl": 7,
   "cond": 1,
-  "why": "Kit identique a Grizbo : 12 marques et un ultime qui offre l'etat Enrage instantanement."
+  "why": "Kit identique à Grizbo : 12 marques et un ultime qui offre l'état Enragé instantanément."
  },
  "Prismana Hexxin": {
   "dmg": 6,
@@ -807,7 +807,7 @@
   "res": 4,
   "ctrl": 9,
   "cond": 1,
-  "why": "Kit identique a Hexxin : -44% de soins recus, -44% de boucliers et un trou noir."
+  "why": "Kit identique à Hexxin : -44% de soins reçus, -44% de boucliers et un trou noir."
  },
  "Prismana Ignitis": {
   "dmg": 10,
@@ -817,7 +817,7 @@
   "res": 0,
   "ctrl": 2,
   "cond": 3,
-  "why": "Kit identique a Ignitis : le plus gros empilement de degats du roster, entierement conditionne."
+  "why": "Kit identique à Ignitis : le plus gros empilement de dégâts du roster, entièrement conditionné."
  },
  "Prismana Infergon": {
   "dmg": 8,
@@ -827,7 +827,7 @@
   "res": 0,
   "ctrl": 3,
   "cond": 1,
-  "why": "Infergon plus une charge qui renvoie les projectiles : meme +30% sur cible enflammee, un peu plus de survie."
+  "why": "Infergon plus une charge qui renvoie les projectiles : même +30% sur cible enflammée, un peu plus de survie."
  },
  "Prismana Inferlupa": {
   "dmg": 7,
@@ -837,7 +837,7 @@
   "res": 0,
   "ctrl": 2,
   "cond": 2,
-  "why": "Inferlupa avec une invocation supplementaire sous Super Armure : meme +30% de BREAK propage par ricochets."
+  "why": "Inferlupa avec une invocation supplémentaire sous Super Armure : même +30% de BREAK propage par ricochets."
  },
  "Prismana Iris": {
   "dmg": 6,
@@ -847,7 +847,7 @@
   "res": 4,
   "ctrl": 0,
   "cond": 3,
-  "why": "Kit identique a Iris : +30% d'amplification sur Gazon, qu'il ne sait pas creer lui-meme."
+  "why": "Kit identique à Iris : +30% d'amplification sur Gazon, qu'il ne sait pas créer lui-même."
  },
  "Prismana Irisal": {
   "dmg": 7,
@@ -857,7 +857,7 @@
   "res": 4,
   "ctrl": 0,
   "cond": 3,
-  "why": "Kit identique a Irisal : meme dependance au Gazon, avec un ultime et un rayon focalise."
+  "why": "Kit identique à Irisal : même dépendance au Gazon, avec un ultime et un rayon focalise."
  },
  "Prismana Luminelle": {
   "dmg": 3,
@@ -867,7 +867,7 @@
   "res": 5,
   "ctrl": 3,
   "cond": 2,
-  "why": "Kit identique a Luminelle : +12%, +20%, +27% de degats et +16% de BREAK, mais tout verrouille sur la Foudre."
+  "why": "Kit identique à Luminelle : +12%, +20%, +27% de dégâts et +16% de BREAK, mais tout verrouillé sur la Foudre."
  },
  "Prismana Magmarex": {
   "dmg": 7,
@@ -877,7 +877,7 @@
   "res": 0,
   "ctrl": 8,
   "cond": 1,
-  "why": "Kit identique a Magmarex : deux etourdissements (3,5 s et 2,5 s) et un ultime qui grossit avec ses propres cumuls."
+  "why": "Kit identique à Magmarex : deux étourdissements (3,5 s et 2,5 s) et un ultime qui grossit avec ses propres cumuls."
  },
  "Prismana Melloblum": {
   "dmg": 5,
@@ -887,7 +887,7 @@
   "res": 6,
   "ctrl": 1,
   "cond": 2,
-  "why": "Melloblum plus une purge complete de l'equipe : meme +70% de degats critiques Herbe, avec le retrait des effets negatifs en plus."
+  "why": "Melloblum plus une purge complète de l'équipe : même +70% de dégâts critiques Herbe, avec le retrait des effets négatifs en plus."
  },
  "Prismana Panpanta": {
   "dmg": 7,
@@ -897,7 +897,7 @@
   "res": 0,
   "ctrl": 2,
   "cond": 3,
-  "why": "Kit identique a Panpanta : deux sources de +30% de BREAK, l'une exigeant un Susuta du sexe oppose, l'autre de l'eau."
+  "why": "Kit identique à Panpanta : deux sources de +30% de BREAK, l'une exigeant un Susuta du sexe opposé, l'autre de l'eau."
  },
  "Prismana Pawney": {
   "dmg": 8,
@@ -907,7 +907,7 @@
   "res": 3,
   "ctrl": 5,
   "cond": 2,
-  "why": "Kit identique a Pawney : deux fois +30% de degats sur cible brisee ou controlee."
+  "why": "Kit identique à Pawney : deux fois +30% de dégâts sur cible brisée ou contrôlée."
  },
  "Prismana Scorchhowl": {
   "dmg": 9,
@@ -917,7 +917,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 2,
-  "why": "Kit identique a Scorchhowl : un finisher a +30% de degats par tranche de 10 d'Energie consommee, sans plafond annonce."
+  "why": "Kit identique à Scorchhowl : un finisher à +30% de dégâts par tranche de 10 d'Énergie consommée, sans plafond annoncé."
  },
  "Prismana Sherro": {
   "dmg": 9,
@@ -927,7 +927,7 @@
   "res": 0,
   "ctrl": 0,
   "cond": 2,
-  "why": "Kit identique a Sherro : tout s'amplifie pres de l'eau (+70%, +45%, deux fois +30%) et il se fournit ses propres flaques."
+  "why": "Kit identique à Sherro : tout s'amplifie près de l'eau (+70%, +45%, deux fois +30%) et il se fournit ses propres flaques."
  },
  "Prismana Stellarys": {
   "dmg": 8,
@@ -937,7 +937,7 @@
   "res": 4,
   "ctrl": 4,
   "cond": 2,
-  "why": "+15% cumulable sur 15 paliers, un clone intouchable qui copie 20% des degats, et une rupture de controle instantanee."
+  "why": "+15% cumulable sur 15 paliers, un clone intouchable qui copie 20% des dégâts, et une rupture de contrôle instantanée."
  },
  "Prismana Thornblade": {
   "dmg": 8,
@@ -947,7 +947,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 2,
-  "why": "Budsquire complet : +180% sur les attaques chargees, jusqu'a +45% de critique, et une parade qui verrouille la cible 12 s."
+  "why": "Budsquire complet : +180% sur les attaques chargées, jusqu'à +45% de critique, et une parade qui verrouille la cible 12 s."
  },
  "Prismana Turbo": {
   "dmg": 5,
@@ -957,7 +957,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 2,
-  "why": "Le meilleur buff collectif du roster : +30% de degats ET +30% d'efficacite BREAK pour tout le monde, sans verrou elementaire, plus 42% de PV en ramassages."
+  "why": "Le meilleur buff collectif du roster : +30% de dégâts ET +30% d'efficacité BREAK pour tout le monde, sans verrou élémentaire, plus 42% de PV en ramassages."
  },
  "Prismana Waleetle": {
   "dmg": 9,
@@ -967,7 +967,7 @@
   "res": 4,
   "ctrl": 0,
   "cond": 2,
-  "why": "+40%, +32%, une frequence de degats qui double a cout d'EP constant, et +400% contre les boucliers."
+  "why": "+40%, +32%, une fréquence de dégâts qui double à coût d'EP constant, et +400% contre les boucliers."
  },
  "Reefish": {
   "dmg": 3,
@@ -977,7 +977,7 @@
   "res": 4,
   "ctrl": 6,
   "cond": 2,
-  "why": "Piege de corail qui empile la Fragilite Terre et sable mouvant qui emprisonne 2 s ; l'EP d'entree de combat ne sert qu'a lui et se compte en allies Terre."
+  "why": "Piège de corail qui empile la Fragilité Terre et sable mouvant qui emprisonne 2 s ; l'EP d'entrée de combat ne sert qu'à lui et se compte en alliés Terre."
  },
  "Rookey": {
   "dmg": 5,
@@ -987,7 +987,7 @@
   "res": 0,
   "ctrl": 4,
   "cond": 1,
-  "why": "Helmut enfin utile : +15% de degats BREAK subis par la cible, propage jusqu'a 10 fois, au benefice de toute l'equipe."
+  "why": "Helmut enfin utile : +15% de dégâts BREAK subis par la cible, propage jusqu'à 10 fois, au bénéfice de toute l'équipe."
  },
  "Scorchhowl": {
   "dmg": 9,
@@ -997,7 +997,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 2,
-  "why": "Emberpup arme d'un finisher : +30% de degats par tranche de 10 d'Energie consommee, sans plafond annonce."
+  "why": "Emberpup armé d'un finisher : +30% de dégâts par tranche de 10 d'Énergie consommée, sans plafond annoncé."
  },
  "Sheldon": {
   "dmg": 5,
@@ -1007,7 +1007,7 @@
   "res": 0,
   "ctrl": 0,
   "cond": 2,
-  "why": "Boucle d'eau minimale : il cree une flaque, la consomme pour +30% de Puissance et +15% de degats, et c'est tout."
+  "why": "Boucle d'eau minimale : il crée une flaque, la consomme pour +30% de Puissance et +15% de dégâts, et c'est tout."
  },
  "Shelly": {
   "dmg": 5,
@@ -1017,7 +1017,7 @@
   "res": 0,
   "ctrl": 0,
   "cond": 2,
-  "why": "Kit identique a Sheldon : la boucle de flaques, sans rien autour."
+  "why": "Kit identique à Sheldon : la boucle de flaques, sans rien autour."
  },
  "Sherro": {
   "dmg": 9,
@@ -1027,7 +1027,7 @@
   "res": 0,
   "ctrl": 0,
   "cond": 2,
-  "why": "Tout son kit s'amplifie pres de l'eau (+70%, +45%, deux fois +30%) et Torrent Roulant lui fournit lui-meme les flaques."
+  "why": "Tout son kit s'amplifie près de l'eau (+70%, +45%, deux fois +30%) et Torrent Roulant lui fournit lui-même les flaques."
  },
  "Shrubclaw": {
   "dmg": 7,
@@ -1037,7 +1037,7 @@
   "res": 0,
   "ctrl": 4,
   "cond": 2,
-  "why": "Budclaw avec un ultime de zone et une frappe chargee : meme +30% d'efficacite BREAK a cumuls pleins."
+  "why": "Budclaw avec un ultime de zone et une frappe chargée : même +30% d'efficacité BREAK à cumuls pleins."
  },
  "Skippy": {
   "dmg": 2,
@@ -1047,7 +1047,7 @@
   "res": 3,
   "ctrl": 0,
   "cond": 1,
-  "why": "Kit identique a Pranky : le noyau de soin de Glacy, sans ultime ni buff d'equipe."
+  "why": "Kit identique à Pranky : le noyau de soin de Glacy, sans ultime ni buff d'équipe."
  },
  "Snowfield Pawney": {
   "dmg": 8,
@@ -1057,7 +1057,7 @@
   "res": 3,
   "ctrl": 5,
   "cond": 2,
-  "why": "Kit identique a Pawney : deux fois +30% de degats sur cible brisee ou controlee."
+  "why": "Kit identique à Pawney : deux fois +30% de dégâts sur cible brisée ou contrôlée."
  },
  "Snowfield Pomawk": {
   "dmg": 6,
@@ -1067,7 +1067,7 @@
   "res": 0,
   "ctrl": 8,
   "cond": 1,
-  "why": "Kit identique a Pomawk : l'ultime remplit le Volume d'un coup et le relachement calibre ajoute +30% de degats BREAK."
+  "why": "Kit identique à Pomawk : l'ultime remplit le Volume d'un coup et le relâchement calibré ajoute +30% de dégâts BREAK."
  },
  "Somniwing": {
   "dmg": 6,
@@ -1077,7 +1077,7 @@
   "res": 9,
   "ctrl": 7,
   "cond": 1,
-  "why": "36 EP d'un coup, +24% de recuperation d'EP pour les equipiers, et un sommeil qui majore de 25% les degats subis par la cible."
+  "why": "36 EP d'un coup, +24% de récupération d'EP pour les équipiers, et un sommeil qui majore de 25% les dégâts subis par la cible."
  },
  "Sparki": {
   "dmg": 5,
@@ -1087,7 +1087,7 @@
   "res": 0,
   "ctrl": 4,
   "cond": 1,
-  "why": "Il porte les 20 cumuls de Feu de Flamerion mais pas Barrage Fantome qui les convertissait en EP : son passif ne sert plus a rien."
+  "why": "Il porte les 20 cumuls de Feu de Flamerion mais pas Barrage Fantôme qui les convertissait en EP : son passif ne sert plus à rien."
  },
  "Squarrel": {
   "dmg": 7,
@@ -1097,7 +1097,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 1,
-  "why": "Boucle simple et forte : chaque competence charge une attaque de base a 25 de Puissance au lieu de 4, et la marque detonne a +50% avec etourdissement."
+  "why": "Boucle simple et forte : chaque compétence charge une attaque de base à 25 de Puissance au lieu de 4, et la marque détonne à +50% avec étourdissement."
  },
  "Squashel": {
   "dmg": 9,
@@ -1107,7 +1107,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 1,
-  "why": "Squarrel complet : la meme boucle, plus une Rafale de Poings a 60 de Puissance et un ultime."
+  "why": "Squarrel complet : la même boucle, plus une Rafale de Poings à 60 de Puissance et un ultime."
  },
  "Stellarys": {
   "dmg": 8,
@@ -1117,7 +1117,7 @@
   "res": 4,
   "ctrl": 4,
   "cond": 2,
-  "why": "+15% cumulable sur 15 paliers, un clone intouchable qui copie 20% des degats, et une rupture de controle instantanee."
+  "why": "+15% cumulable sur 15 paliers, un clone intouchable qui copie 20% des dégâts, et une rupture de contrôle instantanée."
  },
  "Susuta": {
   "dmg": 3,
@@ -1127,7 +1127,7 @@
   "res": 0,
   "ctrl": 2,
   "cond": 3,
-  "why": "Kit identique a Popota : le +30% de BREAK exige un Susuta du sexe oppose dans l'equipe, et il n'y a rien autour."
+  "why": "Kit identique à Popota : le +30% de BREAK exige un Susuta du sexe opposé dans l'équipe, et il n'y a rien autour."
  },
  "Thornblade": {
   "dmg": 8,
@@ -1137,7 +1137,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 2,
-  "why": "Budsquire complet : +180% sur les attaques chargees, jusqu'a +45% de critique, et une parade qui verrouille la cible 12 s."
+  "why": "Budsquire complet : +180% sur les attaques chargées, jusqu'à +45% de critique, et une parade qui verrouille la cible 12 s."
  },
  "Tromber": {
   "dmg": 5,
@@ -1147,7 +1147,7 @@
   "res": 4,
   "ctrl": 7,
   "cond": 2,
-  "why": "+25% de degats Vent pour toute l'equipe, -15% de resistance Vent, et +27% de degats critiques pour lui-meme."
+  "why": "+25% de dégâts Vent pour toute l'équipe, -15% de résistance Vent, et +27% de dégâts critiques pour lui-même."
  },
  "Tubster": {
   "dmg": 4,
@@ -1157,7 +1157,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 1,
-  "why": "+40% d'efficacite BREAK des qu'il porte un bouclier, et Garde de Bourrasque lui en fournit un ; son ultime donne 35% de reduction de degats a l'equipe."
+  "why": "+40% d'efficacité BREAK des qu'il porte un bouclier, et Garde de Bourrasque lui en fournit un ; son ultime donne 35% de réduction de dégâts à l'équipe."
  },
  "Tuckin": {
   "dmg": 7,
@@ -1167,7 +1167,7 @@
   "res": 0,
   "ctrl": 4,
   "cond": 2,
-  "why": "Quatre corps qui frappent ensemble, +20% d'efficacite BREAK et 2% de PV par seconde ; la valeur de son passif d'echelle PV est absente de la source."
+  "why": "Quatre corps qui frappent ensemble, +20% d'efficacité BREAK et 2% de PV par seconde ; la valeur de son passif d'échelle PV est absente de la source."
  },
  "Turbo": {
   "dmg": 5,
@@ -1177,7 +1177,7 @@
   "res": 0,
   "ctrl": 6,
   "cond": 2,
-  "why": "Le meilleur buff collectif du roster : +30% de degats ET +30% d'efficacite BREAK pour tout le monde, sans verrou elementaire, plus 42% de PV en ramassages."
+  "why": "Le meilleur buff collectif du roster : +30% de dégâts ET +30% d'efficacité BREAK pour tout le monde, sans verrou élémentaire, plus 42% de PV en ramassages."
  },
  "Veilfloat": {
   "dmg": 2,
@@ -1187,7 +1187,7 @@
   "res": 0,
   "ctrl": 3,
   "cond": 2,
-  "why": "Kit identique a Bulbly : +12% de degats Foudre et un soin continu, reserves aux seuls equipiers Foudre."
+  "why": "Kit identique à Bulbly : +12% de dégâts Foudre et un soin continu, réserves aux seuls équipiers Foudre."
  },
  "Waleetle": {
   "dmg": 8,
@@ -1197,7 +1197,7 @@
   "res": 4,
   "ctrl": 0,
   "cond": 2,
-  "why": "+40%, +32% et une frequence de degats qui double a cout d'EP constant, mais sans la frappe a +400% contre les boucliers."
+  "why": "+40%, +32% et une fréquence de dégâts qui double à coût d'EP constant, mais sans la frappe à +400% contre les boucliers."
  },
  "Wavwal": {
   "dmg": 4,
@@ -1207,7 +1207,7 @@
   "res": 0,
   "ctrl": 5,
   "cond": 3,
-  "why": "Le meme +40% de BREAK que Cheekie, mais son ultime bouclie toute l'equipe a hauteur de 55% de ses PV manquants : la condition qui l'affaiblit est celle qui alimente ce qu'il donne."
+  "why": "Le même +40% de BREAK que Cheekie, mais son ultime protège toute l'équipe d'un bouclier à hauteur de 55% de ses PV manquants : la condition qui l'affaiblit est celle qui alimente ce qu'il donne."
  },
  "Wisptis": {
   "dmg": 8,
@@ -1217,6 +1217,6 @@
   "res": 0,
   "ctrl": 0,
   "cond": 3,
-  "why": "Ignitis ampute de l'execution et de l'ultime : il reste +50% sur elimination, +32% en rotation et +40% en attaque de base."
+  "why": "Ignitis amputé de l'exécution et de l'ultime : il reste +50% sur élimination, +32% en rotation et +40% en attaque de base."
  }
 }

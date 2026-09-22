@@ -93,10 +93,10 @@ GRADES = [["Commun", 66.0], ["Bon", 26.0], ["Elite", 7.2], ["Parfait", 0.8]]
 # de la forme parfaite que le joueur doit viser, et parce que deux de ses effets
 # (degats, critique, reduction) ne sont meme pas des statistiques.
 PERSO = [
-    [["E", "Energique", "ATQ +2%, BREAK +2%"], ["I", "Instinctif", "REGEN +4%"]],
-    [["S", "Pratique", "Degats +4%"], ["N", "Agile", "Taux critique +5%"]],
-    [["T", "Tenace", "DEF.P +6%"], ["F", "Fidele", "DEF.M +6%"]],
-    [["J", "Judicieux", "PV +4%"], ["P", "Joueur", "Reduction de degats +4%"]],
+    [["E", "Énergique", "ATQ +2%, BREAK +2%"], ["I", "Instinctif", "REGEN +4%"]],
+    [["S", "Pratique", "Dégâts +4%"], ["N", "Agile", "Taux critique +5%"]],
+    [["T", "Tenace", "DEF.P +6%"], ["F", "Fidèle", "DEF.M +6%"]],
+    [["J", "Judicieux", "PV +4%"], ["P", "Joueur", "Réduction de dégâts +4%"]],
 ]
 PERSO_BEST = {"DPS": "EN", "Break": "ES", "Support": "IJ", "Regen": "IJ", "Heal": "IJ"}
 
@@ -316,8 +316,13 @@ def _equip():
 
 _equip()
 
-AXLABEL = {"dmg": "degats", "team": "apport d'equipe", "brk": "BREAK",
-           "sust": "survie / soin", "res": "ressource EP", "ctrl": "controle"}
+# noms d'elements tels qu'ils s'affichent sur le site (voir ELAB dans index.html)
+ELLABEL = {"Fire": "Feu", "Water": "Eau", "Grass": "Herbe", "Wind": "Vent",
+           "Earth": "Terre", "Ice": "Glace", "Lightning": "Foudre",
+           "Dark": "Ténèbres", "Light": "Lumière"}
+
+AXLABEL = {"dmg": "dégâts", "team": "apport d'équipe", "brk": "BREAK",
+           "sust": "survie / soin", "res": "ressource EP", "ctrl": "contrôle"}
 
 
 def rating(owner):
@@ -341,7 +346,7 @@ def kit_score(r):
     pts = raw * (1 - COND_PEN * k["cond"])
     why = ["%s %d/10" % (AXLABEL[a], k[a]) for a in AXES if k[a] > 0]
     if k["cond"]:
-        why.append("- conditionnalite %d/3 (-%d%%)"
+        why.append("- conditionnalité %d/3 (-%d%%)"
                    % (k["cond"], round(COND_PEN * k["cond"] * 100)))
     return min(100.0, pts), why, k
 
@@ -371,7 +376,7 @@ def syn_score(r, k):
     fit = FIT["base"]
     if len(r["el"]) > 1:
         fit += FIT["dual"]
-        why.append("bi-element (%s)" % "/".join(r["el"]))
+        why.append("bi-élément (%s)" % "/".join(ELLABEL.get(e, e) for e in r["el"]))
     if k["ctrl"] >= 5 or k["dmg"] >= 7:
         fit += FIT["any"]
         why.append("utile dans n'importe quelle composition")
