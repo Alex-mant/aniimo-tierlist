@@ -5,190 +5,363 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Aniimo — Tier List</title>
 <style>
+/* Les polices sont dans fonts/ : le site doit s'afficher tel quel hors ligne,
+   sans rien demander a un serveur tiers. Sous-ensembles latin et latin-ext
+   seulement -- c'est tout ce qu'un texte francais reclame. */
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/Baloo2-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/Baloo2-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/Baloo2-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/Baloo2-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/Baloo2-800-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/Baloo2-800-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/Nunito-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/Nunito-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/Nunito-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/Nunito-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/Nunito-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/Nunito-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/Nunito-800-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/Nunito-800-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
+/* Habillage « Aniimo » : parchemin ensoleille le jour, veillee au coin du feu
+   la nuit. Seules les couleurs, les formes et la typo changent -- la structure
+   et les classes restent celles d'avant. */
 :root{
-  --bg:#0d0f14; --bg2:#141821; --bg3:#1b2029; --line:#262c38;
-  --tx:#e6e9f0; --tx2:#9aa3b5; --tx3:#646d80;
-  --S:#ff4d6d; --A:#ff9f43; --B:#ffd93d; --C:#4dd4ac; --D:#5a9fe8;
-  --ok:#4dd4ac; --warn:#ffb84d; --bad:#ff6b8a; --acc:#7c8cff;
-  --Fire:#ff6b4a; --Water:#4aa8ff; --Grass:#5ed46a; --Wind:#6fe0c8; --Earth:#c49a5a;
-  --Ice:#7fd8ff; --Lightning:#ffd23d; --Dark:#a77cff; --Light:#ffe9a8;
+  --bg:#fbf1e2; --bgGlow:#fff7ea; --bg2:#fffaf2; --bg3:#f4e6d2; --bg4:#ecd9be;
+  --line:#e8d6bb; --line2:#f0e2cd;
+  --tx:#3d3d51; --tx2:#7b6a5c; --tx3:#a89380;
+  --ink:#3a2a1c;                                  /* texte pose sur une couleur */
+  --chip:rgba(255,252,246,.92); --chipLine:rgba(61,61,81,.10);
+  --S:#f4607f; --A:#f8943a; --B:#f0c01f; --C:#4fc39a; --D:#589fe6;
+  --ok:#3fae86; --warn:#e08a2b; --bad:#e25a78; --acc:#f08a35; --acc2:#ffb866;
+  --veil:rgba(61,45,30,.45);
+  --sh1:0 1px 2px rgba(122,86,48,.10);
+  --sh2:0 3px 10px rgba(122,86,48,.12);
+  --sh3:0 10px 34px rgba(122,86,48,.20);
+  --Fire:#ff7a4a; --Water:#45a9f5; --Grass:#5fc36a; --Wind:#57cdb4; --Earth:#c69455;
+  --Ice:#71cdf0; --Lightning:#f5c32c; --Dark:#9b7ae0; --Light:#f3c86a;
+}
+html[data-theme=nuit]{
+  --bg:#1d1614; --bgGlow:#2a1f19; --bg2:#271e1a; --bg3:#332721; --bg4:#40312a;
+  --line:#3f302a; --line2:#332721;
+  --tx:#f6e9d9; --tx2:#c6ac94; --tx3:#93795f;
+  --ink:#2a1c12;
+  --chip:rgba(24,17,13,.66); --chipLine:rgba(255,235,210,.08);
+  --S:#ff6e8a; --A:#ffa04a; --B:#ffd24a; --C:#5fd3aa; --D:#6bb0f2;
+  --ok:#5fd3aa; --warn:#ffb85c; --bad:#ff7d97; --acc:#ffa250; --acc2:#ffc98c;
+  --veil:rgba(12,8,6,.62);
+  --sh1:0 1px 2px rgba(0,0,0,.30);
+  --sh2:0 3px 10px rgba(0,0,0,.34);
+  --sh3:0 12px 36px rgba(0,0,0,.50);
+  --Light:#ffe9a8;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--tx);font:14px/1.5 "Segoe UI",system-ui,sans-serif;
-     -webkit-font-smoothing:antialiased}
-a{color:var(--acc)}
-h1,h2,h3{font-weight:650;letter-spacing:-.01em}
+body{background:var(--bg);color:var(--tx);
+     background-image:radial-gradient(900px 520px at 12% -8%, var(--bgGlow), transparent 70%),
+                      radial-gradient(760px 480px at 105% 0%, color-mix(in srgb, var(--acc) 12%, transparent), transparent 70%);
+     background-attachment:fixed;
+     font:15px/1.6 Nunito,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:color-mix(in srgb, var(--acc) 82%, var(--tx));text-underline-offset:2px}
+h1,h2,h3{font-family:"Baloo 2",Nunito,system-ui,sans-serif;font-weight:700;letter-spacing:0}
 button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:8px}
+::selection{background:var(--acc2);color:var(--ink)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:8px;border:3px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--tx3)}
 
 /* ---------------------------------------------------------------- shell -- */
-header{position:sticky;top:0;z-index:50;background:rgba(13,15,20,.94);
-       backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.bar{max-width:1560px;margin:0 auto;padding:10px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.logo{font-size:17px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
-.logo small{color:var(--tx3);font-weight:400;font-size:11px;margin-left:7px;letter-spacing:0}
-nav{display:flex;gap:2px;background:var(--bg2);border-radius:9px;padding:3px}
-nav button{background:none;border:0;padding:6px 13px;border-radius:7px;color:var(--tx2);
-           cursor:pointer;font-size:13px;font-weight:550;transition:.12s}
-nav button:hover{color:var(--tx)}
-nav button.on{background:var(--bg3);color:var(--tx);box-shadow:0 1px 3px #0006}
-main{max-width:1560px;margin:0 auto;padding:20px 18px 80px}
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 88%, transparent);
+       backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid var(--line);box-shadow:var(--sh1)}
+.bar{max-width:1560px;margin:0 auto;padding:11px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.logo{font-family:"Baloo 2",Nunito,sans-serif;font-size:21px;font-weight:800;letter-spacing:-.01em;
+      white-space:nowrap;display:flex;align-items:baseline;gap:7px}
+.logo b{background:linear-gradient(100deg,var(--acc),var(--S) 55%,var(--Dark));
+        -webkit-background-clip:text;background-clip:text;color:transparent}
+.logo small{color:var(--tx3);font-family:Nunito,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:0}
+nav{display:flex;gap:3px;background:var(--bg3);border-radius:13px;padding:4px;box-shadow:inset 0 1px 2px rgba(122,86,48,.08)}
+nav button{background:none;border:0;padding:7px 15px;border-radius:10px;color:var(--tx2);
+           cursor:pointer;font-size:13.5px;font-weight:700;transition:.15s}
+nav button:hover{color:var(--tx);background:color-mix(in srgb, var(--bg2) 60%, transparent)}
+nav button.on{background:var(--bg2);color:var(--tx);box-shadow:var(--sh1)}
+.theme{margin-left:auto;background:var(--bg3);border:1px solid var(--line);border-radius:12px;
+       width:36px;height:36px;font-size:16px;cursor:pointer;line-height:1;transition:.15s;box-shadow:var(--sh1)}
+.theme:hover{background:var(--bg4);transform:rotate(-12deg)}
+main{max-width:1560px;margin:0 auto;padding:22px 18px 90px}
 
 /* --------------------------------------------------------------- filtres -- */
-.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
-select,input[type=search]{background:var(--bg2);border:1px solid var(--line);border-radius:8px;
-  padding:7px 10px;font-size:13px;outline:0}
-select:focus,input:focus{border-color:var(--acc)}
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+select,input[type=search]{background:var(--bg2);border:1px solid var(--line);border-radius:11px;
+  padding:8px 12px;font-size:13px;font-weight:600;outline:0;box-shadow:var(--sh1);transition:.15s}
+select:hover,input:hover{border-color:var(--acc2)}
+select:focus,input:focus{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb, var(--acc) 22%, transparent)}
 input[type=search]{min-width:190px}
-.seg{display:flex;background:var(--bg2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{background:none;border:0;padding:7px 12px;color:var(--tx2);cursor:pointer;
-            font-size:12.5px;font-weight:550;border-right:1px solid var(--line)}
+/* le menu des roles porte leur definition : large une fois deroule,
+   mais il n'a pas a manger la barre de filtres quand il est ferme */
+select#fr{max-width:250px}
+select{appearance:none;-webkit-appearance:none;padding-right:30px;
+  background-image:linear-gradient(45deg,transparent 45%,var(--tx3) 45%,var(--tx3) 57%,transparent 57%),
+                   linear-gradient(135deg,transparent 45%,var(--tx3) 45%,var(--tx3) 57%,transparent 57%);
+  background-position:calc(100% - 18px) 54%,calc(100% - 13px) 54%;
+  background-size:6px 6px;background-repeat:no-repeat}
+select:hover{background-image:linear-gradient(45deg,transparent 45%,var(--acc) 45%,var(--acc) 57%,transparent 57%),
+                              linear-gradient(135deg,transparent 45%,var(--acc) 45%,var(--acc) 57%,transparent 57%)}
+input[type=checkbox]{accent-color:var(--acc);width:15px;height:15px;vertical-align:-2px;cursor:pointer}
+input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;height:20px;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:var(--bg3);
+  border:1px solid var(--line);box-shadow:inset 0 1px 3px color-mix(in srgb,var(--tx) 14%,transparent)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-6px;
+  border-radius:50%;background:radial-gradient(circle at 34% 28%,var(--acc2),var(--acc));
+  border:2px solid var(--bg2);box-shadow:var(--sh2);transition:transform .12s}
+input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.14)}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.02)}
+input[type=range]::-moz-range-track{height:8px;border-radius:99px;background:var(--bg3);border:1px solid var(--line)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;
+  background:radial-gradient(circle at 34% 28%,var(--acc2),var(--acc));border:2px solid var(--bg2);box-shadow:var(--sh2)}
+.seg{display:flex;background:var(--bg2);border:1px solid var(--line);border-radius:11px;overflow:hidden;box-shadow:var(--sh1)}
+.seg button{background:none;border:0;padding:8px 13px;color:var(--tx2);cursor:pointer;
+            font-size:12.5px;font-weight:700;border-right:1px solid var(--line);transition:.15s}
 .seg button:last-child{border-right:0}
-.seg button.on{background:var(--acc);color:#0d0f14}
-.chk{display:flex;align-items:center;gap:6px;color:var(--tx2);font-size:12.5px;cursor:pointer;
-     background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.seg button:hover{background:var(--bg3);color:var(--tx)}
+.seg button.on{background:linear-gradient(180deg,color-mix(in srgb,var(--acc2) 42%,var(--bg2)),
+                                            color-mix(in srgb,var(--acc) 26%,var(--bg2)));
+  color:color-mix(in srgb,var(--acc) 62%,var(--tx));
+  box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--acc) 60%,transparent)}
+.seg button.on:hover{color:color-mix(in srgb,var(--acc) 80%,var(--tx))}
+.chk{display:flex;align-items:center;gap:7px;color:var(--tx2);font-size:12.5px;font-weight:600;cursor:pointer;
+     background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:8px 12px;box-shadow:var(--sh1)}
+.chk:hover{border-color:var(--acc2);color:var(--tx)}
 .chk input{accent-color:var(--acc)}
-.count{color:var(--tx3);font-size:12.5px;margin-left:auto}
+.count{color:var(--tx3);font-size:12.5px;font-weight:600;margin-left:auto}
 
 /* ----------------------------------------------------------------- tiers -- */
 .kindblk{margin-bottom:34px}
-.kindhd{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;padding-bottom:8px;
-        border-bottom:1px solid var(--line)}
-.kindhd h2{font-size:16px}
-.kindhd span{color:var(--tx3);font-size:12px}
-.row{display:grid;grid-template-columns:54px 1fr;gap:10px;margin-bottom:8px}
-.tag{border-radius:9px;display:flex;align-items:center;justify-content:center;
-     font-size:25px;font-weight:800;color:#0d0f14;font-family:Georgia,serif}
-.tag.S{background:var(--S)}.tag.A{background:var(--A)}.tag.B{background:var(--B)}
-.tag.C{background:var(--C)}.tag.D{background:var(--D)}
-.cards{display:flex;flex-wrap:wrap;gap:7px;background:var(--bg2);border-radius:9px;padding:8px;min-height:64px}
-.card{position:relative;width:78px;cursor:pointer;border-radius:8px;padding:4px 3px 5px;
-      background:var(--bg3);border:1px solid transparent;transition:.12s}
-.card:hover{border-color:var(--acc);transform:translateY(-2px)}
-.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;background:#0a0c10;display:block}
-.card .nm{font-size:10px;line-height:1.2;text-align:center;margin-top:3px;color:var(--tx);
-          height:24px;overflow:hidden;word-break:break-word}
-.card .sc{position:absolute;top:6px;right:5px;background:#0009;border-radius:4px;padding:0 3px;
-          font-size:9.5px;font-weight:700;color:var(--tx)}
-.card .fl{position:absolute;top:6px;left:5px;display:flex;gap:2px}
-.dot{width:7px;height:7px;border-radius:50%;box-shadow:0 0 0 1px #0008}
-.badges{position:absolute;bottom:31px;left:3px;right:3px;display:flex;gap:2px;justify-content:center}
-.bd{font-size:8.5px;font-weight:700;border-radius:3px;padding:0 3px;line-height:13px}
-.bd.same{background:#0009;color:var(--tx3)}
-.bd.ok{background:#0009;color:var(--ok)}
-.bd.warn{background:#0009;color:var(--warn)}
-.bd.bad{background:#0009;color:var(--bad)}
-.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--tx3);font-size:12px;margin:-4px 0 14px}
-.legend .bd{font-size:11px;padding:0 4px;margin-right:4px}
-.empty{color:var(--tx3);font-size:12px;padding:20px;text-align:center;width:100%}
+.kindhd{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;padding-bottom:9px;
+        border-bottom:2px dotted var(--line)}
+.kindhd h2{font-size:19px}
+.kindhd span{color:var(--tx3);font-size:12.5px;font-weight:600}
+.row{display:grid;grid-template-columns:62px 1fr;gap:11px;margin-bottom:10px}
+.tag{position:relative;overflow:hidden;border-radius:16px;display:flex;align-items:center;justify-content:center;
+     font-size:34px;font-weight:800;color:var(--ink);font-family:"Baloo 2",Georgia,serif;
+     text-shadow:0 1px 0 rgba(255,255,255,.40);
+     box-shadow:var(--sh2),inset 0 -3px 0 rgba(0,0,0,.10),inset 0 2px 0 rgba(255,255,255,.35)}
+.tag.S{background:linear-gradient(160deg,color-mix(in srgb,var(--S) 78%,#fff),var(--S))}
+.tag.A{background:linear-gradient(160deg,color-mix(in srgb,var(--A) 78%,#fff),var(--A))}
+.tag.B{background:linear-gradient(160deg,color-mix(in srgb,var(--B) 78%,#fff),var(--B))}
+.tag.C{background:linear-gradient(160deg,color-mix(in srgb,var(--C) 78%,#fff),var(--C))}
+.tag.D{background:linear-gradient(160deg,color-mix(in srgb,var(--D) 78%,#fff),var(--D))}
+.tag:after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(130% 55% at 50% -12%,rgba(255,255,255,.50),transparent 62%)}
+.cards{display:flex;flex-wrap:wrap;gap:8px;background:var(--bg2);border:1px solid var(--line);
+       border-radius:16px;padding:9px;min-height:68px;box-shadow:var(--sh1)}
+.card{position:relative;width:84px;cursor:pointer;border-radius:14px;padding:5px 4px 6px;
+      background:linear-gradient(180deg,var(--bg2),color-mix(in srgb,var(--el,var(--acc)) 15%,var(--bg2)));
+      border:1px solid var(--line);transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{border-color:color-mix(in srgb,var(--el,var(--acc)) 60%,var(--line));
+            transform:translateY(-4px) rotate(-1deg);
+            box-shadow:0 8px 18px color-mix(in srgb,var(--el,var(--acc)) 26%,transparent)}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:11px;display:block;
+          background:radial-gradient(circle at 50% 62%,color-mix(in srgb,var(--el,var(--acc)) 34%,var(--bg3)),var(--bg3))}
+.card .nm{font-size:10.5px;font-weight:700;line-height:1.2;text-align:center;margin-top:4px;color:var(--tx);
+          height:25px;overflow:hidden;word-break:break-word}
+.card .sc{position:absolute;top:7px;right:6px;background:var(--chip);border:1px solid var(--chipLine);
+          border-radius:7px;padding:0 4px;font-size:9.5px;font-weight:800;color:var(--tx);
+          backdrop-filter:blur(3px)}
+.card .fl{position:absolute;top:7px;left:6px;display:flex;gap:3px}
+.dot{width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 2px var(--chip)}
+.badges{position:absolute;bottom:32px;left:4px;right:4px;display:flex;gap:3px;justify-content:center}
+.bd{font-size:9px;font-weight:800;border-radius:6px;padding:0 4px;line-height:14px;
+    background:var(--chip);border:1px solid var(--chipLine);backdrop-filter:blur(3px)}
+.bd.same{color:var(--tx3)}
+.bd.ok{color:var(--ok)}
+.bd.warn{color:var(--warn)}
+.bd.bad{color:var(--bad)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--tx3);font-size:12.5px;font-weight:600;margin:-4px 0 16px}
+.legend .bd{font-size:11px;padding:0 5px;margin-right:5px}
+.empty{color:var(--tx3);font-size:12.5px;padding:20px;text-align:center;width:100%}
 
 /* ---------------------------------------------------------------- table -- */
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{text-align:right;padding:8px 9px;color:var(--tx2);font-weight:600;cursor:pointer;
-   border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:57px;background:var(--bg);z-index:5}
+.tblcard{background:var(--bg2);border:1px solid var(--line);border-radius:18px;
+  padding:4px 16px 12px;box-shadow:var(--sh2);margin-bottom:18px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:right;padding:9px;color:var(--tx2);font-weight:800;cursor:pointer;
+   border-bottom:2px solid var(--line);white-space:nowrap;position:sticky;top:58px;
+   background:color-mix(in srgb, var(--bg2) 94%, transparent);backdrop-filter:blur(10px);z-index:5}
 th:first-child,th:nth-child(2){text-align:left}
-th:hover{color:var(--tx)}
-td{padding:6px 9px;text-align:right;border-bottom:1px solid #1a1e27}
+th:hover{color:var(--acc)}
+td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--line2)}
 td:first-child,td:nth-child(2){text-align:left}
-tbody tr{cursor:pointer}
-tbody tr:hover{background:var(--bg2)}
-.mini{width:26px;height:26px;border-radius:5px;object-fit:cover;vertical-align:middle;margin-right:7px;background:#0a0c10}
-.tpill{display:inline-block;width:19px;text-align:center;border-radius:4px;font-weight:800;
-       color:#0d0f14;font-size:11px}
+tbody tr{cursor:pointer;transition:.12s}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--bg3) 40%,transparent)}
+tbody tr:hover{background:color-mix(in srgb,var(--acc) 12%,transparent)}
+.mini{width:30px;height:30px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:9px;
+      background:var(--bg3);box-shadow:0 0 0 2px var(--bg2),0 0 0 3px var(--line)}
+.tpill{display:inline-block;width:21px;text-align:center;border-radius:7px;font-weight:800;
+       color:var(--ink);font-size:11px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.10)}
 .tpill.S{background:var(--S)}.tpill.A{background:var(--A)}.tpill.B{background:var(--B)}
 .tpill.C{background:var(--C)}.tpill.D{background:var(--D)}
 
 /* ---------------------------------------------------------------- panels -- */
-.panel{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
-.panel h2{font-size:15px;margin-bottom:4px}
-.panel .sub{color:var(--tx3);font-size:12.5px;margin-bottom:14px}
+.panel{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:20px;
+       margin-bottom:18px;box-shadow:var(--sh2)}
+.panel h2{font-size:18px;margin-bottom:4px}
+.panel .sub{color:var(--tx3);font-size:12.5px;font-weight:600;margin-bottom:14px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px}
-.sl{display:grid;grid-template-columns:104px 1fr 52px;gap:10px;align-items:center;margin-bottom:7px}
-.sl label{color:var(--tx2);font-size:12px}
+.sl{display:grid;grid-template-columns:104px 1fr 52px;gap:10px;align-items:center;margin-bottom:8px}
+.sl label{color:var(--tx2);font-size:12px;font-weight:700}
 .sl input[type=range]{width:100%;accent-color:var(--acc);height:16px}
-.sl .v{text-align:right;font-variant-numeric:tabular-nums;font-size:12px;color:var(--tx)}
-.btn{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:8px 14px;
-     cursor:pointer;font-size:13px;font-weight:550;transition:.12s}
-.btn:hover{border-color:var(--acc);color:var(--tx)}
-.btn.pri{background:var(--acc);border-color:var(--acc);color:#0d0f14}
-.btn.pri:hover{filter:brightness(1.1)}
-.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
-.note{color:var(--tx3);font-size:12px;line-height:1.6;margin-top:10px}
-.kv{display:flex;justify-content:space-between;gap:12px;padding:4px 0;font-size:12.5px;border-bottom:1px solid #1a1e27}
+.sl .v{text-align:right;font-variant-numeric:tabular-nums;font-size:12px;font-weight:700;color:var(--tx)}
+.btn{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:9px 16px;
+     cursor:pointer;font-size:13px;font-weight:700;transition:.15s;box-shadow:var(--sh1)}
+.btn:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-1px);box-shadow:var(--sh2)}
+.btn.pri{background:linear-gradient(180deg,var(--acc2),var(--acc));border-color:var(--acc);color:var(--ink)}
+.btn.pri:hover{filter:brightness(1.06);color:var(--ink)}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.note{color:var(--tx3);font-size:12.5px;line-height:1.65;margin-top:10px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:12.5px;border-bottom:1px solid var(--line2)}
 .kv span:first-child{color:var(--tx2)}
 .kv b{font-variant-numeric:tabular-nums;white-space:nowrap}
 
 /* ----------------------------------------------------------------- barre -- */
-.b{height:5px;background:#0a0c10;border-radius:3px;overflow:hidden}
-.b i{display:block;height:100%;border-radius:3px;background:var(--acc)}
-.axr{display:grid;grid-template-columns:100px 1fr 32px;gap:8px;align-items:center;margin-bottom:5px;font-size:12px}
-.axr .l{color:var(--tx2)}
-.axr .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--tx)}
+.b{height:7px;background:var(--bg3);border-radius:6px;overflow:hidden}
+.b i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--acc2),var(--acc))}
+.axr{display:grid;grid-template-columns:100px 1fr 32px;gap:9px;align-items:center;margin-bottom:6px;font-size:12px}
+.axr .l{color:var(--tx2);font-weight:600}
+.axr .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--tx)}
 
 /* ----------------------------------------------------------------- équipe -- */
-.slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
-.slot{background:var(--bg3);border:1px dashed var(--line);border-radius:10px;padding:10px;
-      text-align:center;min-height:168px;display:flex;flex-direction:column;align-items:center;
-      justify-content:center;gap:6px;cursor:pointer;transition:.12s}
-.slot:hover{border-color:var(--acc)}
-.slot.full{border-style:solid;cursor:default}
-.slot img{width:76px;height:76px;border-radius:9px;object-fit:cover;background:#0a0c10}
-.slot .n{font-size:12px;font-weight:600;line-height:1.25}
-.slot .r{font-size:11px;color:var(--tx3)}
+.slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.slot{background:var(--bg2);border:2px dashed var(--line);border-radius:18px;padding:11px;
+      text-align:center;min-height:174px;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;gap:6px;cursor:pointer;transition:.15s}
+.slot:hover{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 7%,var(--bg2));transform:translateY(-2px)}
+.slot.full{border-style:solid;cursor:default;box-shadow:var(--sh2)}
+.slot img{width:82px;height:82px;border-radius:14px;object-fit:cover;background:var(--bg3)}
+.slot .n{font-size:12.5px;font-weight:800;line-height:1.25}
+.slot .r{font-size:11px;color:var(--tx3);font-weight:600}
 .slot .x{font-size:11px;color:var(--bad);cursor:pointer;border:0;background:none;padding:2px 6px}
 .slot .pin{color:var(--tx3)}
-.slot .eq{font-size:10.5px;color:var(--tx2);line-height:1.3;margin-top:2px}
+.slot .eq{font-size:10.5px;color:var(--tx2);line-height:1.35;margin-top:2px}
 .slot .pin.on{color:var(--ok)}
-.slot.lk{border-color:var(--ok)}
-.slot .plus{font-size:30px;color:var(--tx3);line-height:1}
-.big{font-size:42px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
-.grade{font-family:Georgia,serif;font-size:52px;font-weight:800;line-height:1}
+.slot.lk{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 9%,var(--bg2))}
+.slot .plus{font-size:34px;color:var(--tx3);line-height:1}
+.big{font-size:46px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;font-family:"Baloo 2",Nunito,sans-serif}
+.grade{font-family:"Baloo 2",Georgia,serif;font-size:56px;font-weight:800;line-height:1}
 .grade.S{color:var(--S)}.grade.A{color:var(--A)}.grade.B{color:var(--B)}
 .grade.C{color:var(--C)}.grade.D{color:var(--D)}
-.li{font-size:12.5px;line-height:1.6;padding:6px 0 6px 20px;position:relative;border-bottom:1px solid #1a1e27}
-.li:before{position:absolute;left:0;top:6px;font-weight:700}
+.li{font-size:12.5px;line-height:1.65;padding:7px 0 7px 22px;position:relative;border-bottom:1px solid var(--line2)}
+.li:before{position:absolute;left:0;top:7px;font-weight:800}
 .li.up:before{content:"+";color:var(--ok)}
 .li.dn:before{content:"\2212";color:var(--bad)}
 .li b{color:var(--tx)}
 
 /* ----------------------------------------------------------------- modale -- */
-.ov{position:fixed;inset:0;background:#000a;backdrop-filter:blur(3px);z-index:100;
+.ov{position:fixed;inset:0;background:var(--veil);backdrop-filter:blur(4px);z-index:100;
     display:none;align-items:flex-start;justify-content:center;padding:34px 16px;overflow:auto}
 .ov.on{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--line);border-radius:14px;max-width:900px;
-       width:100%;padding:22px}
+.modal{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--line);
+       border-radius:22px;max-width:900px;width:100%;padding:24px;box-shadow:var(--sh3);
+       animation:pop .18s ease-out}
+.modal:before{content:"";position:absolute;left:0;right:0;top:0;height:5px;
+  background:linear-gradient(90deg,var(--S),var(--A),var(--B),var(--C),var(--D))}
+@keyframes pop{from{transform:translateY(10px) scale(.985);opacity:0}to{transform:none;opacity:1}}
 .mhd{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
-.mhd img{width:128px;height:128px;border-radius:11px;object-fit:cover;background:#0a0c10;flex:none}
-.mhd h2{font-size:21px}
-.pill{display:inline-block;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:650;
+.mhd img{width:134px;height:134px;border-radius:18px;object-fit:cover;background:var(--bg3);flex:none;box-shadow:var(--sh2)}
+.mhd h2{font-size:24px}
+.pill{display:inline-block;border-radius:9px;padding:3px 10px;font-size:11px;font-weight:700;
       background:var(--bg3);color:var(--tx2);margin:3px 4px 0 0}
-.close{float:right;background:none;border:0;color:var(--tx3);font-size:22px;cursor:pointer;line-height:1}
-.close:hover{color:var(--tx)}
-.sk{border-top:1px solid #1a1e27;padding:8px 0;font-size:12.5px}
+.close{float:right;background:none;border:0;color:var(--tx3);font-size:24px;cursor:pointer;line-height:1}
+.close:hover{color:var(--bad)}
+.sk{border-top:1px solid var(--line2);padding:9px 0;font-size:12.5px}
 .sk b{color:var(--tx)}
 .sk p{color:var(--tx2);margin-top:2px}
-.warnbox{background:#3a2a1a;border:1px solid #6b4a20;border-radius:8px;padding:9px 12px;
-         font-size:12.5px;color:#ffd9a0;margin-bottom:12px;line-height:1.55}
+.warnbox{background:color-mix(in srgb,var(--warn) 16%,var(--bg2));
+         border:1px solid color-mix(in srgb,var(--warn) 45%,var(--line));border-radius:12px;
+         padding:10px 13px;font-size:12.5px;color:color-mix(in srgb,var(--warn) 55%,var(--tx));
+         margin-bottom:12px;line-height:1.6}
 
-.meth{max-width:840px;font-size:13.5px;line-height:1.75;color:var(--tx2)}
-.meth h2{color:var(--tx);font-size:17px;margin:26px 0 8px}
-.meth h3{color:var(--tx);font-size:14px;margin:18px 0 6px}
-.meth p{margin-bottom:10px}
-.meth code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:12.5px;color:var(--tx)}
-.meth ul{margin:0 0 10px 20px}
-.meth li{margin-bottom:5px}
+.meth{max-width:900px;margin:0 auto;background:var(--bg2);border:1px solid var(--line);
+  border-radius:20px;padding:26px 34px 34px;box-shadow:var(--sh2);
+  font-size:14px;line-height:1.8;color:var(--tx2)}
+.meth h2:first-child{margin-top:6px}
+.meth h2{color:var(--tx);font-size:20px;margin:30px 0 9px}
+.meth h3{color:var(--tx);font-size:15px;margin:20px 0 6px}
+.meth p{margin-bottom:11px}
+.meth code{background:var(--bg3);padding:2px 7px;border-radius:7px;font-size:12.5px;color:var(--tx);font-weight:700}
+.meth ul{margin:0 0 11px 20px}
+.meth li{margin-bottom:6px}
+.meth table{width:100%;border-collapse:collapse;margin:8px 0 18px;font-size:12.5px}
+.meth th,.meth td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line2)}
+.meth th{color:var(--tx);font-weight:800;white-space:nowrap;cursor:default;
+  position:static;background:none;backdrop-filter:none;border-bottom:2px solid var(--line)}
+.meth tbody tr{cursor:default}
+.meth tbody tr:nth-child(even){background:color-mix(in srgb,var(--bg3) 36%,transparent)}
+.meth tbody tr:hover{background:color-mix(in srgb,var(--acc) 8%,transparent)}
+.meth b{color:var(--tx)}
 table.wait{border-collapse:collapse;width:100%;margin:6px 0 14px;font-size:12.5px}
-table.wait th,table.wait td{text-align:left;padding:5px 9px;border-bottom:1px solid var(--line)}
-table.wait th{color:var(--tx);font-weight:600;white-space:nowrap}
+table.wait th,table.wait td{text-align:left;padding:6px 9px;border-bottom:1px solid var(--line)}
+table.wait th{color:var(--tx);font-weight:800;white-space:nowrap;position:static;background:none;backdrop-filter:none}
 table.wait td:last-child{color:var(--tx2)}
+
+/* ------------------------------------------------------- ecrans etroits -- */
+/* Le site se lit d'abord sur telephone : les barres se compriment, les
+   tableaux larges defilent dans leur carte plutot que de pousser la page. */
+@media (max-width:760px){
+  .bar{padding:9px 12px;gap:10px}
+  .logo{font-size:19px}
+  .logo small{display:none}
+  nav{max-width:100%;overflow-x:auto;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav button{padding:7px 12px;font-size:12.5px;white-space:nowrap}
+  .count{font-size:11.5px}
+  main{padding:16px 12px 76px}
+  h1{font-size:23px}
+  .filters{gap:7px}
+  .filters .seg{width:100%}
+  .filters .seg button{flex:1;padding:8px 6px;font-size:12px}
+  .filters select{flex:1 1 calc(50% - 7px);min-width:0}
+  .filters input[type=search]{flex:1 1 100%;min-width:0}
+  .filters label{flex:1 1 100%}
+  .kindhd{flex-wrap:wrap}
+  .row{grid-template-columns:46px 1fr;gap:8px}
+  .tag{font-size:27px;border-radius:13px}
+  .cards{padding:9px;gap:7px;border-radius:16px}
+  .card{width:76px}
+  .card .nm{font-size:10px}
+  .tblcard{padding:4px 10px 10px;overflow-x:auto}
+  .tblcard table{min-width:620px}
+  th{position:static;top:auto}
+  .panel{padding:15px;border-radius:16px}
+  .grid2{grid-template-columns:1fr}
+  .sl{grid-template-columns:86px 1fr 44px;gap:8px}
+  .slots{grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:9px}
+  .slot img{width:70px;height:70px}
+  .ov{padding:14px 8px}
+  .modal{padding:18px 15px;border-radius:18px}
+  .mhd{gap:12px}
+  .mhd img{width:92px;height:92px}
+  .mhd h2{font-size:20px}
+  .meth{padding:20px 16px 26px;border-radius:16px}
+  .meth h2{font-size:18px;margin:24px 0 8px}
+  .panel table,
+  .meth table.wait{display:block;overflow-x:auto;white-space:nowrap}
+}
+@media (max-width:420px){
+  .card{width:72px}
+  .row{grid-template-columns:40px 1fr}
+  .tag{font-size:23px}
+}
 </style>
 </head>
 <body>
 
 <header>
   <div class="bar">
-    <div class="logo">Aniimo <small>tier list recalculée</small></div>
+    <div class="logo">🐾 <b>Aniimo</b> <small>tier list recalculée</small></div>
     <nav id="nav"></nav>
     <div class="count" id="count"></div>
+    <button class="theme" id="theme" title="Basculer jour / nuit"></button>
   </div>
 </header>
 
@@ -403,7 +576,7 @@ function cardHTML(r){
   const bd = [];
   if(r.same) bd.push(`<i class="bd same" title="Identique à ${esc(r.parent)}">=</i>`);
   bd.push(`<i class="bd ${CONF[r.conf].c}" title="${esc(confTip(r))}">${CONF[r.conf].i}</i>`);
-  return `<div class="card" data-n="${esc(r.name)}">
+  return `<div class="card" data-n="${esc(r.name)}" style="--el:var(--${r.el[0]||"Fire"})">
     <div class="fl">${dots}</div><div class="sc" title="Indice final sur 100">${r._ix.toFixed(0)}</div>
     <img src="${img(r.name)}" alt="" loading="lazy">
     ${bd.length?`<div class="badges">${bd.join("")}</div>`:""}
@@ -438,7 +611,7 @@ function viewStats(){
     return (typeof x==="string" ? x.localeCompare(y) : x-y) * (S.desc?-1:1);
   });
   const th = (k,l)=>`<th data-s="${k}">${l}${S.sort===k?(S.desc?" ↓":" ↑"):""}</th>`;
-  return `<table><thead><tr>
+  return `<div class="tblcard"><table><thead><tr>
     <th>Palier</th>${th("name","Aniimo")}<th>Rôle</th>
     ${STATS.map(s=>th(s,SLAB[s])).join("")}${th("total","Total")}
     ${th("st","Stats")}${th("ki","Kit")}${th("sy","Syn.")}${th("calc","Calcul")}${th("src","Listes")}
@@ -454,7 +627,7 @@ function viewStats(){
     <td>${r._sc.toFixed(1)}</td><td>${Object.keys(r.ext).length}</td>
     <td><b>${r._ix.toFixed(1)}</b></td>
     <td title="${esc(confTip(r))}" style="color:var(--${CONF[r.conf].c})">${CONF[r.conf].i} ${CONF[r.conf].l}</td>
-  </tr>`).join("")}</tbody></table>`;
+  </tr>`).join("")}</tbody></table></div>`;
 }
 
 /* ====================================================== note d'équipe === */
@@ -770,7 +943,7 @@ function suggestHTML(T){
   return `<div class="panel">${head}${top.map(s=>{
     const out = S.team[s.i];
     return `<div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line)">
-      <img src="${img(s.c.name)}" alt="" style="width:54px;height:54px;border-radius:8px;object-fit:cover;background:#0a0c10;flex:none">
+      <img src="${img(s.c.name)}" alt="" style="width:54px;height:54px;border-radius:8px;object-fit:cover;background:var(--bg3);flex:none">
       <div style="flex:1;min-width:0">
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
           <b>${out?`${esc(out.name)} → `:""}${esc(s.c.name)}</b>
@@ -954,46 +1127,10 @@ function validHTML(){
       aucun classement ne peut viser 1,00.</div>`;
 }
 
-/* ================================================ calibration Game8 (C) == */
-function calib(){
-  const pool = tiers(ANIIMO.filter(r=>r.ref));
-  const idx = t => TIERS.indexOf(t);
-  let ex=0, one=0; const pts=[];
-  for(const r of pool){
-    const d = Math.abs(idx(r._tier)-idx(r.ref));
-    if(d===0) ex++;
-    if(d<=1) one++;
-    pts.push([idx(r._tier), idx(r.ref)]);
-  }
-  const n = pool.length || 1;
-  const mx = pts.reduce((a,p)=>a+p[0],0)/n, my = pts.reduce((a,p)=>a+p[1],0)/n;
-  let sxy=0,sxx=0,syy=0;
-  for(const p of pts){ sxy+=(p[0]-mx)*(p[1]-my); sxx+=(p[0]-mx)*(p[0]-mx); syy+=(p[1]-my)*(p[1]-my); }
-  const cor = sxy/Math.sqrt(sxx*syy||1);
-  const div = pool.filter(r=>Math.abs(idx(r._tier)-idx(r.ref))>=2)
-    .sort((a,b)=>Math.abs(idx(b._tier)-idx(b.ref))-Math.abs(idx(a._tier)-idx(a.ref)));
-  return {n:pool.length, ex:Math.round(100*ex/n), one:Math.round(100*one/n), cor, div};
-}
-function calibHTML(){
-  const c = calib();
-  return `<div class="grid2"><div>
-      <div class="kv"><span>Entrées comparables</span><b>${c.n}</b></div>
-      <div class="kv"><span>Palier identique</span><b>${c.ex} %</b></div>
-      <div class="kv"><span>À un palier près</span><b>${c.one} %</b></div>
-      <div class="kv"><span>Corrélation des rangs</span><b>${c.cor.toFixed(2)}</b></div>
-      <div class="kv"><span>Écarts de 2 paliers ou plus</span><b>${c.div.length}</b></div>
-    </div><div>
-      <div style="font-size:12px;color:var(--tx2);margin-bottom:6px">Divergences les plus fortes — moi contre Game8</div>
-      ${c.div.slice(0,14).map(r=>`<div class="kv"><span>${esc(r.name)}</span>
-        <b><i class="tpill ${r._tier}">${r._tier}</i>
-           <i class="tpill ${r.ref}">${r.ref}</i></b></div>`).join("")
-        || '<div class="note">Aucune.</div>'}
-    </div></div>`;
-}
-
 /* ============================================================= méthode == */
 function viewMeth(){
-  const c = calib();
+  const SRCW = Object.entries(META.src).sort((a,b)=>b[1].w-a[1].w);
+  const nconf = k => ANIIMO.filter(r=>r.conf===k).length;
   return `<div class="meth">
   <h2>D'où vient ce classement</h2>
   <p>Aucune tier list existante n'a servi de base. Les ${ANIIMO.length} entrées viennent des fiches
@@ -1086,22 +1223,70 @@ function viewMeth(){
   <p>Restreindre le vivier avec un filtre le redécoupe : un palier répond toujours à la question
   « où se situe cet Aniimo <i>parmi ceux qui sont affichés</i> ». Le score, lui, ne bouge pas.</p>
 
-  <h2>Recoupement avec le consensus</h2>
-  <p>Le classement n'est pas calé sur les tier lists publiées, mais il leur est comparé pour repérer
-  où il s'en écarte. Sur les <b>${c.n}</b> Aniimo que Game8 classe : <b>${c.ex} %</b> de paliers
-  identiques, <b>${c.one} %</b> à un palier près, corrélation des rangs <b>${c.cor.toFixed(2)}</b>.</p>
-  <p>Les écarts ne sont pas des erreurs à corriger, ce sont des endroits à examiner. Le motif
-  dominant est net : les tier lists communautaires notent plus haut les DPS à burst conditionnel, et
-  plus bas les Break et Support à grosses stats. C'est cohérent — elles jugent la facilité de jeu
-  réelle, ce modèle juge le plafond à investissement maximal. Les deux réponses sont défendables ;
-  elles ne répondent pas à la même question.</p>
-  ${calibHTML()}
+  <h2>Le consensus des tier lists publiées</h2>
+  <p>Tout ce qui précède ne produit qu'un avis : le mien. Le nombre affiché sur les cartes n'est pas
+  cet avis, c'est l'<b>indice final</b> — ce calcul croisé avec ${SRCW.length} tier lists publiées.
+  Chacune est d'abord ramenée en <b>percentiles</b>, parce qu'un T0,5 sur sept niveaux et un S sur
+  cinq ne racontent pas la même chose. Chacune reçoit ensuite un poids : son accord de rangs avec
+  l'ensemble des autres. Une liste qui suit le consensus pèse plus qu'une liste isolée, sans que
+  personne ait à décréter laquelle a raison.</p>
+  <table class="wait src"><thead><tr><th>Tier list</th><th>Aniimo classés</th><th>Niveaux</th><th>Poids</th></tr></thead>
+  <tbody>${SRCW.map(([k,v])=>`<tr>
+    <td><b><a href="https://${v.url}" target="_blank" rel="noopener">${esc(SRCN[k])}</a></b></td>
+    <td>${v.n}</td><td>${v.levels.join(" · ")}</td><td>${v.w.toFixed(2)}</td></tr>`).join("")}
+  </tbody></table>
+  <p>Le calcul entre dans ce mélange comme une source de plus, au poids <b>${META.modelW.toFixed(2)}</b> :
+  il est d'accord ${Math.sqrt(META.modelW).toFixed(2)} avec le consensus, et ce sont ces accords, mis
+  au carré, qui font les poids. Concrètement il pèse à peu près comme la tier list la mieux notée, et
+  il n'écrase jamais six avis concordants. Un Aniimo qu'aucune liste ne classe — les plus récents, la
+  plupart des formes régionales — garde le score du calcul : c'est là que ce site sert à quelque
+  chose. Le curseur de la vue <b>Réglages</b> permet de monter ce poids, ou de le ramener à zéro pour
+  ne lire que le consensus.</p>
+  <p>Ce mélange se vérifie. Chaque tier list est <b>mise de côté à tour de rôle</b>, les poids des
+  autres sont réestimés sans elle, et on regarde à quel point l'indice retrouve son classement — c'est
+  le tableau de la vue Réglages. L'indice final y devine chaque liste aussi bien, et le plus souvent
+  mieux, que les cinq autres listes réunies. Comme les experts ne sont d'accord entre eux qu'à
+  0,45–0,78, aucun classement ne peut viser 1,00 : qui annonce la tier list définitive se trompe sur
+  ce qui est mesurable.</p>
+  <p>Là où le calcul s'écarte du consensus, ce ne sont pas des erreurs à corriger mais des endroits à
+  examiner, et le motif est net : les tier lists communautaires notent plus haut les DPS à burst
+  conditionnel, plus bas les Break et les Support à grosses stats. C'est cohérent — elles jugent la
+  facilité de jeu réelle, ce modèle juge le plafond à investissement maximal. Les deux réponses sont
+  défendables, elles ne répondent simplement pas à la même question.</p>
 
-  <h2>Stabilité</h2>
-  <p>La vue <b>Réglages</b> rend tous les poids modifiables et lance un test de stabilité : 200
-  tirages où chaque poids est perturbé de ±25 %. Un Aniimo qui garde son palier dans plus de 60 %
-  des tirages est solidement placé ; les autres reçoivent un <i class="bd uns">~</i>. C'est la façon
-  honnête de dire qu'un classement dépend de choix, et de montrer lesquels.</p>
+  <h2>Dire ce qu'on ne sait pas : l'indice de confiance</h2>
+  <p>Un palier obtenu d'un cheveu ne vaut pas un palier acquis. Chaque Aniimo est donc reclassé
+  <b>${META.runs} fois</b>, chaque poids du modèle perturbé au hasard de ±25 % à chaque tirage. La
+  part des tirages où il garde son palier donne sa pastille :</p>
+  <ul>
+    <li><i class="bd ok">&#10003;</i> <b>sûr</b> — garde son palier dans plus de 85 % des tirages,
+      et au moins une tier list le classe. ${nconf("sur")} Aniimo.</li>
+    <li><i class="bd warn">&#8776;</i> <b>probable</b> — entre 60 et 85 % : le palier est le bon
+      pari, la frontière n'est pas loin. ${nconf("probable")} Aniimo.</li>
+    <li><i class="bd bad">?</i> <b>incertain</b> — moins de 60 %, ou aucune tier list ne le classe.
+      ${nconf("incertain")} Aniimo, à lire comme « quelque part entre ces deux paliers ».</li>
+  </ul>
+  <p>La fiche de chaque Aniimo montre la répartition complète de ses ${META.runs} tirages, et le
+  constructeur d'équipe peut se limiter aux choix fiables. Ces pastilles sont mesurées aux poids de
+  référence : elles ne suivent pas vos réglages.</p>
+
+  <h2>Deux sorts à la fois, un seul objet</h2>
+  <p>Un Aniimo n'emporte que <b>deux</b> sorts au combat — l'ultime, l'attaque de base et les traits,
+  eux, restent acquis. La note de kit ne somme donc pas tout le kit : on cherche pour chaque Aniimo
+  la <b>meilleure paire</b> au sens de son rôle, et c'est elle qui est notée. Les dégâts et le BREAK
+  s'additionnent d'un sort à l'autre ; les autres axes se recouvrent, parce que deux sorts qui
+  soignent ne soignent pas deux fois. La paire retenue est écrite sur chaque fiche, sous
+  « à équiper ».</p>
+  <p>Certains sorts ne valent leur place qu'entourés. <b>${Object.keys(META.lock).length} kits</b> ont
+  leur apport collectif verrouillé sur un élément — un buff réservé, une résistance abaissée — et ne
+  comptent plein que si un allié porte cet élément ; sinon le constructeur d'équipe leur fait équiper
+  autre chose. <b>${META.duos.length} dépendances nommées</b>, lues dans les textes, suivent la même
+  règle : un sort qui réclame le Gazon de Leafy ou les Rochers de Waleetle vaut moitié moins sans son
+  fournisseur. La paire affichée dépend donc de l'équipe montée, pas d'un classement figé.</p>
+  <p>Chaque Aniimo porte enfin <b>un objet</b>, un seul. La fiche propose celui de son rôle, ou le
+  build publié de son espèce quand il en existe un ; dans une équipe, si deux membres visent le même
+  exemplaire, le second prend son repli — le jeu ne dit pas clairement si un même objet peut être
+  porté deux fois.</p>
 
   <h2>Le constructeur d'équipe</h2>
   <p>La note d'une équipe croise cinq termes : la puissance individuelle moyenne
@@ -1109,14 +1294,14 @@ function viewMeth(){
   les éléments (${(TW.el*100).toFixed(0)} %), les rôles (${(TW.role*100).toFixed(0)} %) et les combos
   (${(TW.combo*100).toFixed(0)} %). Sur un axe, c'est le meilleur porteur qui compte, plus 40 % du
   second : la redondance aide, elle ne double pas l'effet.</p>
-  <p>Les combos viennent de la lecture des kits, pas d'une heuristique :
-  <b>${Object.keys(META.lock).length} kits</b> dont l'apport collectif est verrouillé sur un élément
-  (buff réservé, ou réduction de résistance) gagnent des points si des alliés portent cet élément —
-  et en font perdre si personne ne le porte. S'y ajoutent <b>${META.duos.length} dépendances
-  nommées</b> lues explicitement dans les kits, comme Iris qui amplifie sur du Gazon que seul Leafy
-  sait créer, ou Bouldus dont la conversion de Rochers exige Waleetle. Enfin, quatre manques
-  structurels retirent directement des points : aucune source d'EP, aucun BREAK, aucune survie, ou
-  un Pawney sans briseur pour ouvrir les cibles.</p>
+  <p>Les combos ne sont pas une heuristique : ce sont les verrous d'élément et les dépendances
+  nommées de la section précédente, relus dans l'équipe montée. Quatre manques structurels retirent
+  en plus des points directement : aucune source d'EP, aucun BREAK, aucune survie, ou un Pawney sans
+  briseur pour lui ouvrir les cibles.</p>
+  <p>Le bouton <b>Compléter</b> ne cherche pas les quatre meilleurs Aniimo : il cherche ce qui manque
+  à ceux que vous avez déjà posés. Un membre marqué <b>gardé</b> n'est jamais remplacé ni proposé
+  ailleurs — les suggestions se rangent autour de lui. Chaque changement conseillé est accompagné de
+  ses raisons, ligne par ligne, pour qu'on puisse dire non en connaissance de cause.</p>
 
   <h2>Annoncés par le jeu, pas encore classés</h2>
   <p>Deux sources sont relevées : les fiches Game8, qui s'arrêtent au N° 083, et une base
@@ -1250,7 +1435,7 @@ function openModal(name){
     <div class="note" style="margin:0 0 8px">${esc(confTip(r))}</div>
     <div style="display:flex;gap:3px;height:16px;margin-bottom:10px" title="Répartition des paliers sur ${META.runs} tirages">
       ${TIERS.filter(t=>r.dist[t]).map(t=>`<div style="flex:${r.dist[t]};background:var(--${t});border-radius:3px;
-        color:#0d0f14;font-size:10px;font-weight:800;text-align:center;line-height:16px">${r.dist[t]>=.08?t+" "+Math.round(r.dist[t]*100)+"%":""}</div>`).join("")}
+        color:var(--ink);font-size:10px;font-weight:800;text-align:center;line-height:16px">${r.dist[t]>=.08?t+" "+Math.round(r.dist[t]*100)+"%":""}</div>`).join("")}
     </div>
     ${Object.keys(r.ext).length ? `<div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px">
       ${Object.keys(META.src).map(s=>{
@@ -1419,6 +1604,27 @@ document.addEventListener("input", function(e){
 });
 document.addEventListener("keydown", function(e){
   if(e.key==="Escape") $("#ov").classList.remove("on");
+});
+
+/* ------------------------------------------------------------- jour/nuit -- */
+/* Le parchemin par defaut, la veillee au coin du feu en option. Le choix est
+   garde dans le navigateur ; sans choix, on suit le reglage du systeme. */
+const themeBtn = $("#theme");
+function setTheme(t){
+  document.documentElement.setAttribute("data-theme", t);
+  themeBtn.textContent = t==="nuit" ? "\u{1F319}" : "\u2600\uFE0F";
+  themeBtn.setAttribute("aria-label", t==="nuit" ? "Passer en clair" : "Passer en sombre");
+  try{ localStorage.setItem("amoTheme", t); }catch(e){}
+}
+let theme0 = null;
+try{ theme0 = localStorage.getItem("amoTheme"); }catch(e){}
+/* matchMedia manque a certains environnements (le banc d'essai jsdom) :
+   sans garde, toute la suite du script tomberait avec lui. */
+let sombre = false;
+try{ sombre = window.matchMedia("(prefers-color-scheme: dark)").matches; }catch(e){}
+setTheme(theme0 || (sombre ? "nuit" : "jour"));
+themeBtn.addEventListener("click", function(){
+  setTheme(document.documentElement.getAttribute("data-theme")==="nuit" ? "jour" : "nuit");
 });
 
 recompute(WS);

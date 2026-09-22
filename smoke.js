@@ -189,12 +189,54 @@ clickTxt("#nav button", "Méthode");
 ok($(".meth").textContent.includes(String(M.nKits)), "mentionne les " + M.nKits + " kits lus");
 ok($(".meth").textContent.includes(String(A.length)), "mentionne les " + A.length + " entrees");
 ok(!$("#filters").innerHTML.trim(), "les filtres sont masques sur Methode");
+// la page Methode doit decrire le modele qui tourne, pas un modele d'avant :
+// les sources, l'indice de confiance et les loadouts s'y comptent en direct.
+const nSrc = Object.keys(M.src).length;
+ok($$("table.wait.src tbody tr").length === nSrc,
+   "les " + nSrc + " tier lists sont listees avec leur poids");
+ok(Object.keys(M.src).every(k => $(".meth").textContent.includes(M.src[k].w.toFixed(2))),
+   "chaque poids de source est affiche");
+ok($(".meth").textContent.includes(String(M.runs)),
+   "annonce les " + M.runs + " tirages de l'indice de confiance");
+for (const c of ["sur", "probable", "incertain"])
+  ok($(".meth").textContent.includes(String(A.filter(r => r.conf === c).length)),
+     "compte les entrees " + c);
+ok($(".meth").textContent.includes(String(Object.keys(M.lock).length))
+   && $(".meth").textContent.includes(String(M.duos.length)),
+   "dit combien de kits sont verrouilles et combien de duos sont nommes");
+
+console.log("\n== 9b. ecart avec Game8 (le chiffre publie dans le README) ==");
+// Le README annonce l'accord avec Game8 ; ce bloc le recalcule pour qu'il ne
+// puisse pas vieillir en silence, et refuse qu'il s'effondre.
+{
+  const p = A.filter(r => r.ref);
+  const ti = x => TIERS_C.indexOf(x);
+  const memes = p.filter(r => r.ref === r._tier).length;
+  const proches = p.filter(r => Math.abs(ti(r.ref) - ti(r._tier)) <= 1).length;
+  const loin = p.filter(r => Math.abs(ti(r.ref) - ti(r._tier)) >= 2).length;
+  const rang = v => { const o = [...v.keys()].sort((a, b) => v[a] - v[b]), r = [];
+    for (let i = 0; i < v.length; ) { let j = i;
+      while (j + 1 < v.length && v[o[j + 1]] === v[o[i]]) j++;
+      for (let k = i; k <= j; k++) r[o[k]] = (i + j) / 2 + 1; i = j + 1; } return r; };
+  const rx = rang(p.map(r => ti(r.ref))), ry = rang(p.map(r => ti(r._tier)));
+  const moy = a => a.reduce((x, y) => x + y, 0) / a.length;
+  const mx = moy(rx), my = moy(ry);
+  let num = 0, dx = 0, dy = 0;
+  for (let i = 0; i < rx.length; i++) {
+    num += (rx[i] - mx) * (ry[i] - my); dx += (rx[i] - mx) ** 2; dy += (ry[i] - my) ** 2; }
+  const rho = num / Math.sqrt(dx * dy);
+  console.log("         " + p.length + " compares : " + Math.round(100 * memes / p.length)
+    + " % identiques, " + Math.round(100 * proches / p.length) + " % a un palier pres, "
+    + loin + " ecarts de deux paliers, rho " + rho.toFixed(2));
+  ok(proches / p.length >= .85, "au moins 85 % des paliers Game8 sont retrouves a un pres");
+  ok(rho >= .65, "correlation des rangs avec Game8 au-dessus de 0,65");
+}
 
 console.log("\n== 10. annonces, pas encore classes ==");
 click('[data-v="meth"]');
 ok(Array.isArray(M.attente), M.attente.length + " Aniimo annonces sans fiche complete");
-ok($$("table.wait tbody tr").length === M.attente.length,
-   "la vue Methode les nomme tous (" + $$("table.wait tbody tr").length + " lignes)");
+ok($$("table.wait:not(.src) tbody tr").length === M.attente.length,
+   "la vue Methode les nomme tous (" + $$("table.wait:not(.src) tbody tr").length + " lignes)");
 ok(M.attente.every(a => !A.some(r => r.name === a.name)),
    "aucun d'eux n'est classe dans la tier list");
 ok(M.attente.every(a => a.manque && a.manque.length),
@@ -235,6 +277,27 @@ ok(mod.includes("Personnalité à viser"), "la fiche dit quelle personnalite vis
 ok(/recommandées par le jeu|défaut mesuré du rôle/.test(mod),
    "la fiche dit d'ou viennent ses stats couronnables");
 click("#cl");
+
+console.log("\n== 12. autonomie : ni CDN ni ressource distante ==");
+// Le README promet un site qui s'affiche hors ligne. Un <link> vers Google
+// Fonts avait deja reussi a s'y glisser : ce bloc est la pour la prochaine fois.
+{ const brut = fs.readFileSync(P + 'index.html', 'utf8');
+  // un <a href> vers une tier list est un lien, pas une ressource : seuls
+  // comptent les src= et les <link>, qui eux font partir une requete.
+  const dist = (brut.match(/\ssrc\s*=\s*["']https?:\/\/[^"']+/gi) || [])
+    .concat(brut.match(/<link\b[^>]*https?:\/\/[^"'>]+/gi) || []);
+  ok(dist.length === 0, "aucune ressource chargee depuis un domaine distant"
+     + (dist.length ? " (" + dist[0].trim().slice(0, 60) + ")" : ""));
+  const faces = brut.match(/@font-face\{[^}]*\}/g) || [];
+  ok(faces.length >= 8, "les " + faces.length + " @font-face sont declares dans la page");
+  ok(faces.every(f => /url\(fonts\/[^)]+\.woff2\)/.test(f)),
+     "chaque @font-face pointe un fichier de fonts/");
+  ok(faces.every(f => /font-display:\s*swap/.test(f)),
+     "chaque police s'efface le temps de charger plutot que de masquer le texte");
+  const manque = faces.map(f => f.match(/url\(fonts\/([^)]+)\)/)[1])
+    .filter(n => !fs.existsSync(P + 'fonts/' + n));
+  ok(manque.length === 0, "les fichiers de police existent vraiment"
+     + (manque.length ? " (manque " + manque[0] + ")" : "")); }
 
 console.log("\n== erreurs JS =="); console.log(errs.length ? errs : "  aucune");
 console.log(ko ? "\nRESULTAT : " + ko + " test(s) en echec" : "\nRESULTAT : tout passe");

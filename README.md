@@ -29,7 +29,7 @@ python -m http.server 8777 --bind 127.0.0.1
              merge.py  ──>  raw/roster.json     215 entrées classables
                 │        ──>  raw/_attente.json    6 annoncées, non classables
                 │
-   score.py  ──>  data.js  ──>  index.html  ──>  smoke.js (75 assertions)
+   score.py  ──>  data.js  ──>  index.html  ──>  smoke.js (89 assertions)
       ▲
       │
  kits.json (122 lectures) + kit_skills.json + synergy.json
@@ -254,8 +254,10 @@ La vue **Réglages** affiche la validation **hors-source** : chaque tier list es
 experts », le modèle devine un avis qu'il n'a pas vu aussi bien que les experts se devinent
 entre eux — et ceux-ci ne s'accordent qu'entre 0,45 et 0,78.
 
-Sur les **84** Aniimo que Game8 classe : **43 %** de paliers identiques, **92 %** à un palier
-près, corrélation des rangs **0,76**, et seulement **7** écarts de deux paliers ou plus.
+Sur les **84** Aniimo que Game8 classe : **36 %** de paliers identiques, **90 %** à un palier
+près, corrélation des rangs **0,71**, et **8** écarts de deux paliers ou plus. Ces quatre
+chiffres ne sont pas recopiés à la main : `smoke.js` les recalcule à chaque exécution, les
+imprime, et échoue si l'accord se dégrade (section *9b*).
 
 Les écarts ne sont pas des erreurs à corriger. Le motif dominant est net : les tier lists
 communautaires notent plus haut les DPS à burst conditionnel et plus bas les Break et
@@ -349,7 +351,27 @@ trouvables dans aucune des deux sources : `Witchin`, `Witchin (Prismana Form)` e
 - Les paliers sont des percentiles : une position relative dans le vivier affiché, pas une
   puissance absolue. Changer un filtre les recalcule.
 
-## Tests
+## L'interface
+
+Aucune dépendance, aucun CDN : `index.html` porte tout son style et tout son script, et les
+deux polices — Baloo 2 pour les titres, Nunito pour le texte — sont servies depuis `fonts/`
+par des règles `@font-face` écrites en tête de la feuille de style. 14 fichiers `.woff2`,
+469 Ko, sous-ensembles latin et latin-ext seulement : c'est tout ce qu'un texte français
+réclame, et le site s'affiche tel quel hors ligne.
+
+- **Jour et nuit.** Le thème par défaut est le parchemin ; la lune du bandeau passe à la
+  veillée. Tout est en variables CSS sur `:root`, redéfinies sous `html[data-theme=nuit]` —
+  aucune couleur n'est écrite deux fois. Le choix tient dans `localStorage` (`amoTheme`) ;
+  sans choix enregistré, on suit le réglage du système.
+- **Écrans étroits.** Sous 760 px le bandeau se comprime et ses onglets défilent, les filtres
+  passent en pleine largeur, les cartes rétrécissent, et les tableaux larges défilent *dans
+  leur carte* au lieu de pousser la page. Sous 420 px les cartes rétrécissent encore. Aucune
+  vue ne déborde horizontalement.
+- **Le texte est en français accentué**, y compris ce que `score.py` écrit dans `data.js` :
+  les notes de kit, les libellés d'axes, les noms d'éléments et les personnalités. Les noms
+  de compétences et leurs descriptions restent dans la langue du jeu.
+
+## Banc d'essai
 
 Harnais jsdom (le site n'a pas de dépendance, le test si) :
 
@@ -358,12 +380,17 @@ cd /d/REPOS/amo && npm install   # une fois, installe jsdom dans le dossier
 npm test                         # = node smoke.js
 ```
 
-75 assertions : conformité du recalcul client au `score.py` de référence, tier list unique,
+89 assertions : conformité du recalcul client au `score.py` de référence, tier list unique,
 alignement des entrées identiques sur leur base, puces de roster cumulables, badges `=` et
 badges de confiance, filtres, modale, tri du tableau, constructeur d'équipe de bout en bout,
-curseurs de poids, validation hors-source, cohérence de l'indice de confiance, et la
+curseurs de poids, validation hors-source, accord avec Game8 recalculé, contenu de la page
+Méthode confronté au modèle qui tourne (poids des six sources, tirages de confiance, kits
+verrouillés et duos nommés), cohérence de l'indice de confiance, et la
 correspondance entre `raw/_attente.json` et le tableau des Aniimo annoncés mais pas classés,
 et le modèle de potentiel : croissance au plafond, facteur de couronne, héritage exact de la
-recommandation du jeu par les formes, et présence de tout cela sur la fiche.
+recommandation du jeu par les formes, et présence de tout cela sur la fiche. Une
+dernière section garde l'autonomie du site : aucune ressource ne doit venir d'un domaine
+distant, et chaque `@font-face` doit pointer un `.woff2` qui existe bel et bien dans
+`fonts/`.
 
 `node_modules/` est ignoré par git : le site, lui, n'a toujours aucune dépendance.
