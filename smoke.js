@@ -135,6 +135,21 @@ console.log("\n== 6. constructeur d'equipe ==");
 clickTxt("#nav button", "Équipe");
 ok($$(".slot").length === 4, "4 emplacements");
 click("#autoteam");
+// le bouton ne compose plus une equipe, il en propose plusieurs : une qui
+// touche a tout, puis une par element. On adopte la premiere pour la suite.
+const props = $$(".prop");
+ok(props.length >= 4, props.length + " compositions proposees");
+ok(props.every(p => p.querySelectorAll(".card").length === 4),
+   "chaque proposition compte 4 membres");
+ok(props.every(p => p.querySelector("[data-prop]")), "chacune a son bouton d'adoption");
+{ const noms = props.map(p => p.querySelector(".pn").textContent.trim());
+  ok(new Set(noms).size === noms.length, "des noms distincts : " + noms.join(", "));
+  const notes = props.map(p => parseFloat(p.querySelector(".sub").textContent.match(/note\s+([\d.]+)/)[1]));
+  ok(notes.slice(1).every((n, i) => n <= notes[i] + 1e-9), "classees de la meilleure note a la moindre");
+  const sigs = props.map(p => [...p.querySelectorAll(".card .nm")].map(e => e.textContent.trim()).sort().join("|"));
+  ok(new Set(sigs).size === sigs.length, "aucune proposition n'est le doublon d'une autre"); }
+$("[data-prop]").click();
+ok($$(".prop").length === 0, "les propositions disparaissent une fois l'equipe adoptee");
 ok($$(".slot.full").length === 4, "composition automatique : 4 membres");
 const note = parseFloat($(".big").textContent);
 ok(note > 0 && note <= 100, "note d'equipe = " + note + "/100");
@@ -152,6 +167,34 @@ $(".panel .cards .card").click();
 ok($$(".slot.full").length === 4, "selection d'un remplacant");
 click("#clearteam");
 ok($$(".slot.full").length === 0, "vider l'equipe");
+
+console.log("\n== 6b. les noyaux elementaires en sont vraiment ==");
+// Une equipe « Noyau Feu » qui n'aligne pas trois porteurs de Feu ne tient pas
+// sa promesse : c'est tout l'interet de la proposer a cote de la meilleure note.
+click("#clearteam");
+click("#autoteam");
+{ const EL = {Feu:"Fire", Eau:"Water", Herbe:"Grass", Vent:"Wind", Terre:"Earth", Glace:"Ice",
+              Foudre:"Lightning", "Ténèbres":"Dark", "Lumière":"Light"};
+  const noyaux = $$(".prop").filter(p => /^Noyau /.test(p.querySelector(".pn").textContent.trim()));
+  ok(noyaux.length >= 3, noyaux.length + " noyaux elementaires proposes");
+  const faux = noyaux.filter(p => {
+    const e = EL[p.querySelector(".pn").textContent.trim().replace("Noyau ", "")];
+    const n = [...p.querySelectorAll(".card .nm")]
+      .filter(x => (byN[x.textContent.trim()] || {el: []}).el.includes(e)).length;
+    return !(e && n >= 3);
+  });
+  ok(faux.length === 0, "chaque noyau aligne au moins 3 porteurs de son element"
+     + (faux.length ? " (" + faux[0].querySelector(".pn").textContent.trim() + ")" : ""));
+  noyaux.slice(0, 3).forEach(p => console.log("         " + p.querySelector(".pn").textContent.trim()
+    + " : " + [...p.querySelectorAll(".card .nm")].map(e => e.textContent.trim()).join(" | ")));
+  // un membre garde doit se retrouver dans toutes les propositions
+  $("[data-prop]").click();
+  click('[data-lock="0"]');
+  const garde = $$(".slot.full .n")[0].textContent.trim();
+  click("#autoteam");
+  ok($$(".prop").every(p => [...p.querySelectorAll(".card .nm")].some(e => e.textContent.trim() === garde)),
+     "le membre garde (" + garde + ") est dans chaque proposition"); }
+click("#clearteam");
 
 console.log("\n== 7. reglages : poids et calibration ==");
 clickTxt("#nav button", "Réglages");

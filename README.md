@@ -29,7 +29,7 @@ python -m http.server 8777 --bind 127.0.0.1
              merge.py  ──>  raw/roster.json     215 entrées classables
                 │        ──>  raw/_attente.json    6 annoncées, non classables
                 │
-   score.py  ──>  data.js  ──>  index.html  ──>  smoke.js (89 assertions)
+   score.py  ──>  data.js  ──>  index.html  ──>  smoke.js (99 assertions)
       ▲
       │
  kits.json (122 lectures) + kit_skills.json + synergy.json
@@ -380,9 +380,9 @@ cd /d/REPOS/amo && npm install   # une fois, installe jsdom dans le dossier
 npm test                         # = node smoke.js
 ```
 
-89 assertions : conformité du recalcul client au `score.py` de référence, tier list unique,
+99 assertions : conformité du recalcul client au `score.py` de référence, tier list unique,
 alignement des entrées identiques sur leur base, puces de roster cumulables, badges `=` et
-badges de confiance, filtres, modale, tri du tableau, constructeur d'équipe de bout en bout,
+badges de confiance, filtres, modale, tri du tableau, constructeur d'équipe de bout en bout (dont les compositions proposées : toutes distinctes, classées, et chaque noyau alignant bien trois porteurs de son élément),
 curseurs de poids, validation hors-source, accord avec Game8 recalculé, contenu de la page
 Méthode confronté au modèle qui tourne (poids des six sources, tirages de confiance, kits
 verrouillés et duos nommés), cohérence de l'indice de confiance, et la

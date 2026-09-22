@@ -250,6 +250,14 @@ tbody tr:hover{background:color-mix(in srgb,var(--acc) 12%,transparent)}
 .grade{font-family:"Baloo 2",Georgia,serif;font-size:56px;font-weight:800;line-height:1}
 .grade.S{color:var(--S)}.grade.A{color:var(--A)}.grade.B{color:var(--B)}
 .grade.C{color:var(--C)}.grade.D{color:var(--D)}
+/* compositions proposees : une carte par equipe */
+.prop{border-top:1px solid var(--line);padding:14px 0 4px}
+.prop:first-of-type{border-top:0}
+.phd{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-bottom:9px}
+.phd .grade{font-size:30px;flex:none}
+.pn{font-weight:800;font-size:15.5px;letter-spacing:-.01em}
+.prop .sub{margin:2px 0 0}
+.prop .cards{margin-bottom:8px}
 .li{font-size:12.5px;line-height:1.65;padding:7px 0 7px 22px;position:relative;border-bottom:1px solid var(--line2)}
 .li:before{position:absolute;left:0;top:7px;font-weight:800}
 .li.up:before{content:"+";color:var(--ok)}
@@ -396,11 +404,17 @@ const VIEWS = {tier:"Tiers",stats:"Stats",team:"Équipe",tune:"Réglages",meth:"
 const S = {
   view:"tier", kinds:["base","form","prismana"], role:"", el:"", stage:"", q:"",
   hideSame:false, sort:"score", desc:true,
-  team:[null,null,null,null], picking:-1,
+  team:[null,null,null,null], picking:-1, props:null,
   safe:true,                                 // equipe auto : pas d'Aniimo "incertain"
   lock:[false,false,false,false],            // membres gardes : jamais remplaces
   around:true                                // construire autour des membres imposes
 };
+/* Les compositions proposees ne valent que pour un vivier et une equipe
+   donnes : des qu'un filtre, un membre ou une option bouge, elles ne decrivent
+   plus rien. Plutot que de les effacer depuis chaque gestionnaire, on retient
+   le contexte qui les a produites et on les laisse expirer toutes seules. */
+const ctxSig = () => JSON.stringify([S.team.map(r=>r&&r.name), S.lock, S.safe, S.around,
+  S.kinds, S.role, S.el, S.stage, S.q, S.hideSame]);
 const clone = o => JSON.parse(JSON.stringify(o));
 const WS = {                                 // poids vivants, modifiables
   mix:    clone(META.mix),
@@ -844,28 +858,70 @@ const objOf = (team, kept) => noteOf(team) + (S.around ? FITK*serveKept(team, ke
 /* Composition : les emplacements `fixed` ne bougent pas. Les autres sont remplis
    un par un (le candidat qui monte le plus la note), puis re-essayes tant qu'un
    echange ameliore encore l'ensemble : le glouton seul se laisse pieger par son
-   premier choix. */
-function build(fixed){
+   premier choix. `veto(team,c,reste)` peut refuser un candidat -- c'est par la
+   qu'on impose un noyau elementaire sans toucher au reste du moteur. */
+function compose(fixed, veto){
   const team = S.team.map((r,i)=> fixed.indexOf(i)>=0 ? r : null);
   const kept = team.filter(Boolean);
   const free = [0,1,2,3].filter(i=>!team[i]);
-  for(const i of free){
+  const pool = (i,reste) => veto ? candidates(team,i).filter(c=>veto(team,c,reste))
+                                 : candidates(team,i);
+  for(let k=0;k<free.length;k++){
+    const i = free[k];
     let best=null, bs=-Infinity;
-    for(const c of candidates(team,i)){ team[i]=c; const n=objOf(team,kept); if(n>bs){ bs=n; best=c; } }
+    for(const c of pool(i, free.length-k-1)){ team[i]=c; const n=objOf(team,kept); if(n>bs){ bs=n; best=c; } }
     team[i]=best;
+    if(!best) return null;                   // le vivier ne permet pas ce noyau
   }
   let cur = objOf(team,kept);
   for(let it=0; it<6; it++){
     let moved=false;
     for(const i of free){
-      const keep=team[i]; let best=keep, bs=cur;
-      for(const c of candidates(team,i)){ team[i]=c; const n=objOf(team,kept); if(n>bs+1e-9){ bs=n; best=c; } }
+      const keep=team[i]; team[i]=null;      // pour que le veto juge sans lui
+      const cs = pool(i,0);
+      let best=keep, bs=cur;
+      for(const c of cs){ team[i]=c; const n=objOf(team,kept); if(n>bs+1e-9){ bs=n; best=c; } }
       team[i]=best;
       if(best!==keep){ moved=true; cur=bs; }
     }
     if(!moved) break;
   }
-  S.team = team;
+  return team;
+}
+/* Un noyau elementaire, c'est trois membres qui portent l'element ; le
+   quatrieme reste libre de combler ce qui manque (souvent le soin). Trois et
+   pas quatre : une equipe mono-element complete perd tout ce que la couverture
+   des roles lui rapportait, et META.lock ne paie deja qu'a deux allies. */
+const NOYAU = 3;
+const coeur = E => (team, c, reste) =>
+  team.filter(r=>r && r.el.indexOf(E)>=0).length + (c.el.indexOf(E)>=0?1:0) + reste >= NOYAU;
+
+/* Plusieurs equipes plutot qu'une. La premiere touche a tout : c'est le meilleur
+   assemblage que le vivier autorise. Les suivantes sont baties autour d'un
+   element, parce qu'une bonne part des kits ne versent leur bonus collectif
+   qu'a des allies du bon element -- elles perdent un peu de note brute et
+   gagnent ces bonus-la. On ne joue pas toujours pour la note maximale. */
+const teamSig = t => t.map(r=>r?r.name:"").sort().join("|");
+function proposals(fixed){
+  const out = [], vus = new Set();
+  const poly = compose(fixed, null);
+  if(poly && poly.every(Boolean)){
+    // elle ne s'appelle « touche-a-tout » que si elle l'est vraiment : le
+    // meilleur assemblage se trouve parfois etre lui-meme un noyau.
+    const c = elCount(poly), gros = Math.max.apply(null, Object.keys(c).map(e=>c[e]));
+    out.push({nom: gros>=NOYAU ? "Meilleure note" : "Touche-à-tout",
+              team:poly, t:teamScore(poly)});
+    vus.add(teamSig(poly));
+  }
+  const parEl = [];
+  for(const E of Object.keys(ELAB)){
+    const t = compose(fixed, coeur(E));
+    if(!t || !t.every(Boolean) || vus.has(teamSig(t))) continue;
+    vus.add(teamSig(t));
+    parEl.push({nom:"Noyau "+ELAB[E], el:E, team:t, t:teamScore(t)});
+  }
+  parEl.sort((a,b)=>b.t.note-a.t.note);
+  return out.concat(parEl);
 }
 /* Ce qu'un changement apporte : manques combles, points gagnes, points perdus,
    nouveaux trous. Les lignes sont celles de teamScore, comparees avant/apres. */
@@ -906,6 +962,65 @@ function why(before, after, inc, out){
       ${inc.role||"—"} (${RDESC[inc.role||"DPS"]}), ${inc.el.map(e=>ELAB[e]).join("/")}.</div>`);
   }
   return o.join("");
+}
+/* Ce qui caracterise une composition d'un coup d'oeil : ses elements
+   dominants et sa repartition de roles. Deux equipes de meme note ne se jouent
+   pas pareil, et c'est cette ligne qui le dit. */
+function elCount(team){
+  const cnt = {};
+  team.filter(Boolean).forEach(r=>r.el.forEach(e=>cnt[e]=(cnt[e]||0)+1));
+  return cnt;
+}
+function propTraits(p){
+  const cnt = elCount(p.team), rl = {};
+  p.team.filter(Boolean).forEach(r=>{ const k=r.role||"—"; rl[k]=(rl[k]||0)+1; });
+  // l'element du noyau ouvre la ligne, meme si un autre est aussi nombreux
+  const dom = Object.keys(cnt).filter(e=>cnt[e]>=2)
+    .sort((a,b)=> (b===p.el)-(a===p.el) || cnt[b]-cnt[a]);
+  return (dom.length ? dom.map(e=>ELAB[e]+" ×"+cnt[e]).join(", ") : "aucun élément dominant")
+    + " — " + Object.keys(rl).sort().map(k=>rl[k]>1?k+" ×"+rl[k]:k).join(" · ");
+}
+const sansTag = x => x.replace(/^<!--k:.*?-->/, "");
+/* Les lignes d'axes (« Axe dégâts pleinement couvert ») sont vraies de presque
+   toutes les bonnes équipes : elles ne disent pas ce qui distingue celle-ci.
+   Les synergies nommées, si — c'est ce que le noyau élémentaire achète. */
+const propUp = t => {
+  const nom = t.up.filter(x=>/^<!--k:/.test(x));
+  return nom.concat(t.up.filter(x=>!/^<!--k:/.test(x))).slice(0,4);
+};
+function propsHTML(){
+  const P = S.props;
+  if(!P) return "";
+  if(!P.list.length) return `<div class="panel"><h2>Compositions proposées</h2>
+    <div class="note">Les filtres du bandeau, les membres gardés ou l'option « seulement des choix
+    fiables » ne laissent pas assez de candidats pour monter une équipe de quatre.</div>
+    <div class="btns"><button class="btn" id="cancelprops">Fermer</button></div></div>`;
+  const ref = P.list[0].t.note;
+  return `<div class="panel"><h2>${P.list.length} composition${P.list.length>1?"s":""} proposée${P.list.length>1?"s":""}</h2>
+    <div class="sub">La première touche à tout : c'est le meilleur assemblage que le vivier autorise.
+      Les suivantes sont bâties autour d'un élément — au moins ${NOYAU} membres le portent, le
+      quatrième comble ce qui manque. Une bonne part des kits ne versent leur bonus collectif qu'à
+      des alliés du bon élément : ces équipes perdent un peu de note brute et gagnent ces bonus-là.
+      ${P.kept ? `Tes ${P.kept} membre${P.kept>1?"s imposés sont":" imposé est"} dans chacune. ` : ""}
+      Clique un Aniimo pour ouvrir sa fiche.</div>
+    ${P.list.map((p,k)=>{
+      const d = p.t.note - ref;
+      return `<div class="prop">
+        <div class="phd">
+          <div class="grade ${p.t.grade}">${p.t.grade}</div>
+          <div style="flex:1;min-width:190px">
+            <div class="pn">${esc(p.nom)}</div>
+            <div class="sub">note <b>${p.t.note.toFixed(0)}</b> / 100${
+              k ? ` · ${d>=0?"+":""}${d.toFixed(1)} face à la première` : ""} — ${propTraits(p)}</div>
+          </div>
+          <button class="btn pri" data-prop="${k}">Adopter</button>
+        </div>
+        <div class="cards">${p.team.map(cardHTML).join("")}</div>
+        ${propUp(p.t).map(x=>`<div class="li up">${sansTag(x)}</div>`).join("")}
+        ${p.t.dn.map(x=>`<div class="li dn">${x}</div>`).join("")}
+      </div>`;
+    }).join("")}
+    <div class="btns"><button class="btn" id="cancelprops">Fermer</button></div></div>`;
 }
 function suggestHTML(T){
   if(!T) return "";
@@ -959,6 +1074,7 @@ function suggestHTML(T){
   }).join("")}</div>`;
 }
 function viewTeam(){
+  if(S.props && S.props.sig !== ctxSig()) S.props = null;   // le contexte a bouge
   const T = teamScore(S.team);
   const nb = S.team.filter(Boolean).length;
   const IT = teamItems(S.team);
@@ -1009,13 +1125,14 @@ function viewTeam(){
   <div class="panel"><h2>Constructeur d'équipe</h2>
     <div class="sub">Place les Aniimo que tu veux absolument : un Aniimo choisi à la main est <b>gardé</b>
       d'office, rien ne le remplacera. « Compléter » cherche ensuite ce qui le fait le mieux fonctionner —
-      partenaire que son kit réclame, élément sur lequel son apport est verrouillé, trous à combler.
+      partenaire que son kit réclame, élément sur lequel son apport est verrouillé, trous à combler — et
+      en propose <b>plusieurs versions</b> : une qui touche à tout, puis une par élément.
       La note croise la puissance individuelle, la couverture des six axes de kit, les éléments, les rôles
       et les synergies nommées lues dans les kits.</div>
     <div class="slots">${slots}</div>
     <div class="btns">
-      ${partial ? `<button class="btn pri" id="fillteam" title="Garde tes ${nb} membre${nb>1?"s":""} et remplit les emplacements vides">Compléter l'équipe</button>` : ""}
-      <button class="btn${partial?"":" pri"}" id="autoteam" title="Recompose les 4 emplacements, sauf les membres gardés">${
+      ${partial ? `<button class="btn pri" id="fillteam" title="Garde tes ${nb} membre${nb>1?"s":""} et propose plusieurs façons de remplir les emplacements vides">Compléter l'équipe</button>` : ""}
+      <button class="btn${partial?"":" pri"}" id="autoteam" title="Propose plusieurs compositions des 4 emplacements, sauf les membres gardés">${
         kept ? "Recomposer autour des membres gardés" : "Composer automatiquement"}</button>
       <button class="btn" id="clearteam">Vider</button>
       <label class="chk" title="Écarte des compositions et suggestions les Aniimo dont le palier est incertain">
@@ -1027,7 +1144,8 @@ function viewTeam(){
       formes du même Aniimo.</div>
   </div>
   ${pick}
-  ${S.picking<0 ? suggestHTML(T) : ""}
+  ${S.picking<0 ? propsHTML() : ""}
+  ${S.picking<0 && !S.props ? suggestHTML(T) : ""}
   ${T ? `<div class="grid2">
     <div class="panel">
       <h2>Note de synergie</h2><div class="sub">${T.n} membre${T.n>1?"s":""} sur 4</div>
@@ -1302,6 +1420,18 @@ function viewMeth(){
   à ceux que vous avez déjà posés. Un membre marqué <b>gardé</b> n'est jamais remplacé ni proposé
   ailleurs — les suggestions se rangent autour de lui. Chaque changement conseillé est accompagné de
   ses raisons, ligne par ligne, pour qu'on puisse dire non en connaissance de cause.</p>
+  <p>Il ne rend pas non plus <i>une</i> équipe. La meilleure note est un avis, pas une consigne :
+  on joue avec ce qu'on possède, ce qu'on a monté, ce qu'on aime. Le constructeur propose donc
+  une composition <b>qui touche à tout</b> — le meilleur assemblage que le vivier autorise — puis
+  une composition <b>par élément</b>, bâtie autour d'un noyau d'au moins ${NOYAU} porteurs, le
+  quatrième emplacement restant libre de combler ce qui manque. Trois et pas quatre : une équipe
+  mono-élément complète perd tout ce que la couverture des rôles lui rapportait, et un verrou de
+  kit ne paie de toute façon qu'à deux alliés.</p>
+  <p>Ces équipes de noyau ne sont pas un caprice d'affichage. ${Object.keys(META.lock).length} kits
+  ne versent leur apport collectif qu'à des alliés d'un élément précis : rassembler cet élément,
+  c'est transformer un bonus mort en bonus payé. Elles affichent presque toujours une note un peu
+  plus basse que la première — c'est le prix de la spécialisation, et il est écrit à côté du nom
+  pour qu'on décide en le voyant. Les membres gardés figurent dans chacune.</p>
 
   <h2>Annoncés par le jeu, pas encore classés</h2>
   <p>Deux sources sont relevées : les fiches Game8, qui s'arrêtent au N° 083, et une base
@@ -1541,8 +1671,15 @@ document.addEventListener("click", function(e){
   if(t.closest("#cl") || t.id==="ov"){ $("#ov").classList.remove("on"); return; }
 
   if(t.id==="clearteam"){ S.team=[null,null,null,null]; S.lock=[false,false,false,false]; S.picking=-1; return render(); }
-  if(t.id==="autoteam"){ build([0,1,2,3].filter(i=>S.lock[i] && S.team[i])); S.picking=-1; return render(); }
-  if(t.id==="fillteam"){ build([0,1,2,3].filter(i=>S.team[i])); S.picking=-1; return render(); }
+  const propose = fixed => {
+    S.props = {sig:ctxSig(), kept:fixed.length, list:proposals(fixed)};
+    S.picking = -1; render();
+  };
+  if(t.id==="autoteam") return propose([0,1,2,3].filter(i=>S.lock[i] && S.team[i]));
+  if(t.id==="fillteam") return propose([0,1,2,3].filter(i=>S.team[i]));
+  if(t.id==="cancelprops"){ S.props=null; return render(); }
+  const pr = t.closest("[data-prop]");
+  if(pr){ S.team = S.props.list[+pr.dataset.prop].team.slice(); S.props=null; return render(); }
   const lk = t.closest("[data-lock]"); if(lk){ const i=+lk.dataset.lock; S.lock[i]=!S.lock[i]; return render(); }
   const sw = t.closest("[data-sw]");
   if(sw){ const p=sw.dataset.sw.split("|"); S.team[+p[0]]=byName[p.slice(1).join("|")]; return render(); }
